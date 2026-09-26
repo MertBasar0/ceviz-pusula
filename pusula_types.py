@@ -116,7 +116,6 @@ class PusulaConfig:
     routing_mode: str = MODE_CONTEXT_AWARE
     enable_correction_escalation: bool = True
     default_group: str = TIER_HEAVY_REMOTE
-    default_model: str | None = None
     light_group: str = TIER_LOW_LOCAL
     light_threshold: float = DEFAULT_LIGHT_THRESHOLD
     escalation_model: str | None = None
@@ -131,7 +130,6 @@ class PusulaConfig:
             "routing_mode": self.routing_mode,
             "enable_correction_escalation": self.enable_correction_escalation,
             "default_group": self.default_group,
-            "default_model": self.default_model,
             "light_group": self.light_group,
             "light_threshold": self.light_threshold,
             "escalation_model": self.escalation_model,
@@ -161,7 +159,6 @@ class PusulaConfig:
             routing_mode=mode,
             enable_correction_escalation=bool(data.get("enable_correction_escalation", True)),
             default_group=str(data.get("default_group") or TIER_HEAVY_REMOTE),
-            default_model=data.get("default_model"),
             light_group=str(data.get("light_group") or TIER_LOW_LOCAL),
             light_threshold=_read_threshold(data.get("light_threshold", DEFAULT_LIGHT_THRESHOLD)),
             escalation_model=data.get("escalation_model"),

@@ -69,7 +69,6 @@ def get_default_pusula_config() -> PusulaConfig:
         routing_mode="context_aware",
         enable_correction_escalation=True,
         default_group=TIER_HEAVY_REMOTE,
-        default_model="nvidia/nemotron-3-ultra-550b-a55b",
         light_group=TIER_LOW_LOCAL,
         light_threshold=DEFAULT_LIGHT_THRESHOLD,
         escalation_model="anthropic/claude-haiku-4-5",

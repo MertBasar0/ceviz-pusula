@@ -96,23 +96,34 @@ class TestPusulaRouting(unittest.TestCase):
         decision = self._pusula().route("Kişisel mail kutuma erişimin var mı")
 
         self.assertEqual(decision.group, TIER_HEAVY_REMOTE)
-        self.assertEqual(decision.model, STRONG)
+        self.assertIsNone(decision.model)  # agent default keeps its fallback chain
         self.assertEqual(decision.reason, "strong_turn")
         self.assertIsNone(decision.thinking)
+
+    def test_strong_turn_never_pins_a_model(self) -> None:
+        # OpenClaw drops the agent's fallback chain for any explicit --model run
+        # (09-23 12:30: eight 503 retries on one pinned model, then exit 1).
+        pusula = self._pusula()
+        for probability in (None, 0.0, 0.79):
+            self.jev.evaluate_boolean.return_value = probability
+            decision = pusula.route("Windows node'u pair eder misin?")
+            self.assertIsNone(decision.model)
+            self.assertIsNone(decision.thinking)
+            self.assertEqual(decision.group, TIER_HEAVY_REMOTE)
 
     def test_jev_failure_stays_on_strong_model(self) -> None:
         self.jev.evaluate_boolean.return_value = None
         decision = self._pusula().route("Herhangi bir istek")
 
         self.assertTrue(decision.fallback)
-        self.assertEqual(decision.model, STRONG)
+        self.assertIsNone(decision.model)  # agent default keeps its fallback chain
         self.assertEqual(decision.reason, "jev_failed")
 
     def test_unconfigured_jev_stays_on_strong_model_without_calling_it(self) -> None:
         self.jev.is_configured = False
         decision = self._pusula().route("Selam")
 
-        self.assertEqual(decision.model, STRONG)
+        self.assertIsNone(decision.model)  # agent default keeps its fallback chain
         self.assertEqual(decision.reason, "jev_unconfigured")
         self.jev.evaluate_boolean.assert_not_called()
 
@@ -123,7 +134,7 @@ class TestPusulaRouting(unittest.TestCase):
             context={"continuation": "Önceki komut: Windows node kurulumunu tamamla"},
         )
 
-        self.assertEqual(decision.model, STRONG)
+        self.assertIsNone(decision.model)  # agent default keeps its fallback chain
         self.assertEqual(decision.reason, "active_context")
         self.assertTrue(decision.context_used)
         self.jev.evaluate_boolean.assert_not_called()
@@ -190,7 +201,7 @@ class TestPusulaRouting(unittest.TestCase):
 
         for probability in (0.0, 0.5, 0.79):
             self.jev.evaluate_boolean.return_value = probability
-            self.assertEqual(pusula.route("PR'ı kontrol et").model, STRONG)
+            self.assertIsNone(pusula.route("PR'ı kontrol et").model)
         self.jev.evaluate_boolean.return_value = 0.95
         self.assertEqual(pusula.route("Selam").model, LIGHT)
         self.assertEqual(pusula.route("Bu tamamen yanlış").model, ESCALATION)
