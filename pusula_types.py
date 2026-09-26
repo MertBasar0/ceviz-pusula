@@ -3,35 +3,26 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from typing import Any, Literal
 
-TierGroupName = Literal["heavy_remote", "medium_remote", "low_local", str]
-DecisionType = Literal["bypass", "boolean", "choice"]
-
-DECISION_BYPASS = "bypass"
-DECISION_BOOLEAN = "boolean"
-DECISION_CHOICE = "choice"
-
 TIER_HEAVY_REMOTE = "heavy_remote"
-TIER_MEDIUM_REMOTE = "medium_remote"
 TIER_LOW_LOCAL = "low_local"
 
+# Downgrading a turn that needed tools costs a failed job; keeping a trivial turn on
+# the strong model costs a few seconds. So the light tier needs a confident "yes".
+DEFAULT_LIGHT_THRESHOLD = 0.8
+
 DEFAULT_TIER_LABELS = {
-    TIER_HEAVY_REMOTE: "Ağır ve Uzak (Derin Muhakeme, Mimari, Ağır Kodlama)",
-    TIER_MEDIUM_REMOTE: "Orta ve Uzak (Bulut Hızlı Model, Genel Asistanlık, Belge/Özet)",
-    TIER_LOW_LOCAL: "Düşük ve Yerel (Yerel Cihaz Modeli, Selamlaşma, Sistem Durumu)",
+    TIER_HEAVY_REMOTE: "Güçlü (varsayılan: araç kullanımı, iş devri, çok adımlı işler)",
+    TIER_LOW_LOCAL: "Hafif (selamlaşma, sohbet, araç gerektirmeyen genel bilgi)",
 }
 
 DEFAULT_TIER_DESCRIPTIONS = {
     TIER_HEAVY_REMOTE: (
-        "Complex problems requiring deep multi-step reasoning, architectural coding, "
-        "intricate debugging, advanced mathematical or algorithmic analysis."
-    ),
-    TIER_MEDIUM_REMOTE: (
-        "Standard conversational queries, general knowledge lookup, summaries, routine API calls, "
-        "and standard coding questions that do not need massive frontier models."
+        "Default executor. Anything that may need tools, commands, files, live system state, "
+        "GitHub, delegation to other agents, or earlier conversation."
     ),
     TIER_LOW_LOCAL: (
-        "Simple chit-chat, greetings, current time, date, local system status checks, "
-        "or trivial queries that can be answered instantly by a small local/edge model."
+        "Small talk and general-knowledge questions that can be answered completely from memory "
+        "without any tool."
     ),
 }
 
@@ -72,6 +63,11 @@ class TierGroup:
     models: list[ModelEntry] = field(default_factory=list)
     primary_model: str | None = None
 
+    def primary(self) -> ModelEntry | None:
+        if not self.models:
+            return None
+        return next((m for m in self.models if m.id == self.primary_model), self.models[0])
+
     def to_dict(self) -> dict[str, Any]:
         return {
             "name": self.name,
@@ -106,16 +102,24 @@ MODE_SINGLE_TURN = "single_turn"
 MODE_DISABLED = "disabled"
 
 
+def _read_threshold(value: Any) -> float:
+    try:
+        threshold = float(value)
+    except (TypeError, ValueError):
+        return DEFAULT_LIGHT_THRESHOLD
+    return min(max(threshold, 0.0), 1.0)
+
+
 @dataclass
 class PusulaConfig:
     enabled: bool = True
     routing_mode: str = MODE_CONTEXT_AWARE
-    enable_session_hysteresis: bool = True
-    hysteresis_window_seconds: int = 900
     enable_correction_escalation: bool = True
     default_group: str = TIER_HEAVY_REMOTE
     default_model: str | None = None
-    auto_diagnose_models: bool = True
+    light_group: str = TIER_LOW_LOCAL
+    light_threshold: float = DEFAULT_LIGHT_THRESHOLD
+    escalation_model: str | None = None
     groups: dict[str, TierGroup] = field(default_factory=dict)
 
     def get_group(self, name: str) -> TierGroup | None:
@@ -125,12 +129,12 @@ class PusulaConfig:
         return {
             "enabled": self.enabled,
             "routing_mode": self.routing_mode,
-            "enable_session_hysteresis": self.enable_session_hysteresis,
-            "hysteresis_window_seconds": self.hysteresis_window_seconds,
             "enable_correction_escalation": self.enable_correction_escalation,
             "default_group": self.default_group,
             "default_model": self.default_model,
-            "auto_diagnose_models": self.auto_diagnose_models,
+            "light_group": self.light_group,
+            "light_threshold": self.light_threshold,
+            "escalation_model": self.escalation_model,
             "groups": {name: g.to_dict() for name, g in self.groups.items()},
         }
 
@@ -155,23 +159,14 @@ class PusulaConfig:
         return cls(
             enabled=enabled,
             routing_mode=mode,
-            enable_session_hysteresis=bool(data.get("enable_session_hysteresis", True)),
-            hysteresis_window_seconds=int(data.get("hysteresis_window_seconds", 900)),
             enable_correction_escalation=bool(data.get("enable_correction_escalation", True)),
             default_group=str(data.get("default_group") or TIER_HEAVY_REMOTE),
             default_model=data.get("default_model"),
-            auto_diagnose_models=bool(data.get("auto_diagnose_models", True)),
+            light_group=str(data.get("light_group") or TIER_LOW_LOCAL),
+            light_threshold=_read_threshold(data.get("light_threshold", DEFAULT_LIGHT_THRESHOLD)),
+            escalation_model=data.get("escalation_model"),
             groups=groups,
         )
-
-
-@dataclass
-class ExecutionRecipe:
-    stage1_decision: DecisionType
-    stage1_options: list[str]
-    stage1_instructions: str
-    stage2_decisions: dict[str, DecisionType]
-    summary: str
 
 
 @dataclass
@@ -185,5 +180,4 @@ class RouteDecision:
     fallback: bool = False
     context_used: bool = False
     escalated: bool = False
-    hysteresis_applied: bool = False
-
+    light_probability: float | None = None

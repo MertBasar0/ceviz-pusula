@@ -7,11 +7,11 @@ from pathlib import Path
 from typing import Any
 
 from .pusula_types import (
+    DEFAULT_LIGHT_THRESHOLD,
     DEFAULT_TIER_DESCRIPTIONS,
     DEFAULT_TIER_LABELS,
     TIER_HEAVY_REMOTE,
     TIER_LOW_LOCAL,
-    TIER_MEDIUM_REMOTE,
     ModelEntry,
     PusulaConfig,
     TierGroup,
@@ -49,21 +49,6 @@ def get_default_pusula_config() -> PusulaConfig:
         primary_model="nvidia/nemotron-3-ultra-550b-a55b",
     )
 
-    medium_group = TierGroup(
-        name=TIER_MEDIUM_REMOTE,
-        label=DEFAULT_TIER_LABELS[TIER_MEDIUM_REMOTE],
-        description=DEFAULT_TIER_DESCRIPTIONS[TIER_MEDIUM_REMOTE],
-        models=[
-            ModelEntry(
-                id="nvidia/nemotron-3-super-120b-a12b",
-                provider="nvidia",
-                name="Nemotron 3 Super 120B",
-                description="Fast balanced 120B cloud model for general conversation.",
-            ),
-        ],
-        primary_model="nvidia/nemotron-3-super-120b-a12b",
-    )
-
     low_group = TierGroup(
         name=TIER_LOW_LOCAL,
         label=DEFAULT_TIER_LABELS[TIER_LOW_LOCAL],
@@ -82,15 +67,14 @@ def get_default_pusula_config() -> PusulaConfig:
     return PusulaConfig(
         enabled=True,
         routing_mode="context_aware",
-        enable_session_hysteresis=True,
-        hysteresis_window_seconds=900,
         enable_correction_escalation=True,
         default_group=TIER_HEAVY_REMOTE,
         default_model="nvidia/nemotron-3-ultra-550b-a55b",
-        auto_diagnose_models=True,
+        light_group=TIER_LOW_LOCAL,
+        light_threshold=DEFAULT_LIGHT_THRESHOLD,
+        escalation_model="anthropic/claude-haiku-4-5",
         groups={
             TIER_HEAVY_REMOTE: heavy_group,
-            TIER_MEDIUM_REMOTE: medium_group,
             TIER_LOW_LOCAL: low_group,
         },
     )
