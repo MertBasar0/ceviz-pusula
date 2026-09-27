@@ -53,13 +53,16 @@ class CevizPusula:
         jev_client: JevClient | None = None,
     ) -> None:
         self.config_guard = ConfigGuard(state_dir=state_dir)
-        self.jev = jev_client or JevClient()
         self.config, self.init_status = self.config_guard.load_config()
+        self._jev_injected = jev_client is not None
+        self.jev = jev_client or JevClient(system_one_url=self.config.decision_endpoint)
         logger.info(f"[pusula] {self.describe()}")
 
     def refresh(self) -> None:
         """Reloads configuration."""
         self.config, self.init_status = self.config_guard.load_config()
+        if not self._jev_injected:
+            self.jev = JevClient(system_one_url=self.config.decision_endpoint)
         logger.info(f"[pusula] Refreshed: {self.describe()}")
 
     def describe(self) -> str:
@@ -68,7 +71,8 @@ class CevizPusula:
         return (
             f"mode={self.config.routing_mode} strong=agent-default(with fallbacks) "
             f"light={light.id if light else None} light_threshold={self.config.light_threshold} "
-            f"escalation={escalation.id if escalation else None}"
+            f"escalation={escalation.id if escalation else None} "
+            f"decisions={getattr(self.jev, 'endpoint', 'injected')}"
         )
 
     def route(

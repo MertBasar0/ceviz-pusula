@@ -4,7 +4,7 @@ import json
 import tempfile
 import unittest
 from pathlib import Path
-from unittest.mock import MagicMock
+from unittest.mock import MagicMock, patch
 
 from ceviz_pusula.config_guard import ConfigGuard
 from ceviz_pusula.engine import CevizPusula
@@ -205,6 +205,42 @@ class TestPusulaRouting(unittest.TestCase):
         self.jev.evaluate_boolean.return_value = 0.95
         self.assertEqual(pusula.route("Selam").model, LIGHT)
         self.assertEqual(pusula.route("Bu tamamen yanlış").model, ESCALATION)
+
+
+class TestSystemOneBackend(unittest.TestCase):
+    def _fake_client(self, body: dict) -> MagicMock:
+        response = MagicMock(status_code=200)
+        response.json.return_value = body
+        client = MagicMock()
+        client.__enter__.return_value.post.return_value = response
+        return client
+
+    def test_local_system_one_boolean_uses_noul_without_credentials(self) -> None:
+        client = self._fake_client({"answers": {"eval_bool": {"type": "noul", "noul": 0.91}}})
+        with patch("ceviz_pusula.jev_client.httpx.Client", return_value=client):
+            jev = JevClient(system_one_url="http://127.0.0.1:8009/")
+            self.assertTrue(jev.is_configured)
+            self.assertEqual(jev.evaluate_boolean(state="Selam", instructions="Small talk?"), 0.91)
+
+        url = client.__enter__.return_value.post.call_args.args[0]
+        kwargs = client.__enter__.return_value.post.call_args.kwargs
+        self.assertEqual(url, "http://127.0.0.1:8009/v1/systemone")
+        self.assertNotIn("authorization", kwargs["headers"])
+        self.assertEqual(kwargs["json"]["model"], "kev-latest")
+        self.assertEqual(kwargs["json"]["questions"]["eval_bool"]["type"], "noul")
+
+    def test_pusula_uses_configured_decision_endpoint(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            guard = ConfigGuard(state_dir=tmp)
+            cfg, _ = guard.load_config()
+            cfg.decision_endpoint = "http://127.0.0.1:8009"
+            guard.save_config(cfg)
+            client = self._fake_client({"answers": {"eval_bool": {"type": "noul", "noul": 0.95}}})
+            with patch("ceviz_pusula.jev_client.httpx.Client", return_value=client):
+                decision = CevizPusula(state_dir=tmp).route("Selam, nasılsın?")
+
+        self.assertEqual(decision.reason, "light_turn")
+        self.assertEqual(decision.model, LIGHT)
 
 
 class TestSnapshotManager(unittest.TestCase):

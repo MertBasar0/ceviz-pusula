@@ -13,6 +13,7 @@ logger = logging.getLogger("ceviz.pusula.jev")
 VERCEL_AI_GATEWAY_ENDPOINT = "https://ai-gateway.vercel.sh/v4/ai/evaluation-model"
 DEFAULT_DECISION_MODEL = "typesafe-ai/jev"
 DEFAULT_TIMEOUT_MS = 3500
+DEFAULT_SYSTEM_ONE_MODEL = "kev-latest"
 
 
 def resolve_ai_gateway_key(env_path: Path | str | None = None) -> str:
@@ -48,7 +49,12 @@ class JevEvaluationError(Exception):
 
 
 class JevClient:
-    """Lightweight client for typesafe-ai/jev evaluation models on Vercel AI Gateway."""
+    """Lightweight client for Jev-style decision models.
+
+    Talks to typesafe-ai/jev on Vercel AI Gateway by default. With `system_one_url`
+    it talks to a local System One server such as Kev (`<origin>/v1/systemone`),
+    which needs no credential and asks Boolean questions as `noul`.
+    """
 
     def __init__(
         self,
@@ -56,15 +62,22 @@ class JevClient:
         endpoint: str = VERCEL_AI_GATEWAY_ENDPOINT,
         model: str = DEFAULT_DECISION_MODEL,
         default_timeout_ms: int = DEFAULT_TIMEOUT_MS,
+        system_one_url: str | None = None,
     ) -> None:
-        self.api_key = api_key or resolve_ai_gateway_key()
-        self.endpoint = endpoint
-        self.model = model
+        self.system_one_url = (system_one_url or "").rstrip("/") or None
+        if self.system_one_url:
+            self.api_key = ""
+            self.endpoint = f"{self.system_one_url}/v1/systemone"
+            self.model = model if model != DEFAULT_DECISION_MODEL else DEFAULT_SYSTEM_ONE_MODEL
+        else:
+            self.api_key = api_key or resolve_ai_gateway_key()
+            self.endpoint = endpoint
+            self.model = model
         self.default_timeout_ms = default_timeout_ms
 
     @property
     def is_configured(self) -> bool:
-        return bool(self.api_key)
+        return bool(self.system_one_url or self.api_key)
 
     def evaluate_boolean(
         self,
@@ -82,9 +95,10 @@ class JevClient:
             return None
 
         question_id = "eval_bool"
+        question_type = "noul" if self.system_one_url else "boolean"
         questions = {
             question_id: {
-                "type": "boolean",
+                "type": question_type,
                 "instructions": instructions,
             }
         }
@@ -95,8 +109,9 @@ class JevClient:
 
         answers = resp_data.get("answers", {})
         ans = answers.get(question_id, {})
-        if ans.get("type") == "boolean" and isinstance(ans.get("probability"), (int, float)):
-            return float(ans["probability"])
+        value_key = "noul" if self.system_one_url else "probability"
+        if ans.get("type") == question_type and isinstance(ans.get(value_key), (int, float)):
+            return float(ans[value_key])
 
         logger.warning(f"[jev] Unexpected boolean answer shape: {ans}")
         return None
@@ -152,20 +167,23 @@ class JevClient:
     ) -> dict[str, Any] | None:
         effective_timeout = (timeout_ms or self.default_timeout_ms) / 1000.0
 
-        headers = {
-            "authorization": f"Bearer {self.api_key}",
-            "content-type": "application/json",
-            "ai-evaluation-model-specification-version": "4",
-            "ai-gateway-auth-method": "api-key",
-            "ai-gateway-protocol-version": "0.0.1",
-            "ai-model-id": self.model,
-        }
-
-        payload = {
-            "state": state,
-            "questions": questions,
-            "providerOptions": {},
-        }
+        if self.system_one_url:
+            headers = {"content-type": "application/json"}
+            payload: dict[str, Any] = {"state": state, "model": self.model, "questions": questions}
+        else:
+            headers = {
+                "authorization": f"Bearer {self.api_key}",
+                "content-type": "application/json",
+                "ai-evaluation-model-specification-version": "4",
+                "ai-gateway-auth-method": "api-key",
+                "ai-gateway-protocol-version": "0.0.1",
+                "ai-model-id": self.model,
+            }
+            payload = {
+                "state": state,
+                "questions": questions,
+                "providerOptions": {},
+            }
 
         start_t = time.perf_counter()
         try:

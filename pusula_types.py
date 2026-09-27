@@ -119,6 +119,8 @@ class PusulaConfig:
     light_group: str = TIER_LOW_LOCAL
     light_threshold: float = DEFAULT_LIGHT_THRESHOLD
     escalation_model: str | None = None
+    # Loopback origin of a System One server (e.g. Kev); unset uses Jev on Vercel AI Gateway.
+    decision_endpoint: str | None = None
     groups: dict[str, TierGroup] = field(default_factory=dict)
 
     def get_group(self, name: str) -> TierGroup | None:
@@ -133,6 +135,7 @@ class PusulaConfig:
             "light_group": self.light_group,
             "light_threshold": self.light_threshold,
             "escalation_model": self.escalation_model,
+            "decision_endpoint": self.decision_endpoint,
             "groups": {name: g.to_dict() for name, g in self.groups.items()},
         }
 
@@ -162,6 +165,7 @@ class PusulaConfig:
             light_group=str(data.get("light_group") or TIER_LOW_LOCAL),
             light_threshold=_read_threshold(data.get("light_threshold", DEFAULT_LIGHT_THRESHOLD)),
             escalation_model=data.get("escalation_model"),
+            decision_endpoint=data.get("decision_endpoint") or None,
             groups=groups,
         )
 
