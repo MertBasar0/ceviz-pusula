@@ -121,6 +121,8 @@ class PusulaConfig:
     escalation_model: str | None = None
     # Loopback origin of a System One server (e.g. Kev); unset uses Jev on Vercel AI Gateway.
     decision_endpoint: str | None = None
+    # Overrides the light-turn question; small local models separate better on a shorter one.
+    light_instructions: str | None = None
     groups: dict[str, TierGroup] = field(default_factory=dict)
 
     def get_group(self, name: str) -> TierGroup | None:
@@ -136,6 +138,7 @@ class PusulaConfig:
             "light_threshold": self.light_threshold,
             "escalation_model": self.escalation_model,
             "decision_endpoint": self.decision_endpoint,
+            "light_instructions": self.light_instructions,
             "groups": {name: g.to_dict() for name, g in self.groups.items()},
         }
 
@@ -166,6 +169,7 @@ class PusulaConfig:
             light_threshold=_read_threshold(data.get("light_threshold", DEFAULT_LIGHT_THRESHOLD)),
             escalation_model=data.get("escalation_model"),
             decision_endpoint=data.get("decision_endpoint") or None,
+            light_instructions=data.get("light_instructions") or None,
             groups=groups,
         )
 

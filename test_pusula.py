@@ -242,6 +242,23 @@ class TestSystemOneBackend(unittest.TestCase):
         self.assertEqual(decision.reason, "light_turn")
         self.assertEqual(decision.model, LIGHT)
 
+    def test_configured_light_instructions_and_threshold_apply(self) -> None:
+        # Kev-0.8B scores light turns near 0.55 on a short question, so it runs with its own threshold.
+        with tempfile.TemporaryDirectory() as tmp:
+            guard = ConfigGuard(state_dir=tmp)
+            cfg, _ = guard.load_config()
+            cfg.light_instructions = "Is this only small talk or a general-knowledge question?"
+            cfg.light_threshold = 0.5
+            guard.save_config(cfg)
+            jev = MagicMock(spec=JevClient)
+            jev.is_configured = True
+            jev.evaluate_boolean.return_value = 0.55
+            decision = CevizPusula(state_dir=tmp, jev_client=jev).route("Selam, nasılsın?")
+
+        self.assertEqual(decision.model, LIGHT)
+        self.assertEqual(jev.evaluate_boolean.call_args.kwargs["instructions"],
+                         "Is this only small talk or a general-knowledge question?")
+
 
 class TestSnapshotManager(unittest.TestCase):
     def setUp(self) -> None:

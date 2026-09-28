@@ -121,7 +121,7 @@ class CevizPusula:
 
         probability = self.jev.evaluate_boolean(
             state=clean_prompt,
-            instructions=LIGHT_TURN_INSTRUCTIONS,
+            instructions=config.light_instructions or LIGHT_TURN_INSTRUCTIONS,
             timeout_ms=3000,
         )
         if not isinstance(probability, (int, float)):
