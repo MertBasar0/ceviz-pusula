@@ -68,8 +68,20 @@ def classify(ref: str) -> CatalogModel | None:
     return None
 
 
-def rank(rows: list[dict[str, Any]], include_routers: bool = False) -> dict[str, list[CatalogModel]]:
-    """Group available frontier models by role, newest and configured first."""
+def _is_configured(tags: list[str]) -> bool:
+    return any(tag == "configured" or tag == "default" or tag.startswith("fallback#") for tag in tags)
+
+
+def rank(
+    rows: list[dict[str, Any]],
+    include_routers: bool = False,
+    include_unconfigured: bool = False,
+) -> dict[str, list[CatalogModel]]:
+    """Group available frontier models by role, newest first.
+
+    Only models the user already configured in OpenClaw are candidates by default: a merely
+    available model can sit behind a pay-per-use API key the user never chose for Ceviz.
+    """
     providers = DIRECT_PROVIDERS + (ROUTER_PROVIDERS if include_routers else ())
     by_role: dict[str, list[CatalogModel]] = {role: [] for role in ROLES}
     seen: set[str] = set()
@@ -79,11 +91,13 @@ def rank(rows: list[dict[str, Any]], include_routers: bool = False) -> dict[str,
             continue
         if ref.split("/", 1)[0] not in providers:
             continue
+        configured = _is_configured(row.get("tags") or [])
+        if not configured and not include_unconfigured:
+            continue
         model = classify(ref)
         if model is None:
             continue
         seen.add(ref)
-        configured = "configured" in (row.get("tags") or [])
         by_role[model.role].append(CatalogModel(**{**model.__dict__, "configured": configured}))
     for role in ROLES:
         by_role[role].sort(key=lambda m: (m.configured, m.version), reverse=True)

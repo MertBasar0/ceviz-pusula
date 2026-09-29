@@ -102,6 +102,15 @@ class TestModelCatalog(unittest.TestCase):
         self.assertNotIn("openai/codex/gpt-5.5", refs)  # available: false
         self.assertNotIn("openrouter/~anthropic/claude-sonnet-latest", refs)  # router, off by default
 
+    def test_available_but_unconfigured_models_are_never_chosen_by_default(self) -> None:
+        # e.g. a pay-per-use API key exposes models the user never picked for Ceviz.
+        rows = [{"key": "anthropic/claude-sonnet-5", "available": True, "tags": []},
+                {"key": "anthropic/claude-haiku-4-5", "available": True, "tags": ["fallback#1"]}]
+        roles = rank(rows)
+        self.assertEqual(roles["balanced"], [])
+        self.assertEqual([m.ref for m in roles["light"]], ["anthropic/claude-haiku-4-5"])
+        self.assertEqual(rank(rows, include_unconfigured=True)["balanced"][0].ref, "anthropic/claude-sonnet-5")
+
     def test_discovery_failure_falls_back_to_stale_cache_then_empty(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             cache = Path(tmp) / "models.json"
