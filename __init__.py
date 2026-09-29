@@ -3,6 +3,7 @@
 from .config_guard import ConfigGuard
 from .engine import CevizPusula
 from .jev_client import JevClient
+from .model_catalog import ModelCatalog
 from .pusula_types import (
     DEFAULT_LIGHT_THRESHOLD,
     MODE_CONTEXT_AWARE,
@@ -28,6 +29,7 @@ __all__ = [
     "CevizPusula",
     "ConfigGuard",
     "JevClient",
+    "ModelCatalog",
     "PusulaConfig",
     "TierGroup",
     "ModelEntry",

@@ -26,44 +26,20 @@ BROKEN_FILENAME = "pusula.broken.json"
 
 
 def get_default_pusula_config() -> PusulaConfig:
-    """Builds a robust, production-ready default configuration."""
-    heavy_group = TierGroup(
+    """Default: every turn on the agent's own model and fallback chain; escalation discovered.
+
+    No light tier by default: the measured small models (Nemotron 30B/120B) failed tool work,
+    and a Claude light tier would spend subscription quota on small talk the free default
+    model already answers. Add a `low_local` group to opt in.
+    """
+    strong_group = TierGroup(
         name=TIER_HEAVY_REMOTE,
         label=DEFAULT_TIER_LABELS[TIER_HEAVY_REMOTE],
         description=DEFAULT_TIER_DESCRIPTIONS[TIER_HEAVY_REMOTE],
-        models=[
-            ModelEntry(
-                id="nvidia/nemotron-3-ultra-550b-a55b",
-                provider="nvidia",
-                name="Nemotron 3 Ultra 550B",
-                description="Flagship 550B frontier model for complex tasks and deep reasoning.",
-            ),
-            ModelEntry(
-                id="anthropic/claude-haiku-4-5",
-                provider="claude-cli",
-                name="Claude Haiku 4.5 (Thinking High)",
-                thinking="high",
-                description="Fast Claude model with high reasoning/thinking budget.",
-            ),
-        ],
-        primary_model="nvidia/nemotron-3-ultra-550b-a55b",
+        # Informational only: strong turns send no --model, so the agent config decides.
+        models=[ModelEntry(id="agent-default", name="Agent default model with its fallback chain")],
+        primary_model="agent-default",
     )
-
-    low_group = TierGroup(
-        name=TIER_LOW_LOCAL,
-        label=DEFAULT_TIER_LABELS[TIER_LOW_LOCAL],
-        description=DEFAULT_TIER_DESCRIPTIONS[TIER_LOW_LOCAL],
-        models=[
-            ModelEntry(
-                id="nvidia/nemotron-3.5-lightning-30b-a3b",
-                provider="nvidia",
-                name="Nemotron 3.5 Lightning 30B",
-                description="Instant, lightweight model for casual greetings, simple questions, and quick status.",
-            ),
-        ],
-        primary_model="nvidia/nemotron-3.5-lightning-30b-a3b",
-    )
-
     return PusulaConfig(
         enabled=True,
         routing_mode="context_aware",
@@ -71,11 +47,7 @@ def get_default_pusula_config() -> PusulaConfig:
         default_group=TIER_HEAVY_REMOTE,
         light_group=TIER_LOW_LOCAL,
         light_threshold=DEFAULT_LIGHT_THRESHOLD,
-        escalation_model="anthropic/claude-haiku-4-5",
-        groups={
-            TIER_HEAVY_REMOTE: heavy_group,
-            TIER_LOW_LOCAL: low_group,
-        },
+        groups={TIER_HEAVY_REMOTE: strong_group},
     )
 
 

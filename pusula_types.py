@@ -10,6 +10,11 @@ TIER_LOW_LOCAL = "low_local"
 # the strong model costs a few seconds. So the light tier needs a confident "yes".
 DEFAULT_LIGHT_THRESHOLD = 0.8
 
+# Level 1 and level 2 of the escalation ladder. "medium" keeps a subscription's quota for the
+# common case; "high" is reserved for a second consecutive miss.
+DEFAULT_ESCALATION_THINKING = ("medium", "high")
+DEFAULT_ESCALATION_WINDOW_SECONDS = 900
+
 DEFAULT_TIER_LABELS = {
     TIER_HEAVY_REMOTE: "Güçlü (varsayılan: araç kullanımı, iş devri, çok adımlı işler)",
     TIER_LOW_LOCAL: "Hafif (selamlaşma, sohbet, araç gerektirmeyen genel bilgi)",
@@ -102,6 +107,20 @@ MODE_SINGLE_TURN = "single_turn"
 MODE_DISABLED = "disabled"
 
 
+def _read_str_list(value: Any) -> list[str]:
+    if not isinstance(value, list):
+        return []
+    return [str(item).strip() for item in value if isinstance(item, str) and item.strip()]
+
+
+def _read_positive_int(value: Any, default: int) -> int:
+    try:
+        number = int(value)
+    except (TypeError, ValueError):
+        return default
+    return number if number > 0 else default
+
+
 def _read_threshold(value: Any) -> float:
     try:
         threshold = float(value)
@@ -123,6 +142,11 @@ class PusulaConfig:
     decision_endpoint: str | None = None
     # Overrides the light-turn question; small local models separate better on a shorter one.
     light_instructions: str | None = None
+    # Escalation ladder, one rung per level. Unset: discovered from the agent's models
+    # (best "balanced" frontier model, e.g. the newest Sonnet) at escalation_thinking levels.
+    escalation_models: list[str] = field(default_factory=list)
+    escalation_thinking: list[str] = field(default_factory=lambda: list(DEFAULT_ESCALATION_THINKING))
+    escalation_window_seconds: int = DEFAULT_ESCALATION_WINDOW_SECONDS
     groups: dict[str, TierGroup] = field(default_factory=dict)
 
     def get_group(self, name: str) -> TierGroup | None:
@@ -139,6 +163,9 @@ class PusulaConfig:
             "escalation_model": self.escalation_model,
             "decision_endpoint": self.decision_endpoint,
             "light_instructions": self.light_instructions,
+            "escalation_models": list(self.escalation_models),
+            "escalation_thinking": list(self.escalation_thinking),
+            "escalation_window_seconds": self.escalation_window_seconds,
             "groups": {name: g.to_dict() for name, g in self.groups.items()},
         }
 
@@ -170,6 +197,11 @@ class PusulaConfig:
             escalation_model=data.get("escalation_model"),
             decision_endpoint=data.get("decision_endpoint") or None,
             light_instructions=data.get("light_instructions") or None,
+            escalation_models=_read_str_list(data.get("escalation_models")),
+            escalation_thinking=_read_str_list(data.get("escalation_thinking")) or list(DEFAULT_ESCALATION_THINKING),
+            escalation_window_seconds=_read_positive_int(
+                data.get("escalation_window_seconds"), DEFAULT_ESCALATION_WINDOW_SECONDS
+            ),
             groups=groups,
         )
 
@@ -186,3 +218,5 @@ class RouteDecision:
     context_used: bool = False
     escalated: bool = False
     light_probability: float | None = None
+    escalation_level: int = 0
+    escalation_signals: tuple[str, ...] = ()
