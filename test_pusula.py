@@ -250,25 +250,39 @@ class TestPusulaRouting(unittest.TestCase):
 
 
 class TestSystemOneBackend(unittest.TestCase):
-    def _fake_client(self, body: dict) -> MagicMock:
-        response = MagicMock(status_code=200)
-        response.json.return_value = body
-        client = MagicMock()
-        client.__enter__.return_value.post.return_value = response
-        return client
+    @staticmethod
+    def _urlopen(body: dict) -> MagicMock:
+        response = MagicMock()
+        response.read.return_value = json.dumps(body).encode()
+        opener = MagicMock()
+        opener.return_value.__enter__.return_value = response
+        return opener
+
+    @staticmethod
+    def _sent(opener: MagicMock) -> tuple:
+        request = opener.call_args.args[0]
+        return request.full_url, {k.lower(): v for k, v in request.header_items()}, json.loads(request.data)
 
     def test_local_system_one_boolean_uses_noul_without_credentials(self) -> None:
-        client = self._fake_client({"answers": {"eval_bool": {"type": "noul", "noul": 0.91}}})
-        with patch("ceviz_pusula.jev_client.httpx.Client", return_value=client):
+        opener = self._urlopen({"answers": {"eval_bool": {"type": "noul", "noul": 0.91}}})
+        with patch("ceviz_pusula.jev_client.urllib.request.urlopen", opener):
             jev = JevClient(system_one_url="http://127.0.0.1:8009/")
             self.assertTrue(jev.is_configured)
             self.assertEqual(jev.evaluate_boolean(state="Selam", instructions="Small talk?"), 0.91)
-        url = client.__enter__.return_value.post.call_args.args[0]
-        kwargs = client.__enter__.return_value.post.call_args.kwargs
+        url, headers, body = self._sent(opener)
         self.assertEqual(url, "http://127.0.0.1:8009/v1/systemone")
-        self.assertNotIn("authorization", kwargs["headers"])
-        self.assertEqual(kwargs["json"]["model"], "kev-latest")
-        self.assertEqual(kwargs["json"]["questions"]["eval_bool"]["type"], "noul")
+        self.assertNotIn("authorization", headers)
+        self.assertEqual(body["model"], "kev-latest")
+        self.assertEqual(body["questions"]["eval_bool"]["type"], "noul")
+
+    def test_http_error_and_timeout_return_none(self) -> None:
+        import urllib.error
+        jev = JevClient(system_one_url="http://127.0.0.1:8009")
+        error = urllib.error.HTTPError("http://x", 403, "Forbidden", {}, None)
+        with patch("ceviz_pusula.jev_client.urllib.request.urlopen", side_effect=error):
+            self.assertIsNone(jev.evaluate_boolean(state="Selam", instructions="Small talk?"))
+        with patch("ceviz_pusula.jev_client.urllib.request.urlopen", side_effect=TimeoutError()):
+            self.assertIsNone(jev.evaluate_boolean(state="Selam", instructions="Small talk?"))
 
     def test_light_tier_uses_configured_endpoint_question_and_threshold(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
@@ -279,11 +293,11 @@ class TestSystemOneBackend(unittest.TestCase):
             cfg.light_threshold = 0.5
             cfg.groups[TIER_LOW_LOCAL] = TierGroup(name=TIER_LOW_LOCAL, models=[ModelEntry(id=LIGHT)])
             guard.save_config(cfg)
-            client = self._fake_client({"answers": {"eval_bool": {"type": "noul", "noul": 0.55}}})
-            with patch("ceviz_pusula.jev_client.httpx.Client", return_value=client):
+            opener = self._urlopen({"answers": {"eval_bool": {"type": "noul", "noul": 0.55}}})
+            with patch("ceviz_pusula.jev_client.urllib.request.urlopen", opener):
                 decision = CevizPusula(state_dir=tmp, catalog=fake_catalog()).route("Selam, nasılsın?")
         self.assertEqual((decision.reason, decision.model), ("light_turn", LIGHT))
-        sent = client.__enter__.return_value.post.call_args.kwargs["json"]["questions"]["eval_bool"]
+        sent = self._sent(opener)[2]["questions"]["eval_bool"]
         self.assertEqual(sent["instructions"], "Is this only small talk or a general-knowledge question?")
 
 

@@ -1,12 +1,17 @@
 from __future__ import annotations
 
+import json
 import logging
 import os
+import socket
 import time
+import urllib.error
+import urllib.request
 from pathlib import Path
 from typing import Any
 
-import httpx
+# Standard library only: httpx reached the helper venv just transitively (via huggingface_hub),
+# and adding a requirement would stop the updater's automatic path for existing installs.
 
 logger = logging.getLogger("ceviz.pusula.jev")
 
@@ -186,21 +191,21 @@ class JevClient:
             }
 
         start_t = time.perf_counter()
+        request = urllib.request.Request(
+            self.endpoint, data=json.dumps(payload).encode("utf-8"), headers=headers, method="POST"
+        )
         try:
-            with httpx.Client(timeout=effective_timeout) as client:
-                res = client.post(self.endpoint, headers=headers, json=payload)
-                elapsed_ms = int((time.perf_counter() - start_t) * 1000)
-
-                if res.status_code == 200:
-                    logger.debug(f"[jev] Evaluation successful in {elapsed_ms}ms")
-                    return res.json()
-
-                logger.warning(
-                    f"[jev] HTTP {res.status_code} in {elapsed_ms}ms: {res.text[:200]}"
-                )
-                return None
-
-        except httpx.TimeoutException:
+            with urllib.request.urlopen(request, timeout=effective_timeout) as res:
+                body = res.read()
+            elapsed_ms = int((time.perf_counter() - start_t) * 1000)
+            logger.debug(f"[jev] Evaluation successful in {elapsed_ms}ms")
+            return json.loads(body)
+        except urllib.error.HTTPError as err:
+            elapsed_ms = int((time.perf_counter() - start_t) * 1000)
+            detail = err.read(200).decode("utf-8", "replace") if err.fp else ""
+            logger.warning(f"[jev] HTTP {err.code} in {elapsed_ms}ms: {detail}")
+            return None
+        except (TimeoutError, socket.timeout):
             elapsed_ms = int((time.perf_counter() - start_t) * 1000)
             logger.warning(f"[jev] Evaluation timed out after {elapsed_ms}ms (limit: {effective_timeout*1000:.0f}ms)")
             return None
