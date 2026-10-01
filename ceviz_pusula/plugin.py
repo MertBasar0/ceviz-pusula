@@ -19,10 +19,17 @@ class PusulaRouter:
     def __init__(self, host: dict[str, Any], engine: CevizPusula | None = None) -> None:
         if host.get("api_version") != API_VERSION:
             raise RuntimeError(f"Pusula implements Ceviz router contract v{API_VERSION}")
-        self.engine = engine or CevizPusula(
-            state_dir=host.get("state_dir") or None,
-            agent=str(host.get("agent") or "main"),
-        )
+        if engine is None:
+            engine = CevizPusula(
+                state_dir=host.get("state_dir") or None,
+                agent=str(host.get("agent") or "main"),
+            )
+            config = engine.config
+            if not (config.escalation_models or config.escalation_model):
+                # The escalation ladder comes from model discovery; have it ready before the
+                # first miss so that turn does not spend the host's routing budget on the CLI.
+                engine.catalog.warm()
+        self.engine = engine
 
     def route(self, request: dict[str, Any]) -> dict[str, Any] | None:
         context: dict[str, Any] = {}

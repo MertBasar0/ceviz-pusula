@@ -6,7 +6,7 @@ import time
 import tomllib
 import unittest
 from pathlib import Path
-from unittest.mock import MagicMock
+from unittest.mock import MagicMock, patch
 
 from ceviz_pusula.config_guard import ConfigGuard
 from ceviz_pusula.plugin import API_VERSION, PusulaRouter, create
@@ -71,6 +71,14 @@ class PluginContractTests(unittest.TestCase):
         self.assertEqual(context["recent_jobs"], jobs)
         self.assertEqual(context["recent_job"], jobs[-1])
         self.assertEqual(context["continuation"], "c")
+
+    def test_catalog_is_warmed_only_when_the_ladder_needs_discovery(self) -> None:
+        with patch("ceviz_pusula.model_catalog.ModelCatalog.warm") as warm:
+            create({"api_version": 1, "agent": "cevizmain", "state_dir": self.tmp.name})
+            warm.assert_not_called()  # explicit escalation_models in setUp
+            with tempfile.TemporaryDirectory() as fresh:
+                create({"api_version": 1, "agent": "cevizmain", "state_dir": fresh})
+            warm.assert_called_once()
 
     def test_pyproject_registers_the_ceviz_entry_point(self) -> None:
         project = tomllib.loads((ROOT / "pyproject.toml").read_text(encoding="utf-8"))["project"]

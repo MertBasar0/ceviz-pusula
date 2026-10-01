@@ -16,6 +16,7 @@ import json
 import logging
 import re
 import subprocess
+import threading
 import time
 from dataclasses import dataclass
 from pathlib import Path
@@ -27,6 +28,7 @@ ROLES = ("frontier", "balanced", "light")
 DIRECT_PROVIDERS = ("anthropic", "openai", "google", "xai")
 ROUTER_PROVIDERS = ("openrouter", "vercel-ai-gateway")
 CACHE_TTL_SECONDS = 6 * 3600
+RETRY_AFTER_FAILURE_SECONDS = 300
 
 # (provider, pattern on the model id after the provider prefix, family, role)
 _FAMILY_RULES: list[tuple[str, re.Pattern[str], str, str]] = [
@@ -112,6 +114,9 @@ class ModelCatalog:
         self.cache_path = cache_path
         self._runner = runner or self._run_openclaw
         self._rows: list[dict[str, Any]] | None = None
+        self._loaded_at = 0.0
+        self._lock = threading.Lock()
+        self._refreshing = False
 
     def _run_openclaw(self) -> list[dict[str, Any]]:
         proc = subprocess.run(
@@ -125,19 +130,75 @@ class ModelCatalog:
         return data["models"]
 
     def rows(self) -> list[dict[str, Any]]:
+        """The catalog, without making a routing decision wait on the CLI when anything is known.
+
+        `openclaw models list` can take seconds on a cold start, longer than a router's budget.
+        A stale cache is served at once and refreshed in the background. Only a machine with no
+        cache at all discovers synchronously, and not while a background refresh is running.
+        """
         if self._rows is not None:
+            if time.time() - self._loaded_at >= CACHE_TTL_SECONDS:
+                self.refresh_async()
             return self._rows
-        cached = self._read_cache()
-        if cached is not None:
-            self._rows = cached
-            return cached
+        fresh = self._read_cache()
+        if fresh is not None:
+            self._set_rows(fresh)
+            return fresh
+        stale = self._read_cache(allow_stale=True)
+        if stale is not None:
+            self._set_rows(stale, stale=True)
+            self.refresh_async()
+            return stale
+        if not self._begin_refresh():
+            return []
         try:
-            self._rows = self._runner()
-            self._write_cache(self._rows)
+            self._refresh()
+        finally:
+            self._end_refresh()
+        return self._rows or []
+
+    def warm(self) -> None:
+        """Load the catalog in the background, so the first escalation finds it ready."""
+        threading.Thread(target=self.rows, name="pusula-catalog-warm", daemon=True).start()
+
+    def refresh_async(self) -> None:
+        if not self._begin_refresh():
+            return
+
+        def run() -> None:
+            try:
+                self._refresh()
+            finally:
+                self._end_refresh()
+
+        threading.Thread(target=run, name="pusula-catalog-refresh", daemon=True).start()
+
+    def _begin_refresh(self) -> bool:
+        with self._lock:
+            if self._refreshing:
+                return False
+            self._refreshing = True
+            return True
+
+    def _end_refresh(self) -> None:
+        with self._lock:
+            self._refreshing = False
+
+    def _set_rows(self, rows: list[dict[str, Any]], stale: bool = False) -> None:
+        self._rows = rows
+        self._loaded_at = 0.0 if stale else time.time()
+
+    def _refresh(self) -> None:
+        try:
+            rows = self._runner()
+            self._set_rows(rows)
+            self._write_cache(rows)
         except Exception as exc:  # discovery must never break routing
             logger.warning(f"[pusula.catalog] model discovery failed: {exc}")
-            self._rows = self._read_cache(allow_stale=True) or []
-        return self._rows
+            if self._rows is None:
+                self._rows = self._read_cache(allow_stale=True) or []
+            # Retry a failed discovery in a few minutes instead of on every escalation.
+            self._loaded_at = time.time() - CACHE_TTL_SECONDS + RETRY_AFTER_FAILURE_SECONDS
 
     def roles(self, include_routers: bool = False) -> dict[str, list[CatalogModel]]:
         return rank(self.rows(), include_routers=include_routers)

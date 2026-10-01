@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 import tempfile
+import threading
 import time
 import unittest
 from pathlib import Path
@@ -121,6 +122,75 @@ class TestModelCatalog(unittest.TestCase):
 
             self.assertEqual(ModelCatalog("cevizmain", cache, runner=broken).best("balanced").ref, SONNET)
             self.assertIsNone(ModelCatalog("cevizmain", Path(tmp) / "none.json", runner=broken).best("balanced"))
+
+    def test_stale_cache_is_served_at_once_and_refreshed_in_the_background(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            cache = Path(tmp) / "models.json"
+            cache.write_text(json.dumps({"agent": "cevizmain", "fetched_at": 0, "models": CATALOG_ROWS}))
+            release = threading.Event()
+            fresh_rows = [{"key": "anthropic/claude-sonnet-6", "available": True, "tags": ["configured"]}]
+
+            def slow():
+                release.wait(5)
+                return fresh_rows
+
+            catalog = ModelCatalog("cevizmain", cache, runner=slow)
+            started = time.monotonic()
+            self.assertEqual(catalog.best("balanced").ref, SONNET)  # stale answer, no waiting
+            self.assertLess(time.monotonic() - started, 1.0)
+            release.set()
+            for _ in range(100):
+                if catalog.best("balanced").ref == "anthropic/claude-sonnet-6":
+                    break
+                time.sleep(0.02)
+            self.assertEqual(catalog.best("balanced").ref, "anthropic/claude-sonnet-6")
+            self.assertEqual(json.loads(cache.read_text())["models"], fresh_rows)
+
+    def test_no_cache_does_not_block_while_a_warm_up_is_running(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            release = threading.Event()
+            calls = []
+
+            def slow():
+                calls.append(1)
+                release.wait(5)
+                return list(CATALOG_ROWS)
+
+            catalog = ModelCatalog("cevizmain", Path(tmp) / "models.json", runner=slow)
+            catalog.warm()
+            for _ in range(100):
+                if calls:
+                    break
+                time.sleep(0.01)
+            started = time.monotonic()
+            self.assertIsNone(catalog.best("balanced"))  # still warming: agent default, no wait
+            self.assertLess(time.monotonic() - started, 1.0)
+            release.set()
+            for _ in range(100):
+                if catalog.best("balanced"):
+                    break
+                time.sleep(0.02)
+            self.assertEqual(catalog.best("balanced").ref, SONNET)
+            self.assertEqual(len(calls), 1)
+
+    def test_in_process_catalog_refreshes_after_the_ttl(self) -> None:
+        rows = [list(CATALOG_ROWS)]
+        calls = []
+
+        def runner():
+            calls.append(1)
+            return rows[0]
+
+        catalog = ModelCatalog("cevizmain", runner=runner)
+        catalog.rows()
+        self.assertEqual(len(calls), 1)
+        catalog._loaded_at -= 7 * 3600
+        catalog.rows()
+        for _ in range(100):
+            if len(calls) == 2:
+                break
+            time.sleep(0.01)
+        self.assertEqual(len(calls), 2)
 
 
 class TestPusulaRouting(unittest.TestCase):

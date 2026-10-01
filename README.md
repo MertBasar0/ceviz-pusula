@@ -21,7 +21,8 @@ already configured.
 - **It only uses models you configured.** Pusula reads `openclaw models list --agent <agent> --json`
   and considers only models tagged as configured, default or a fallback, from Anthropic, OpenAI,
   Google and xAI. A model that is merely available may sit behind a paid API key you never chose
-  for Ceviz.
+  for Ceviz. The list is cached for 6 hours and refreshed in the background, so a routing
+  decision never waits on the CLI once anything is known.
 - **Light tier (optional, off by default).** A local
   [System One](https://huggingface.co/spaces/multimodalart/jev-decision-index) decision server,
   such as Kev, can mark fresh small-talk turns for a lighter model.
