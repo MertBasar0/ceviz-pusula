@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ceviz-pusula"
+version = "0.1.0"
+description = "Optional model-routing plugin for the Ceviz helper: stays on the OpenClaw agent default and escalates only after conversational misses."
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
+requires-python = ">=3.11"
+authors = [{ name = "Mert Başar" }]
+dependencies = []
+
+[project.urls]
+Homepage = "https://github.com/MertBasar0/ceviz-pusula"
+Ceviz = "https://github.com/MertBasar0/ceviz"
+
+[project.entry-points."ceviz.routers"]
+pusula = "ceviz_pusula.plugin:create"
+
+[project.scripts]
+ceviz-pusula-snapshot = "ceviz_pusula.snapshot:main"
+
+[tool.setuptools]
+packages = ["ceviz_pusula"]
