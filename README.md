@@ -29,14 +29,13 @@ already configured.
 
 ## Install and enable
 
-Pusula needs Python 3.11 or newer and a Ceviz helper that supports router contract v1. That
-contract is not yet part of a published helper release; it is on Ceviz's
-[`feat/router-plugin-contract`](https://github.com/MertBasar0/ceviz/tree/feat/router-plugin-contract)
-branch.
+Pusula needs Python 3.11 or newer and a Ceviz helper with router contract v1:
+[`ceviz-helper-v2026.10.1-beta.2`](https://github.com/MertBasar0/ceviz/releases/tag/ceviz-helper-v2026.10.1-beta.2)
+or newer.
 
 ```bash
 # 1. Install into the helper's own environment
-~/path/to/ceviz/.venv/bin/pip install git+https://github.com/MertBasar0/ceviz-pusula
+~/path/to/ceviz/.venv/bin/pip install git+https://github.com/MertBasar0/ceviz-pusula@v0.1.0
 
 # 2. Enable it for the helper service
 systemctl --user edit watch-ceviz-backend
@@ -48,7 +47,7 @@ systemctl --user restart watch-ceviz-backend
 ~/path/to/ceviz/deploy/doctor.sh   # Router plugin "pusula" is installed and enabled
 ```
 
-Ceviz's [router plugin guide](https://github.com/MertBasar0/ceviz/blob/feat/router-plugin-contract/docs/router-plugins.md)
+Ceviz's [router plugin guide](https://github.com/MertBasar0/ceviz/blob/ceviz-helper-v2026.10.1-beta.2/docs/router-plugins.md)
 describes what the helper guarantees around plugins:
 
 - a failing or slow router never fails a command
