@@ -1,0 +1,6322 @@
+[
+ {
+  "id": "explicit_correction-tr-01",
+  "category": "explicit_correction",
+  "lang": "tr",
+  "previous": [
+   {
+    "transcript": "Son e-postaları özetle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 5.0
+   },
+   {
+    "transcript": "Döviz kurunu göster",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.5
+   },
+   {
+    "transcript": "Takvimimde yarın ne var?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.0
+   },
+   {
+    "transcript": "Bugünkü hava durumunu söyle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3.5
+   },
+   {
+    "transcript": "Ceviz reposunda testleri çalıştır",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3
+   }
+  ],
+  "message": "Olmadı, iki test hâlâ kırık.",
+  "correction": true,
+  "repeat": false
+ },
+ {
+  "id": "explicit_correction-tr-02",
+  "category": "explicit_correction",
+  "lang": "tr",
+  "previous": [
+   {
+    "transcript": "Son e-postaları özetle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 5.0
+   },
+   {
+    "transcript": "Döviz kurunu göster",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.5
+   },
+   {
+    "transcript": "Takvimimde yarın ne var?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.0
+   },
+   {
+    "transcript": "Bugünkü hava durumunu söyle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3.5
+   },
+   {
+    "transcript": "Takvimime yarın 10'a toplantı ekle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3
+   }
+  ],
+  "message": "Yanlış gün eklemişsin, yarın dedim.",
+  "correction": true,
+  "repeat": false
+ },
+ {
+  "id": "explicit_correction-tr-03",
+  "category": "explicit_correction",
+  "lang": "tr",
+  "previous": [
+   {
+    "transcript": "Son e-postaları özetle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 5.0
+   },
+   {
+    "transcript": "Döviz kurunu göster",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.5
+   },
+   {
+    "transcript": "Takvimimde yarın ne var?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.0
+   },
+   {
+    "transcript": "Bugünkü hava durumunu söyle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3.5
+   },
+   {
+    "transcript": "Son commit'in özetini çıkar",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3
+   }
+  ],
+  "message": "Anlamadın, son commit'i değil son PR'ı istedim.",
+  "correction": true,
+  "repeat": false
+ },
+ {
+  "id": "explicit_correction-tr-04",
+  "category": "explicit_correction",
+  "lang": "tr",
+  "previous": [
+   {
+    "transcript": "Son e-postaları özetle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 5.0
+   },
+   {
+    "transcript": "Döviz kurunu göster",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.5
+   },
+   {
+    "transcript": "Takvimimde yarın ne var?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.0
+   },
+   {
+    "transcript": "Bugünkü hava durumunu söyle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3.5
+   },
+   {
+    "transcript": "Staging'e deploy et",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3
+   }
+  ],
+  "message": "Çalışmadı, sayfa hâlâ eski sürümü gösteriyor.",
+  "correction": true,
+  "repeat": false
+ },
+ {
+  "id": "explicit_correction-tr-05",
+  "category": "explicit_correction",
+  "lang": "tr",
+  "previous": [
+   {
+    "transcript": "Son e-postaları özetle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 5.0
+   },
+   {
+    "transcript": "Döviz kurunu göster",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.5
+   },
+   {
+    "transcript": "Takvimimde yarın ne var?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.0
+   },
+   {
+    "transcript": "Bugünkü hava durumunu söyle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3.5
+   },
+   {
+    "transcript": "README'ye kurulum adımlarını ekle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3
+   }
+  ],
+  "message": "Eksik kaldı, Windows adımları yok.",
+  "correction": true,
+  "repeat": false
+ },
+ {
+  "id": "explicit_correction-tr-06",
+  "category": "explicit_correction",
+  "lang": "tr",
+  "previous": [
+   {
+    "transcript": "Son e-postaları özetle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 5.0
+   },
+   {
+    "transcript": "Döviz kurunu göster",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.5
+   },
+   {
+    "transcript": "Takvimimde yarın ne var?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.0
+   },
+   {
+    "transcript": "Bugünkü hava durumunu söyle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3.5
+   },
+   {
+    "transcript": "Logları filtrele ve hataları listele",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3
+   }
+  ],
+  "message": "Alakasız şeyler listelemişsin, sadece ERROR satırları lazım.",
+  "correction": true,
+  "repeat": false
+ },
+ {
+  "id": "explicit_correction-tr-07",
+  "category": "explicit_correction",
+  "lang": "tr",
+  "previous": [
+   {
+    "transcript": "Son e-postaları özetle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 5.0
+   },
+   {
+    "transcript": "Döviz kurunu göster",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.5
+   },
+   {
+    "transcript": "Takvimimde yarın ne var?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.0
+   },
+   {
+    "transcript": "Bugünkü hava durumunu söyle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3.5
+   },
+   {
+    "transcript": "PR açıklamasını yaz",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3
+   }
+  ],
+  "message": "Bunu demek istemedim, kısa bir açıklama istiyordum.",
+  "correction": true,
+  "repeat": false
+ },
+ {
+  "id": "explicit_correction-tr-08",
+  "category": "explicit_correction",
+  "lang": "tr",
+  "previous": [
+   {
+    "transcript": "Son e-postaları özetle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 5.0
+   },
+   {
+    "transcript": "Döviz kurunu göster",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.5
+   },
+   {
+    "transcript": "Takvimimde yarın ne var?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.0
+   },
+   {
+    "transcript": "Bugünkü hava durumunu söyle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3.5
+   },
+   {
+    "transcript": "Docker imajını yeniden derle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3
+   }
+  ],
+  "message": "Hata verdi, build adımı patladı.",
+  "correction": true,
+  "repeat": false
+ },
+ {
+  "id": "explicit_correction-tr-09",
+  "category": "explicit_correction",
+  "lang": "tr",
+  "previous": [
+   {
+    "transcript": "Son e-postaları özetle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 5.0
+   },
+   {
+    "transcript": "Döviz kurunu göster",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.5
+   },
+   {
+    "transcript": "Takvimimde yarın ne var?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.0
+   },
+   {
+    "transcript": "Bugünkü hava durumunu söyle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3.5
+   },
+   {
+    "transcript": "Sunucuyu yeniden başlat",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3
+   }
+  ],
+  "message": "İşe yaramadı, servis hâlâ cevap vermiyor.",
+  "correction": true,
+  "repeat": false
+ },
+ {
+  "id": "explicit_correction-tr-10",
+  "category": "explicit_correction",
+  "lang": "tr",
+  "previous": [
+   {
+    "transcript": "Son e-postaları özetle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 5.0
+   },
+   {
+    "transcript": "Döviz kurunu göster",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.5
+   },
+   {
+    "transcript": "Takvimimde yarın ne var?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.0
+   },
+   {
+    "transcript": "Bugünkü hava durumunu söyle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3.5
+   },
+   {
+    "transcript": "Faturayı PDF'e çevir",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3
+   }
+  ],
+  "message": "Yapamadın, dosya boş açılıyor.",
+  "correction": true,
+  "repeat": false
+ },
+ {
+  "id": "explicit_correction-en-01",
+  "category": "explicit_correction",
+  "lang": "en",
+  "previous": [
+   {
+    "transcript": "Summarize my latest emails",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 5.0
+   },
+   {
+    "transcript": "Show the exchange rate",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.5
+   },
+   {
+    "transcript": "What's on my calendar tomorrow?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.0
+   },
+   {
+    "transcript": "Tell me today's weather",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3.5
+   },
+   {
+    "transcript": "Run the unit tests in the ceviz repo",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3
+   }
+  ],
+  "message": "That didn't work, two tests still fail.",
+  "correction": true,
+  "repeat": false
+ },
+ {
+  "id": "explicit_correction-en-02",
+  "category": "explicit_correction",
+  "lang": "en",
+  "previous": [
+   {
+    "transcript": "Summarize my latest emails",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 5.0
+   },
+   {
+    "transcript": "Show the exchange rate",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.5
+   },
+   {
+    "transcript": "What's on my calendar tomorrow?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.0
+   },
+   {
+    "transcript": "Tell me today's weather",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3.5
+   },
+   {
+    "transcript": "Summarize yesterday's meeting notes",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3
+   }
+  ],
+  "message": "That's not what I asked, I wanted the action items.",
+  "correction": true,
+  "repeat": false
+ },
+ {
+  "id": "explicit_correction-en-03",
+  "category": "explicit_correction",
+  "lang": "en",
+  "previous": [
+   {
+    "transcript": "Summarize my latest emails",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 5.0
+   },
+   {
+    "transcript": "Show the exchange rate",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.5
+   },
+   {
+    "transcript": "What's on my calendar tomorrow?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.0
+   },
+   {
+    "transcript": "Tell me today's weather",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3.5
+   },
+   {
+    "transcript": "Add a meeting tomorrow at 10",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3
+   }
+  ],
+  "message": "That's wrong, I said tomorrow, not Friday.",
+  "correction": true,
+  "repeat": false
+ },
+ {
+  "id": "explicit_correction-en-04",
+  "category": "explicit_correction",
+  "lang": "en",
+  "previous": [
+   {
+    "transcript": "Summarize my latest emails",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 5.0
+   },
+   {
+    "transcript": "Show the exchange rate",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.5
+   },
+   {
+    "transcript": "What's on my calendar tomorrow?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.0
+   },
+   {
+    "transcript": "Tell me today's weather",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3.5
+   },
+   {
+    "transcript": "Deploy the branch to staging",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3
+   }
+  ],
+  "message": "Didn't work, staging still shows the old build.",
+  "correction": true,
+  "repeat": false
+ },
+ {
+  "id": "explicit_correction-en-05",
+  "category": "explicit_correction",
+  "lang": "en",
+  "previous": [
+   {
+    "transcript": "Summarize my latest emails",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 5.0
+   },
+   {
+    "transcript": "Show the exchange rate",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.5
+   },
+   {
+    "transcript": "What's on my calendar tomorrow?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.0
+   },
+   {
+    "transcript": "Tell me today's weather",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3.5
+   },
+   {
+    "transcript": "Rename the config file",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3
+   }
+  ],
+  "message": "Try again, the old name is still there.",
+  "correction": true,
+  "repeat": false
+ },
+ {
+  "id": "explicit_correction-en-06",
+  "category": "explicit_correction",
+  "lang": "en",
+  "previous": [
+   {
+    "transcript": "Summarize my latest emails",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 5.0
+   },
+   {
+    "transcript": "Show the exchange rate",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.5
+   },
+   {
+    "transcript": "What's on my calendar tomorrow?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.0
+   },
+   {
+    "transcript": "Tell me today's weather",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3.5
+   },
+   {
+    "transcript": "Find the slowest endpoint",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3
+   }
+  ],
+  "message": "Not what I meant, I need the p95 per endpoint.",
+  "correction": true,
+  "repeat": false
+ },
+ {
+  "id": "explicit_correction-en-07",
+  "category": "explicit_correction",
+  "lang": "en",
+  "previous": [
+   {
+    "transcript": "Summarize my latest emails",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 5.0
+   },
+   {
+    "transcript": "Show the exchange rate",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.5
+   },
+   {
+    "transcript": "What's on my calendar tomorrow?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.0
+   },
+   {
+    "transcript": "Tell me today's weather",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3.5
+   },
+   {
+    "transcript": "Restart the worker",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3
+   }
+  ],
+  "message": "It doesn't work, the queue is still stuck.",
+  "correction": true,
+  "repeat": false
+ },
+ {
+  "id": "explicit_correction-en-08",
+  "category": "explicit_correction",
+  "lang": "en",
+  "previous": [
+   {
+    "transcript": "Summarize my latest emails",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 5.0
+   },
+   {
+    "transcript": "Show the exchange rate",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.5
+   },
+   {
+    "transcript": "What's on my calendar tomorrow?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.0
+   },
+   {
+    "transcript": "Tell me today's weather",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3.5
+   },
+   {
+    "transcript": "Export the report as CSV",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3
+   }
+  ],
+  "message": "That's not it, I need the monthly totals.",
+  "correction": true,
+  "repeat": false
+ },
+ {
+  "id": "explicit_correction-en-09",
+  "category": "explicit_correction",
+  "lang": "en",
+  "previous": [
+   {
+    "transcript": "Summarize my latest emails",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 5.0
+   },
+   {
+    "transcript": "Show the exchange rate",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.5
+   },
+   {
+    "transcript": "What's on my calendar tomorrow?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.0
+   },
+   {
+    "transcript": "Tell me today's weather",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3.5
+   },
+   {
+    "transcript": "Draft a reply to the client",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3
+   }
+  ],
+  "message": "Not what I asked for, keep it to two sentences.",
+  "correction": true,
+  "repeat": false
+ },
+ {
+  "id": "explicit_correction-en-10",
+  "category": "explicit_correction",
+  "lang": "en",
+  "previous": [
+   {
+    "transcript": "Summarize my latest emails",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 5.0
+   },
+   {
+    "transcript": "Show the exchange rate",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.5
+   },
+   {
+    "transcript": "What's on my calendar tomorrow?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.0
+   },
+   {
+    "transcript": "Tell me today's weather",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3.5
+   },
+   {
+    "transcript": "Clean up the old branches",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3
+   }
+  ],
+  "message": "Try again, half of them are still there.",
+  "correction": true,
+  "repeat": false
+ },
+ {
+  "id": "paraphrased_correction-tr-01",
+  "category": "paraphrased_correction",
+  "lang": "tr",
+  "previous": [
+   {
+    "transcript": "Son e-postaları özetle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 5.0
+   },
+   {
+    "transcript": "Döviz kurunu göster",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.5
+   },
+   {
+    "transcript": "Takvimimde yarın ne var?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.0
+   },
+   {
+    "transcript": "Bugünkü hava durumunu söyle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3.5
+   },
+   {
+    "transcript": "Ceviz reposunda testleri çalıştır",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3
+   }
+  ],
+  "message": "Hâlâ iki test kırık görünüyor.",
+  "correction": true,
+  "repeat": false
+ },
+ {
+  "id": "paraphrased_correction-tr-02",
+  "category": "paraphrased_correction",
+  "lang": "tr",
+  "previous": [
+   {
+    "transcript": "Son e-postaları özetle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 5.0
+   },
+   {
+    "transcript": "Döviz kurunu göster",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.5
+   },
+   {
+    "transcript": "Takvimimde yarın ne var?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.0
+   },
+   {
+    "transcript": "Bugünkü hava durumunu söyle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3.5
+   },
+   {
+    "transcript": "Son PR'ın açıklamasını yaz",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3
+   }
+  ],
+  "message": "Bu benim istediğim şey değil, daha kısa olacaktı.",
+  "correction": true,
+  "repeat": false
+ },
+ {
+  "id": "paraphrased_correction-tr-03",
+  "category": "paraphrased_correction",
+  "lang": "tr",
+  "previous": [
+   {
+    "transcript": "Son e-postaları özetle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 5.0
+   },
+   {
+    "transcript": "Döviz kurunu göster",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.5
+   },
+   {
+    "transcript": "Takvimimde yarın ne var?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.0
+   },
+   {
+    "transcript": "Bugünkü hava durumunu söyle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3.5
+   },
+   {
+    "transcript": "Repoda kullanılmayan importları temizle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3
+   }
+  ],
+  "message": "Öbür repoyu kastediyordum, pusula değil ceviz.",
+  "correction": true,
+  "repeat": false
+ },
+ {
+  "id": "paraphrased_correction-tr-04",
+  "category": "paraphrased_correction",
+  "lang": "tr",
+  "previous": [
+   {
+    "transcript": "Son e-postaları özetle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 5.0
+   },
+   {
+    "transcript": "Döviz kurunu göster",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.5
+   },
+   {
+    "transcript": "Takvimimde yarın ne var?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.0
+   },
+   {
+    "transcript": "Bugünkü hava durumunu söyle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3.5
+   },
+   {
+    "transcript": "Bugünkü toplantıları listele",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3
+   }
+  ],
+  "message": "Sonuç boş geldi ama takvimimde üç toplantı var.",
+  "correction": true,
+  "repeat": false
+ },
+ {
+  "id": "paraphrased_correction-tr-05",
+  "category": "paraphrased_correction",
+  "lang": "tr",
+  "previous": [
+   {
+    "transcript": "Son e-postaları özetle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 5.0
+   },
+   {
+    "transcript": "Döviz kurunu göster",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.5
+   },
+   {
+    "transcript": "Takvimimde yarın ne var?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.0
+   },
+   {
+    "transcript": "Bugünkü hava durumunu söyle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3.5
+   },
+   {
+    "transcript": "Build'i tetikle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3
+   }
+  ],
+  "message": "Build hâlâ kırmızı, bir şey değişmemiş.",
+  "correction": true,
+  "repeat": false
+ },
+ {
+  "id": "paraphrased_correction-tr-06",
+  "category": "paraphrased_correction",
+  "lang": "tr",
+  "previous": [
+   {
+    "transcript": "Son e-postaları özetle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 5.0
+   },
+   {
+    "transcript": "Döviz kurunu göster",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.5
+   },
+   {
+    "transcript": "Takvimimde yarın ne var?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.0
+   },
+   {
+    "transcript": "Bugünkü hava durumunu söyle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3.5
+   },
+   {
+    "transcript": "Dokümantasyon linkini paylaş",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3
+   }
+  ],
+  "message": "Link açılınca 404 dönüyor.",
+  "correction": true,
+  "repeat": false
+ },
+ {
+  "id": "paraphrased_correction-tr-07",
+  "category": "paraphrased_correction",
+  "lang": "tr",
+  "previous": [
+   {
+    "transcript": "Son e-postaları özetle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 5.0
+   },
+   {
+    "transcript": "Döviz kurunu göster",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.5
+   },
+   {
+    "transcript": "Takvimimde yarın ne var?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.0
+   },
+   {
+    "transcript": "Bugünkü hava durumunu söyle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3.5
+   },
+   {
+    "transcript": "Değişiklik günlüğünü güncelle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3
+   }
+  ],
+  "message": "Yarım bırakmışsın, son iki sürüm yok.",
+  "correction": true,
+  "repeat": false
+ },
+ {
+  "id": "paraphrased_correction-tr-08",
+  "category": "paraphrased_correction",
+  "lang": "tr",
+  "previous": [
+   {
+    "transcript": "Son e-postaları özetle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 5.0
+   },
+   {
+    "transcript": "Döviz kurunu göster",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.5
+   },
+   {
+    "transcript": "Takvimimde yarın ne var?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.0
+   },
+   {
+    "transcript": "Bugünkü hava durumunu söyle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3.5
+   },
+   {
+    "transcript": "Ayar dosyasında timeout'u 30 yap",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3
+   }
+  ],
+  "message": "Dosyayı hiç değiştirmemişsin, değer hâlâ 10.",
+  "correction": true,
+  "repeat": false
+ },
+ {
+  "id": "paraphrased_correction-tr-09",
+  "category": "paraphrased_correction",
+  "lang": "tr",
+  "previous": [
+   {
+    "transcript": "Son e-postaları özetle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 5.0
+   },
+   {
+    "transcript": "Döviz kurunu göster",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.5
+   },
+   {
+    "transcript": "Takvimimde yarın ne var?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.0
+   },
+   {
+    "transcript": "Bugünkü hava durumunu söyle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3.5
+   },
+   {
+    "transcript": "Raporun üç bölümünü de yaz",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3
+   }
+  ],
+  "message": "Sadece ilk kısmı yapmışsın.",
+  "correction": true,
+  "repeat": false
+ },
+ {
+  "id": "paraphrased_correction-tr-10",
+  "category": "paraphrased_correction",
+  "lang": "tr",
+  "previous": [
+   {
+    "transcript": "Son e-postaları özetle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 5.0
+   },
+   {
+    "transcript": "Döviz kurunu göster",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.5
+   },
+   {
+    "transcript": "Takvimimde yarın ne var?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.0
+   },
+   {
+    "transcript": "Bugünkü hava durumunu söyle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3.5
+   },
+   {
+    "transcript": "Production loglarına bak",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3
+   }
+  ],
+  "message": "Staging değil production dedim.",
+  "correction": true,
+  "repeat": false
+ },
+ {
+  "id": "paraphrased_correction-tr-11",
+  "category": "paraphrased_correction",
+  "lang": "tr",
+  "previous": [
+   {
+    "transcript": "Son e-postaları özetle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 5.0
+   },
+   {
+    "transcript": "Döviz kurunu göster",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.5
+   },
+   {
+    "transcript": "Takvimimde yarın ne var?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.0
+   },
+   {
+    "transcript": "Bugünkü hava durumunu söyle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3.5
+   },
+   {
+    "transcript": "Bana üç başlık öner",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3
+   }
+  ],
+  "message": "İki tane yazmışsın, üç tane istemiştim.",
+  "correction": true,
+  "repeat": false
+ },
+ {
+  "id": "paraphrased_correction-tr-12",
+  "category": "paraphrased_correction",
+  "lang": "tr",
+  "previous": [
+   {
+    "transcript": "Son e-postaları özetle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 5.0
+   },
+   {
+    "transcript": "Döviz kurunu göster",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.5
+   },
+   {
+    "transcript": "Takvimimde yarın ne var?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.0
+   },
+   {
+    "transcript": "Bugünkü hava durumunu söyle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3.5
+   },
+   {
+    "transcript": "Güncel satış rakamlarını getir",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3
+   }
+  ],
+  "message": "Bunlar geçen ayın rakamları, güncel değil.",
+  "correction": true,
+  "repeat": false
+ },
+ {
+  "id": "paraphrased_correction-tr-13",
+  "category": "paraphrased_correction",
+  "lang": "tr",
+  "previous": [
+   {
+    "transcript": "Son e-postaları özetle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 5.0
+   },
+   {
+    "transcript": "Döviz kurunu göster",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.5
+   },
+   {
+    "transcript": "Takvimimde yarın ne var?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.0
+   },
+   {
+    "transcript": "Bugünkü hava durumunu söyle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3.5
+   },
+   {
+    "transcript": "Bu hatanın nedenini açıkla",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3
+   }
+  ],
+  "message": "Cevap soruma hiç uymuyor.",
+  "correction": true,
+  "repeat": false
+ },
+ {
+  "id": "paraphrased_correction-tr-14",
+  "category": "paraphrased_correction",
+  "lang": "tr",
+  "previous": [
+   {
+    "transcript": "Son e-postaları özetle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 5.0
+   },
+   {
+    "transcript": "Döviz kurunu göster",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.5
+   },
+   {
+    "transcript": "Takvimimde yarın ne var?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.0
+   },
+   {
+    "transcript": "Bugünkü hava durumunu söyle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3.5
+   },
+   {
+    "transcript": "CLI'yı güncelle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3
+   }
+  ],
+  "message": "Komut bulunamadı diyor hâlâ.",
+  "correction": true,
+  "repeat": false
+ },
+ {
+  "id": "paraphrased_correction-tr-15",
+  "category": "paraphrased_correction",
+  "lang": "tr",
+  "previous": [
+   {
+    "transcript": "Son e-postaları özetle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 5.0
+   },
+   {
+    "transcript": "Döviz kurunu göster",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.5
+   },
+   {
+    "transcript": "Takvimimde yarın ne var?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.0
+   },
+   {
+    "transcript": "Bugünkü hava durumunu söyle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3.5
+   },
+   {
+    "transcript": "Yedekleme betiğini çalıştır",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3
+   }
+  ],
+  "message": "Yedek klasörü bomboş, hiçbir şey kopyalanmamış.",
+  "correction": true,
+  "repeat": false
+ },
+ {
+  "id": "paraphrased_correction-tr-16",
+  "category": "paraphrased_correction",
+  "lang": "tr",
+  "previous": [
+   {
+    "transcript": "Son e-postaları özetle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 5.0
+   },
+   {
+    "transcript": "Döviz kurunu göster",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.5
+   },
+   {
+    "transcript": "Takvimimde yarın ne var?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.0
+   },
+   {
+    "transcript": "Bugünkü hava durumunu söyle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3.5
+   },
+   {
+    "transcript": "E-postayı taslak olarak kaydet",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3
+   }
+  ],
+  "message": "Taslaklarda göremiyorum, kaydedilmemiş galiba.",
+  "correction": true,
+  "repeat": false
+ },
+ {
+  "id": "paraphrased_correction-tr-17",
+  "category": "paraphrased_correction",
+  "lang": "tr",
+  "previous": [
+   {
+    "transcript": "Son e-postaları özetle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 5.0
+   },
+   {
+    "transcript": "Döviz kurunu göster",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.5
+   },
+   {
+    "transcript": "Takvimimde yarın ne var?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.0
+   },
+   {
+    "transcript": "Bugünkü hava durumunu söyle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3.5
+   },
+   {
+    "transcript": "Tabloyu tarihe göre sırala",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3
+   }
+  ],
+  "message": "Sıralama ters olmuş, en yeni üstte olmalıydı.",
+  "correction": true,
+  "repeat": false
+ },
+ {
+  "id": "paraphrased_correction-tr-18",
+  "category": "paraphrased_correction",
+  "lang": "tr",
+  "previous": [
+   {
+    "transcript": "Son e-postaları özetle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 5.0
+   },
+   {
+    "transcript": "Döviz kurunu göster",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.5
+   },
+   {
+    "transcript": "Takvimimde yarın ne var?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.0
+   },
+   {
+    "transcript": "Bugünkü hava durumunu söyle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3.5
+   },
+   {
+    "transcript": "Paketi 2.1 sürümüne yükselt",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3
+   }
+  ],
+  "message": "Hâlâ 2.0 kurulu görünüyor.",
+  "correction": true,
+  "repeat": false
+ },
+ {
+  "id": "paraphrased_correction-tr-19",
+  "category": "paraphrased_correction",
+  "lang": "tr",
+  "previous": [
+   {
+    "transcript": "Son e-postaları özetle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 5.0
+   },
+   {
+    "transcript": "Döviz kurunu göster",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.5
+   },
+   {
+    "transcript": "Takvimimde yarın ne var?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.0
+   },
+   {
+    "transcript": "Bugünkü hava durumunu söyle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3.5
+   },
+   {
+    "transcript": "Kullanıcı listesini dışa aktar",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3
+   }
+  ],
+  "message": "Dosyada sadece başlık satırı var.",
+  "correction": true,
+  "repeat": false
+ },
+ {
+  "id": "paraphrased_correction-tr-20",
+  "category": "paraphrased_correction",
+  "lang": "tr",
+  "previous": [
+   {
+    "transcript": "Son e-postaları özetle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 5.0
+   },
+   {
+    "transcript": "Döviz kurunu göster",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.5
+   },
+   {
+    "transcript": "Takvimimde yarın ne var?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.0
+   },
+   {
+    "transcript": "Bugünkü hava durumunu söyle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3.5
+   },
+   {
+    "transcript": "Bunu İngilizceye çevir",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3
+   }
+  ],
+  "message": "Hayır, Almancaya çevirmeni istemiştim.",
+  "correction": true,
+  "repeat": false
+ },
+ {
+  "id": "paraphrased_correction-en-01",
+  "category": "paraphrased_correction",
+  "lang": "en",
+  "previous": [
+   {
+    "transcript": "Summarize my latest emails",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 5.0
+   },
+   {
+    "transcript": "Show the exchange rate",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.5
+   },
+   {
+    "transcript": "What's on my calendar tomorrow?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.0
+   },
+   {
+    "transcript": "Tell me today's weather",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3.5
+   },
+   {
+    "transcript": "Run the test suite",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3
+   }
+  ],
+  "message": "Still two failures in the same file.",
+  "correction": true,
+  "repeat": false
+ },
+ {
+  "id": "paraphrased_correction-en-02",
+  "category": "paraphrased_correction",
+  "lang": "en",
+  "previous": [
+   {
+    "transcript": "Summarize my latest emails",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 5.0
+   },
+   {
+    "transcript": "Show the exchange rate",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.5
+   },
+   {
+    "transcript": "What's on my calendar tomorrow?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.0
+   },
+   {
+    "transcript": "Tell me today's weather",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3.5
+   },
+   {
+    "transcript": "Write the release notes",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3
+   }
+  ],
+  "message": "That isn't what I asked for, I wanted user-facing notes.",
+  "correction": true,
+  "repeat": false
+ },
+ {
+  "id": "paraphrased_correction-en-03",
+  "category": "paraphrased_correction",
+  "lang": "en",
+  "previous": [
+   {
+    "transcript": "Summarize my latest emails",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 5.0
+   },
+   {
+    "transcript": "Show the exchange rate",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.5
+   },
+   {
+    "transcript": "What's on my calendar tomorrow?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.0
+   },
+   {
+    "transcript": "Tell me today's weather",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3.5
+   },
+   {
+    "transcript": "Update the timeout to 30 seconds",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3
+   }
+  ],
+  "message": "You changed the wrong file, the setting lives in config.yaml.",
+  "correction": true,
+  "repeat": false
+ },
+ {
+  "id": "paraphrased_correction-en-04",
+  "category": "paraphrased_correction",
+  "lang": "en",
+  "previous": [
+   {
+    "transcript": "Summarize my latest emails",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 5.0
+   },
+   {
+    "transcript": "Show the exchange rate",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.5
+   },
+   {
+    "transcript": "What's on my calendar tomorrow?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.0
+   },
+   {
+    "transcript": "Tell me today's weather",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3.5
+   },
+   {
+    "transcript": "Check the build",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3
+   }
+  ],
+  "message": "Nope, the build is still red.",
+  "correction": true,
+  "repeat": false
+ },
+ {
+  "id": "paraphrased_correction-en-05",
+  "category": "paraphrased_correction",
+  "lang": "en",
+  "previous": [
+   {
+    "transcript": "Summarize my latest emails",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 5.0
+   },
+   {
+    "transcript": "Show the exchange rate",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.5
+   },
+   {
+    "transcript": "What's on my calendar tomorrow?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.0
+   },
+   {
+    "transcript": "Tell me today's weather",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3.5
+   },
+   {
+    "transcript": "Share the docs link",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3
+   }
+  ],
+  "message": "The link is dead.",
+  "correction": true,
+  "repeat": false
+ },
+ {
+  "id": "paraphrased_correction-en-06",
+  "category": "paraphrased_correction",
+  "lang": "en",
+  "previous": [
+   {
+    "transcript": "Summarize my latest emails",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 5.0
+   },
+   {
+    "transcript": "Show the exchange rate",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.5
+   },
+   {
+    "transcript": "What's on my calendar tomorrow?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.0
+   },
+   {
+    "transcript": "Tell me today's weather",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3.5
+   },
+   {
+    "transcript": "Write all three sections",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3
+   }
+  ],
+  "message": "You only did half of it.",
+  "correction": true,
+  "repeat": false
+ },
+ {
+  "id": "paraphrased_correction-en-07",
+  "category": "paraphrased_correction",
+  "lang": "en",
+  "previous": [
+   {
+    "transcript": "Summarize my latest emails",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 5.0
+   },
+   {
+    "transcript": "Show the exchange rate",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.5
+   },
+   {
+    "transcript": "What's on my calendar tomorrow?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.0
+   },
+   {
+    "transcript": "Tell me today's weather",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3.5
+   },
+   {
+    "transcript": "Give me three title ideas",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3
+   }
+  ],
+  "message": "I asked for three, you gave two.",
+  "correction": true,
+  "repeat": false
+ },
+ {
+  "id": "paraphrased_correction-en-08",
+  "category": "paraphrased_correction",
+  "lang": "en",
+  "previous": [
+   {
+    "transcript": "Summarize my latest emails",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 5.0
+   },
+   {
+    "transcript": "Show the exchange rate",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.5
+   },
+   {
+    "transcript": "What's on my calendar tomorrow?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.0
+   },
+   {
+    "transcript": "Tell me today's weather",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3.5
+   },
+   {
+    "transcript": "Pull the latest sales numbers",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3
+   }
+  ],
+  "message": "These are last month's numbers.",
+  "correction": true,
+  "repeat": false
+ },
+ {
+  "id": "paraphrased_correction-en-09",
+  "category": "paraphrased_correction",
+  "lang": "en",
+  "previous": [
+   {
+    "transcript": "Summarize my latest emails",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 5.0
+   },
+   {
+    "transcript": "Show the exchange rate",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.5
+   },
+   {
+    "transcript": "What's on my calendar tomorrow?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.0
+   },
+   {
+    "transcript": "Tell me today's weather",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3.5
+   },
+   {
+    "transcript": "Upgrade the package to 2.1",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3
+   }
+  ],
+  "message": "Nothing changed, it's still on 2.0.",
+  "correction": true,
+  "repeat": false
+ },
+ {
+  "id": "paraphrased_correction-en-10",
+  "category": "paraphrased_correction",
+  "lang": "en",
+  "previous": [
+   {
+    "transcript": "Summarize my latest emails",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 5.0
+   },
+   {
+    "transcript": "Show the exchange rate",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.5
+   },
+   {
+    "transcript": "What's on my calendar tomorrow?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.0
+   },
+   {
+    "transcript": "Tell me today's weather",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3.5
+   },
+   {
+    "transcript": "Install the CLI",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3
+   }
+  ],
+  "message": "It still says command not found.",
+  "correction": true,
+  "repeat": false
+ },
+ {
+  "id": "stt_correction-tr-01",
+  "category": "stt_correction",
+  "lang": "tr",
+  "previous": [
+   {
+    "transcript": "Son e-postaları özetle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 5.0
+   },
+   {
+    "transcript": "Döviz kurunu göster",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.5
+   },
+   {
+    "transcript": "Takvimimde yarın ne var?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.0
+   },
+   {
+    "transcript": "Bugünkü hava durumunu söyle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3.5
+   },
+   {
+    "transcript": "Testleri çalıştır",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3
+   }
+  ],
+  "message": "olmadi ya iki test hala kirik",
+  "correction": true,
+  "repeat": false
+ },
+ {
+  "id": "stt_correction-tr-02",
+  "category": "stt_correction",
+  "lang": "tr",
+  "previous": [
+   {
+    "transcript": "Son e-postaları özetle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 5.0
+   },
+   {
+    "transcript": "Döviz kurunu göster",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.5
+   },
+   {
+    "transcript": "Takvimimde yarın ne var?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.0
+   },
+   {
+    "transcript": "Bugünkü hava durumunu söyle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3.5
+   },
+   {
+    "transcript": "Takvime toplantı ekle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3
+   }
+  ],
+  "message": "yanlis gune eklemissin yarin dedim",
+  "correction": true,
+  "repeat": false
+ },
+ {
+  "id": "stt_correction-tr-03",
+  "category": "stt_correction",
+  "lang": "tr",
+  "previous": [
+   {
+    "transcript": "Son e-postaları özetle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 5.0
+   },
+   {
+    "transcript": "Döviz kurunu göster",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.5
+   },
+   {
+    "transcript": "Takvimimde yarın ne var?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.0
+   },
+   {
+    "transcript": "Bugünkü hava durumunu söyle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3.5
+   },
+   {
+    "transcript": "Deploy et",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3
+   }
+  ],
+  "message": "calismadi sayfa hala eski",
+  "correction": true,
+  "repeat": false
+ },
+ {
+  "id": "stt_correction-tr-04",
+  "category": "stt_correction",
+  "lang": "tr",
+  "previous": [
+   {
+    "transcript": "Son e-postaları özetle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 5.0
+   },
+   {
+    "transcript": "Döviz kurunu göster",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.5
+   },
+   {
+    "transcript": "Takvimimde yarın ne var?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.0
+   },
+   {
+    "transcript": "Bugünkü hava durumunu söyle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3.5
+   },
+   {
+    "transcript": "Özet çıkar",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3
+   }
+  ],
+  "message": "anlamadin son pr i istedim",
+  "correction": true,
+  "repeat": false
+ },
+ {
+  "id": "stt_correction-tr-05",
+  "category": "stt_correction",
+  "lang": "tr",
+  "previous": [
+   {
+    "transcript": "Son e-postaları özetle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 5.0
+   },
+   {
+    "transcript": "Döviz kurunu göster",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.5
+   },
+   {
+    "transcript": "Takvimimde yarın ne var?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.0
+   },
+   {
+    "transcript": "Bugünkü hava durumunu söyle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3.5
+   },
+   {
+    "transcript": "Raporu yaz",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3
+   }
+  ],
+  "message": "eksik kalmis windows kismi yok",
+  "correction": true,
+  "repeat": false
+ },
+ {
+  "id": "stt_correction-tr-06",
+  "category": "stt_correction",
+  "lang": "tr",
+  "previous": [
+   {
+    "transcript": "Son e-postaları özetle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 5.0
+   },
+   {
+    "transcript": "Döviz kurunu göster",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.5
+   },
+   {
+    "transcript": "Takvimimde yarın ne var?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.0
+   },
+   {
+    "transcript": "Bugünkü hava durumunu söyle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3.5
+   },
+   {
+    "transcript": "Linki paylaş",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3
+   }
+  ],
+  "message": "link acilmiyor dort yuz dort veriyor",
+  "correction": true,
+  "repeat": false
+ },
+ {
+  "id": "stt_correction-tr-07",
+  "category": "stt_correction",
+  "lang": "tr",
+  "previous": [
+   {
+    "transcript": "Son e-postaları özetle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 5.0
+   },
+   {
+    "transcript": "Döviz kurunu göster",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.5
+   },
+   {
+    "transcript": "Takvimimde yarın ne var?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.0
+   },
+   {
+    "transcript": "Bugünkü hava durumunu söyle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3.5
+   },
+   {
+    "transcript": "Dosyayı güncelle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3
+   }
+  ],
+  "message": "hic degismemis deger hala on",
+  "correction": true,
+  "repeat": false
+ },
+ {
+  "id": "stt_correction-tr-08",
+  "category": "stt_correction",
+  "lang": "tr",
+  "previous": [
+   {
+    "transcript": "Son e-postaları özetle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 5.0
+   },
+   {
+    "transcript": "Döviz kurunu göster",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.5
+   },
+   {
+    "transcript": "Takvimimde yarın ne var?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.0
+   },
+   {
+    "transcript": "Bugünkü hava durumunu söyle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3.5
+   },
+   {
+    "transcript": "Logları filtrele",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3
+   }
+  ],
+  "message": "alakasis seyler gelmis sadece hata satirlari lazim",
+  "correction": true,
+  "repeat": false
+ },
+ {
+  "id": "stt_correction-en-01",
+  "category": "stt_correction",
+  "lang": "en",
+  "previous": [
+   {
+    "transcript": "Summarize my latest emails",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 5.0
+   },
+   {
+    "transcript": "Show the exchange rate",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.5
+   },
+   {
+    "transcript": "What's on my calendar tomorrow?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.0
+   },
+   {
+    "transcript": "Tell me today's weather",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3.5
+   },
+   {
+    "transcript": "Run the tests",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3
+   }
+  ],
+  "message": "that didnt work to test still fail",
+  "correction": true,
+  "repeat": false
+ },
+ {
+  "id": "stt_correction-en-02",
+  "category": "stt_correction",
+  "lang": "en",
+  "previous": [
+   {
+    "transcript": "Summarize my latest emails",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 5.0
+   },
+   {
+    "transcript": "Show the exchange rate",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.5
+   },
+   {
+    "transcript": "What's on my calendar tomorrow?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.0
+   },
+   {
+    "transcript": "Tell me today's weather",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3.5
+   },
+   {
+    "transcript": "Deploy to staging",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3
+   }
+  ],
+  "message": "staging still shows the all build",
+  "correction": true,
+  "repeat": false
+ },
+ {
+  "id": "stt_correction-en-03",
+  "category": "stt_correction",
+  "lang": "en",
+  "previous": [
+   {
+    "transcript": "Summarize my latest emails",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 5.0
+   },
+   {
+    "transcript": "Show the exchange rate",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.5
+   },
+   {
+    "transcript": "What's on my calendar tomorrow?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.0
+   },
+   {
+    "transcript": "Tell me today's weather",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3.5
+   },
+   {
+    "transcript": "Summarize the notes",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3
+   }
+  ],
+  "message": "thats not what i ask i wanted the action items",
+  "correction": true,
+  "repeat": false
+ },
+ {
+  "id": "stt_correction-en-04",
+  "category": "stt_correction",
+  "lang": "en",
+  "previous": [
+   {
+    "transcript": "Summarize my latest emails",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 5.0
+   },
+   {
+    "transcript": "Show the exchange rate",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.5
+   },
+   {
+    "transcript": "What's on my calendar tomorrow?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.0
+   },
+   {
+    "transcript": "Tell me today's weather",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3.5
+   },
+   {
+    "transcript": "Upgrade the package",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3
+   }
+  ],
+  "message": "nothing change its still two point oh",
+  "correction": true,
+  "repeat": false
+ },
+ {
+  "id": "trigger_word_new_task-tr-01",
+  "category": "trigger_word_new_task",
+  "lang": "tr",
+  "previous": [
+   {
+    "transcript": "Son e-postaları özetle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 8.0
+   },
+   {
+    "transcript": "Döviz kurunu göster",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 7.5
+   },
+   {
+    "transcript": "Takvimimde yarın ne var?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 7.0
+   },
+   {
+    "transcript": "Bugünkü hava durumunu söyle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 6.5
+   },
+   {
+    "transcript": "Yarın hava nasıl olacak?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 6
+   }
+  ],
+  "message": "README'deki yanlış linki bul ve değiştir.",
+  "correction": false,
+  "repeat": false
+ },
+ {
+  "id": "trigger_word_new_task-tr-02",
+  "category": "trigger_word_new_task",
+  "lang": "tr",
+  "previous": [
+   {
+    "transcript": "Son e-postaları özetle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 8.0
+   },
+   {
+    "transcript": "Döviz kurunu göster",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 7.5
+   },
+   {
+    "transcript": "Takvimimde yarın ne var?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 7.0
+   },
+   {
+    "transcript": "Bugünkü hava durumunu söyle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 6.5
+   },
+   {
+    "transcript": "Yarın hava nasıl olacak?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 6
+   }
+  ],
+  "message": "Dün başarısız olan CI işlerini listele.",
+  "correction": false,
+  "repeat": false
+ },
+ {
+  "id": "trigger_word_new_task-tr-03",
+  "category": "trigger_word_new_task",
+  "lang": "tr",
+  "previous": [
+   {
+    "transcript": "Son e-postaları özetle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 8.0
+   },
+   {
+    "transcript": "Döviz kurunu göster",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 7.5
+   },
+   {
+    "transcript": "Takvimimde yarın ne var?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 7.0
+   },
+   {
+    "transcript": "Bugünkü hava durumunu söyle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 6.5
+   },
+   {
+    "transcript": "Yarın hava nasıl olacak?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 6
+   }
+  ],
+  "message": "Deploy sırasında hata aldım, dünkü logları özetle.",
+  "correction": false,
+  "repeat": false
+ },
+ {
+  "id": "trigger_word_new_task-tr-04",
+  "category": "trigger_word_new_task",
+  "lang": "tr",
+  "previous": [
+   {
+    "transcript": "Son e-postaları özetle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 8.0
+   },
+   {
+    "transcript": "Döviz kurunu göster",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 7.5
+   },
+   {
+    "transcript": "Takvimimde yarın ne var?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 7.0
+   },
+   {
+    "transcript": "Bugünkü hava durumunu söyle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 6.5
+   },
+   {
+    "transcript": "Yarın hava nasıl olacak?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 6
+   }
+  ],
+  "message": "Flaky testi tekrar dene ve sonucu yaz.",
+  "correction": false,
+  "repeat": false
+ },
+ {
+  "id": "trigger_word_new_task-tr-05",
+  "category": "trigger_word_new_task",
+  "lang": "tr",
+  "previous": [
+   {
+    "transcript": "Son e-postaları özetle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 8.0
+   },
+   {
+    "transcript": "Döviz kurunu göster",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 7.5
+   },
+   {
+    "transcript": "Takvimimde yarın ne var?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 7.0
+   },
+   {
+    "transcript": "Bugünkü hava durumunu söyle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 6.5
+   },
+   {
+    "transcript": "Yarın hava nasıl olacak?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 6
+   }
+  ],
+  "message": "Kullanıcıların çalışmadı dediği ödeme endpoint'ini incele.",
+  "correction": false,
+  "repeat": false
+ },
+ {
+  "id": "trigger_word_new_task-tr-06",
+  "category": "trigger_word_new_task",
+  "lang": "tr",
+  "previous": [
+   {
+    "transcript": "Son e-postaları özetle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 8.0
+   },
+   {
+    "transcript": "Döviz kurunu göster",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 7.5
+   },
+   {
+    "transcript": "Takvimimde yarın ne var?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 7.0
+   },
+   {
+    "transcript": "Bugünkü hava durumunu söyle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 6.5
+   },
+   {
+    "transcript": "Yarın hava nasıl olacak?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 6
+   }
+  ],
+  "message": "Tam tersi sıralamayla son on commit'i listele.",
+  "correction": false,
+  "repeat": false
+ },
+ {
+  "id": "trigger_word_new_task-tr-07",
+  "category": "trigger_word_new_task",
+  "lang": "tr",
+  "previous": [
+   {
+    "transcript": "Son e-postaları özetle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 8.0
+   },
+   {
+    "transcript": "Döviz kurunu göster",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 7.5
+   },
+   {
+    "transcript": "Takvimimde yarın ne var?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 7.0
+   },
+   {
+    "transcript": "Bugünkü hava durumunu söyle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 6.5
+   },
+   {
+    "transcript": "Yarın hava nasıl olacak?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 6
+   }
+  ],
+  "message": "Eksik kaldı etiketi olan issue'ları getir.",
+  "correction": false,
+  "repeat": false
+ },
+ {
+  "id": "trigger_word_new_task-tr-08",
+  "category": "trigger_word_new_task",
+  "lang": "tr",
+  "previous": [
+   {
+    "transcript": "Son e-postaları özetle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 8.0
+   },
+   {
+    "transcript": "Döviz kurunu göster",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 7.5
+   },
+   {
+    "transcript": "Takvimimde yarın ne var?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 7.0
+   },
+   {
+    "transcript": "Bugünkü hava durumunu söyle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 6.5
+   },
+   {
+    "transcript": "Yarın hava nasıl olacak?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 6
+   }
+  ],
+  "message": "Hata verdi diye kapatılan ticket'ları say.",
+  "correction": false,
+  "repeat": false
+ },
+ {
+  "id": "trigger_word_new_task-tr-09",
+  "category": "trigger_word_new_task",
+  "lang": "tr",
+  "previous": [
+   {
+    "transcript": "Son e-postaları özetle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 8.0
+   },
+   {
+    "transcript": "Döviz kurunu göster",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 7.5
+   },
+   {
+    "transcript": "Takvimimde yarın ne var?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 7.0
+   },
+   {
+    "transcript": "Bugünkü hava durumunu söyle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 6.5
+   },
+   {
+    "transcript": "Yarın hava nasıl olacak?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 6
+   }
+  ],
+  "message": "Sözlüğe 'işe yaramadı' ifadesinin İngilizcesini ekle.",
+  "correction": false,
+  "repeat": false
+ },
+ {
+  "id": "trigger_word_new_task-tr-10",
+  "category": "trigger_word_new_task",
+  "lang": "tr",
+  "previous": [
+   {
+    "transcript": "Son e-postaları özetle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 8.0
+   },
+   {
+    "transcript": "Döviz kurunu göster",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 7.5
+   },
+   {
+    "transcript": "Takvimimde yarın ne var?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 7.0
+   },
+   {
+    "transcript": "Bugünkü hava durumunu söyle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 6.5
+   },
+   {
+    "transcript": "Yarın hava nasıl olacak?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 6
+   }
+  ],
+  "message": "Yanlış yazılmış değişken adlarını raporla.",
+  "correction": false,
+  "repeat": false
+ },
+ {
+  "id": "trigger_word_new_task-tr-11",
+  "category": "trigger_word_new_task",
+  "lang": "tr",
+  "previous": [
+   {
+    "transcript": "Son e-postaları özetle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 8.0
+   },
+   {
+    "transcript": "Döviz kurunu göster",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 7.5
+   },
+   {
+    "transcript": "Takvimimde yarın ne var?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 7.0
+   },
+   {
+    "transcript": "Bugünkü hava durumunu söyle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 6.5
+   },
+   {
+    "transcript": "Yarın hava nasıl olacak?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 6
+   }
+  ],
+  "message": "Başarısız giriş denemelerini son 24 saate göre say.",
+  "correction": false,
+  "repeat": false
+ },
+ {
+  "id": "trigger_word_new_task-tr-12",
+  "category": "trigger_word_new_task",
+  "lang": "tr",
+  "previous": [
+   {
+    "transcript": "Son e-postaları özetle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 8.0
+   },
+   {
+    "transcript": "Döviz kurunu göster",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 7.5
+   },
+   {
+    "transcript": "Takvimimde yarın ne var?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 7.0
+   },
+   {
+    "transcript": "Bugünkü hava durumunu söyle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 6.5
+   },
+   {
+    "transcript": "Yarın hava nasıl olacak?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 6
+   }
+  ],
+  "message": "Olmadı mesajını gösteren hata ekranının metnini değiştir.",
+  "correction": false,
+  "repeat": false
+ },
+ {
+  "id": "trigger_word_new_task-tr-13",
+  "category": "trigger_word_new_task",
+  "lang": "tr",
+  "previous": [
+   {
+    "transcript": "Son e-postaları özetle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 8.0
+   },
+   {
+    "transcript": "Döviz kurunu göster",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 7.5
+   },
+   {
+    "transcript": "Takvimimde yarın ne var?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 7.0
+   },
+   {
+    "transcript": "Bugünkü hava durumunu söyle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 6.5
+   },
+   {
+    "transcript": "Yarın hava nasıl olacak?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 6
+   }
+  ],
+  "message": "Alakasız etiketleri issue'lardan kaldır.",
+  "correction": false,
+  "repeat": false
+ },
+ {
+  "id": "trigger_word_new_task-tr-14",
+  "category": "trigger_word_new_task",
+  "lang": "tr",
+  "previous": [
+   {
+    "transcript": "Son e-postaları özetle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 8.0
+   },
+   {
+    "transcript": "Döviz kurunu göster",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 7.5
+   },
+   {
+    "transcript": "Takvimimde yarın ne var?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 7.0
+   },
+   {
+    "transcript": "Bugünkü hava durumunu söyle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 6.5
+   },
+   {
+    "transcript": "Yarın hava nasıl olacak?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 6
+   }
+  ],
+  "message": "Yeniden yap butonunun rengini yeşil yap.",
+  "correction": false,
+  "repeat": false
+ },
+ {
+  "id": "trigger_word_new_task-tr-15",
+  "category": "trigger_word_new_task",
+  "lang": "tr",
+  "previous": [
+   {
+    "transcript": "Son e-postaları özetle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 8.0
+   },
+   {
+    "transcript": "Döviz kurunu göster",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 7.5
+   },
+   {
+    "transcript": "Takvimimde yarın ne var?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 7.0
+   },
+   {
+    "transcript": "Bugünkü hava durumunu söyle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 6.5
+   },
+   {
+    "transcript": "Yarın hava nasıl olacak?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 6
+   }
+  ],
+  "message": "Saçmaladın diye şikâyet eden yorumları bul.",
+  "correction": false,
+  "repeat": false
+ },
+ {
+  "id": "trigger_word_new_task-en-01",
+  "category": "trigger_word_new_task",
+  "lang": "en",
+  "previous": [
+   {
+    "transcript": "Summarize my latest emails",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 8.0
+   },
+   {
+    "transcript": "Show the exchange rate",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 7.5
+   },
+   {
+    "transcript": "What's on my calendar tomorrow?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 7.0
+   },
+   {
+    "transcript": "Tell me today's weather",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 6.5
+   },
+   {
+    "transcript": "What's the weather tomorrow?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 6
+   }
+  ],
+  "message": "Add a try again button to the error screen.",
+  "correction": false,
+  "repeat": false
+ },
+ {
+  "id": "trigger_word_new_task-en-02",
+  "category": "trigger_word_new_task",
+  "lang": "en",
+  "previous": [
+   {
+    "transcript": "Summarize my latest emails",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 8.0
+   },
+   {
+    "transcript": "Show the exchange rate",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 7.5
+   },
+   {
+    "transcript": "What's on my calendar tomorrow?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 7.0
+   },
+   {
+    "transcript": "Tell me today's weather",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 6.5
+   },
+   {
+    "transcript": "What's the weather tomorrow?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 6
+   }
+  ],
+  "message": "Investigate why the backup didn't work last night.",
+  "correction": false,
+  "repeat": false
+ },
+ {
+  "id": "trigger_word_new_task-en-03",
+  "category": "trigger_word_new_task",
+  "lang": "en",
+  "previous": [
+   {
+    "transcript": "Summarize my latest emails",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 8.0
+   },
+   {
+    "transcript": "Show the exchange rate",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 7.5
+   },
+   {
+    "transcript": "What's on my calendar tomorrow?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 7.0
+   },
+   {
+    "transcript": "Tell me today's weather",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 6.5
+   },
+   {
+    "transcript": "What's the weather tomorrow?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 6
+   }
+  ],
+  "message": "Write a test for when login doesn't work offline.",
+  "correction": false,
+  "repeat": false
+ },
+ {
+  "id": "trigger_word_new_task-en-04",
+  "category": "trigger_word_new_task",
+  "lang": "en",
+  "previous": [
+   {
+    "transcript": "Summarize my latest emails",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 8.0
+   },
+   {
+    "transcript": "Show the exchange rate",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 7.5
+   },
+   {
+    "transcript": "What's on my calendar tomorrow?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 7.0
+   },
+   {
+    "transcript": "Tell me today's weather",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 6.5
+   },
+   {
+    "transcript": "What's the weather tomorrow?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 6
+   }
+  ],
+  "message": "Translate 'that's wrong' into Turkish.",
+  "correction": false,
+  "repeat": false
+ },
+ {
+  "id": "trigger_word_new_task-en-05",
+  "category": "trigger_word_new_task",
+  "lang": "en",
+  "previous": [
+   {
+    "transcript": "Summarize my latest emails",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 8.0
+   },
+   {
+    "transcript": "Show the exchange rate",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 7.5
+   },
+   {
+    "transcript": "What's on my calendar tomorrow?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 7.0
+   },
+   {
+    "transcript": "Tell me today's weather",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 6.5
+   },
+   {
+    "transcript": "What's the weather tomorrow?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 6
+   }
+  ],
+  "message": "List the tickets tagged not-what-i-asked.",
+  "correction": false,
+  "repeat": false
+ },
+ {
+  "id": "trigger_word_new_task-en-06",
+  "category": "trigger_word_new_task",
+  "lang": "en",
+  "previous": [
+   {
+    "transcript": "Summarize my latest emails",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 8.0
+   },
+   {
+    "transcript": "Show the exchange rate",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 7.5
+   },
+   {
+    "transcript": "What's on my calendar tomorrow?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 7.0
+   },
+   {
+    "transcript": "Tell me today's weather",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 6.5
+   },
+   {
+    "transcript": "What's the weather tomorrow?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 6
+   }
+  ],
+  "message": "Find every place we log 'did not work'.",
+  "correction": false,
+  "repeat": false
+ },
+ {
+  "id": "trigger_word_new_task-en-07",
+  "category": "trigger_word_new_task",
+  "lang": "en",
+  "previous": [
+   {
+    "transcript": "Summarize my latest emails",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 8.0
+   },
+   {
+    "transcript": "Show the exchange rate",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 7.5
+   },
+   {
+    "transcript": "What's on my calendar tomorrow?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 7.0
+   },
+   {
+    "transcript": "Tell me today's weather",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 6.5
+   },
+   {
+    "transcript": "What's the weather tomorrow?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 6
+   }
+  ],
+  "message": "Count the failed logins from yesterday.",
+  "correction": false,
+  "repeat": false
+ },
+ {
+  "id": "trigger_word_new_task-en-08",
+  "category": "trigger_word_new_task",
+  "lang": "en",
+  "previous": [
+   {
+    "transcript": "Summarize my latest emails",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 8.0
+   },
+   {
+    "transcript": "Show the exchange rate",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 7.5
+   },
+   {
+    "transcript": "What's on my calendar tomorrow?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 7.0
+   },
+   {
+    "transcript": "Tell me today's weather",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 6.5
+   },
+   {
+    "transcript": "What's the weather tomorrow?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 6
+   }
+  ],
+  "message": "Rename the 'try again' label to 'retry'.",
+  "correction": false,
+  "repeat": false
+ },
+ {
+  "id": "trigger_word_new_task-en-09",
+  "category": "trigger_word_new_task",
+  "lang": "en",
+  "previous": [
+   {
+    "transcript": "Summarize my latest emails",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 8.0
+   },
+   {
+    "transcript": "Show the exchange rate",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 7.5
+   },
+   {
+    "transcript": "What's on my calendar tomorrow?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 7.0
+   },
+   {
+    "transcript": "Tell me today's weather",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 6.5
+   },
+   {
+    "transcript": "What's the weather tomorrow?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 6
+   }
+  ],
+  "message": "Fix the wrong timezone in the cron config.",
+  "correction": false,
+  "repeat": false
+ },
+ {
+  "id": "trigger_word_new_task-en-10",
+  "category": "trigger_word_new_task",
+  "lang": "en",
+  "previous": [
+   {
+    "transcript": "Summarize my latest emails",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 8.0
+   },
+   {
+    "transcript": "Show the exchange rate",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 7.5
+   },
+   {
+    "transcript": "What's on my calendar tomorrow?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 7.0
+   },
+   {
+    "transcript": "Tell me today's weather",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 6.5
+   },
+   {
+    "transcript": "What's the weather tomorrow?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 6
+   }
+  ],
+  "message": "Search the forum for 'that's not it' complaints.",
+  "correction": false,
+  "repeat": false
+ },
+ {
+  "id": "non_correction_followup-tr-01",
+  "category": "non_correction_followup",
+  "lang": "tr",
+  "previous": [
+   {
+    "transcript": "Son e-postaları özetle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 5.0
+   },
+   {
+    "transcript": "Döviz kurunu göster",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.5
+   },
+   {
+    "transcript": "Takvimimde yarın ne var?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.0
+   },
+   {
+    "transcript": "Bugünkü hava durumunu söyle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3.5
+   },
+   {
+    "transcript": "Testleri çalıştır",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3
+   }
+  ],
+  "message": "Teşekkürler, şimdi de lint'i çalıştır.",
+  "correction": false,
+  "repeat": false
+ },
+ {
+  "id": "non_correction_followup-tr-02",
+  "category": "non_correction_followup",
+  "lang": "tr",
+  "previous": [
+   {
+    "transcript": "Son e-postaları özetle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 5.0
+   },
+   {
+    "transcript": "Döviz kurunu göster",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.5
+   },
+   {
+    "transcript": "Takvimimde yarın ne var?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.0
+   },
+   {
+    "transcript": "Bugünkü hava durumunu söyle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3.5
+   },
+   {
+    "transcript": "Staging'e deploy et",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3
+   }
+  ],
+  "message": "Harika, aynısını production için de yap.",
+  "correction": false,
+  "repeat": false
+ },
+ {
+  "id": "non_correction_followup-tr-03",
+  "category": "non_correction_followup",
+  "lang": "tr",
+  "previous": [
+   {
+    "transcript": "Son e-postaları özetle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 5.0
+   },
+   {
+    "transcript": "Döviz kurunu göster",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.5
+   },
+   {
+    "transcript": "Takvimimde yarın ne var?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.0
+   },
+   {
+    "transcript": "Bugünkü hava durumunu söyle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3.5
+   },
+   {
+    "transcript": "PR açıklamasını yaz",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3
+   }
+  ],
+  "message": "Güzel olmuş, bir de başlık öner.",
+  "correction": false,
+  "repeat": false
+ },
+ {
+  "id": "non_correction_followup-tr-04",
+  "category": "non_correction_followup",
+  "lang": "tr",
+  "previous": [
+   {
+    "transcript": "Son e-postaları özetle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 5.0
+   },
+   {
+    "transcript": "Döviz kurunu göster",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.5
+   },
+   {
+    "transcript": "Takvimimde yarın ne var?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.0
+   },
+   {
+    "transcript": "Bugünkü hava durumunu söyle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3.5
+   },
+   {
+    "transcript": "Toplantıları listele",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3
+   }
+  ],
+  "message": "Peki yarınki toplantılar neler?",
+  "correction": false,
+  "repeat": false
+ },
+ {
+  "id": "non_correction_followup-tr-05",
+  "category": "non_correction_followup",
+  "lang": "tr",
+  "previous": [
+   {
+    "transcript": "Son e-postaları özetle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 5.0
+   },
+   {
+    "transcript": "Döviz kurunu göster",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.5
+   },
+   {
+    "transcript": "Takvimimde yarın ne var?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.0
+   },
+   {
+    "transcript": "Bugünkü hava durumunu söyle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3.5
+   },
+   {
+    "transcript": "Logları özetle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3
+   }
+  ],
+  "message": "Bu hataların kaçı bugün oldu?",
+  "correction": false,
+  "repeat": false
+ },
+ {
+  "id": "non_correction_followup-tr-06",
+  "category": "non_correction_followup",
+  "lang": "tr",
+  "previous": [
+   {
+    "transcript": "Son e-postaları özetle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 5.0
+   },
+   {
+    "transcript": "Döviz kurunu göster",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.5
+   },
+   {
+    "transcript": "Takvimimde yarın ne var?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.0
+   },
+   {
+    "transcript": "Bugünkü hava durumunu söyle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3.5
+   },
+   {
+    "transcript": "Raporu yaz",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3
+   }
+  ],
+  "message": "Süper, şimdi bunu Mert'e gönder.",
+  "correction": false,
+  "repeat": false
+ },
+ {
+  "id": "non_correction_followup-tr-07",
+  "category": "non_correction_followup",
+  "lang": "tr",
+  "previous": [
+   {
+    "transcript": "Son e-postaları özetle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 5.0
+   },
+   {
+    "transcript": "Döviz kurunu göster",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.5
+   },
+   {
+    "transcript": "Takvimimde yarın ne var?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.0
+   },
+   {
+    "transcript": "Bugünkü hava durumunu söyle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3.5
+   },
+   {
+    "transcript": "Değişiklik günlüğünü güncelle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3
+   }
+  ],
+  "message": "Tamam, sürüm numarasını da artır.",
+  "correction": false,
+  "repeat": false
+ },
+ {
+  "id": "non_correction_followup-tr-08",
+  "category": "non_correction_followup",
+  "lang": "tr",
+  "previous": [
+   {
+    "transcript": "Son e-postaları özetle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 5.0
+   },
+   {
+    "transcript": "Döviz kurunu göster",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.5
+   },
+   {
+    "transcript": "Takvimimde yarın ne var?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.0
+   },
+   {
+    "transcript": "Bugünkü hava durumunu söyle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3.5
+   },
+   {
+    "transcript": "Paketi yükselt",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3
+   }
+  ],
+  "message": "Oldu, şimdi testleri tekrar çalıştır.",
+  "correction": false,
+  "repeat": false
+ },
+ {
+  "id": "non_correction_followup-tr-09",
+  "category": "non_correction_followup",
+  "lang": "tr",
+  "previous": [
+   {
+    "transcript": "Son e-postaları özetle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 5.0
+   },
+   {
+    "transcript": "Döviz kurunu göster",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.5
+   },
+   {
+    "transcript": "Takvimimde yarın ne var?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.0
+   },
+   {
+    "transcript": "Bugünkü hava durumunu söyle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3.5
+   },
+   {
+    "transcript": "Ayar dosyasını güncelle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3
+   }
+  ],
+  "message": "Bunu bir de belgeye not düş.",
+  "correction": false,
+  "repeat": false
+ },
+ {
+  "id": "non_correction_followup-tr-10",
+  "category": "non_correction_followup",
+  "lang": "tr",
+  "previous": [
+   {
+    "transcript": "Son e-postaları özetle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 5.0
+   },
+   {
+    "transcript": "Döviz kurunu göster",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.5
+   },
+   {
+    "transcript": "Takvimimde yarın ne var?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.0
+   },
+   {
+    "transcript": "Bugünkü hava durumunu söyle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3.5
+   },
+   {
+    "transcript": "Kullanıcı listesini dışa aktar",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3
+   }
+  ],
+  "message": "Bir de admin olanları ayrı say.",
+  "correction": false,
+  "repeat": false
+ },
+ {
+  "id": "non_correction_followup-tr-11",
+  "category": "non_correction_followup",
+  "lang": "tr",
+  "previous": [
+   {
+    "transcript": "Son e-postaları özetle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 5.0
+   },
+   {
+    "transcript": "Döviz kurunu göster",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.5
+   },
+   {
+    "transcript": "Takvimimde yarın ne var?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.0
+   },
+   {
+    "transcript": "Bugünkü hava durumunu söyle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3.5
+   },
+   {
+    "transcript": "Bunu İngilizceye çevir",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3
+   }
+  ],
+  "message": "Şimdi bir de Almancasını yaz.",
+  "correction": false,
+  "repeat": false
+ },
+ {
+  "id": "non_correction_followup-tr-12",
+  "category": "non_correction_followup",
+  "lang": "tr",
+  "previous": [
+   {
+    "transcript": "Son e-postaları özetle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 5.0
+   },
+   {
+    "transcript": "Döviz kurunu göster",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.5
+   },
+   {
+    "transcript": "Takvimimde yarın ne var?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.0
+   },
+   {
+    "transcript": "Bugünkü hava durumunu söyle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3.5
+   },
+   {
+    "transcript": "Build'i tetikle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3
+   }
+  ],
+  "message": "Bitince bana haber ver.",
+  "correction": false,
+  "repeat": false
+ },
+ {
+  "id": "non_correction_followup-tr-13",
+  "category": "non_correction_followup",
+  "lang": "tr",
+  "previous": [
+   {
+    "transcript": "Son e-postaları özetle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 5.0
+   },
+   {
+    "transcript": "Döviz kurunu göster",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.5
+   },
+   {
+    "transcript": "Takvimimde yarın ne var?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.0
+   },
+   {
+    "transcript": "Bugünkü hava durumunu söyle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3.5
+   },
+   {
+    "transcript": "Bugünkü toplantıları listele",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3
+   }
+  ],
+  "message": "İkinci toplantının katılımcıları kim?",
+  "correction": false,
+  "repeat": false
+ },
+ {
+  "id": "non_correction_followup-tr-14",
+  "category": "non_correction_followup",
+  "lang": "tr",
+  "previous": [
+   {
+    "transcript": "Son e-postaları özetle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 5.0
+   },
+   {
+    "transcript": "Döviz kurunu göster",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.5
+   },
+   {
+    "transcript": "Takvimimde yarın ne var?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.0
+   },
+   {
+    "transcript": "Bugünkü hava durumunu söyle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3.5
+   },
+   {
+    "transcript": "Hava durumunu söyle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3
+   }
+  ],
+  "message": "Hafta sonu için de bakar mısın?",
+  "correction": false,
+  "repeat": false
+ },
+ {
+  "id": "non_correction_followup-tr-15",
+  "category": "non_correction_followup",
+  "lang": "tr",
+  "previous": [
+   {
+    "transcript": "Son e-postaları özetle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 5.0
+   },
+   {
+    "transcript": "Döviz kurunu göster",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.5
+   },
+   {
+    "transcript": "Takvimimde yarın ne var?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.0
+   },
+   {
+    "transcript": "Bugünkü hava durumunu söyle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3.5
+   },
+   {
+    "transcript": "Son commit'i özetle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3
+   }
+  ],
+  "message": "Bundan önceki commit ne yapmış?",
+  "correction": false,
+  "repeat": false
+ },
+ {
+  "id": "non_correction_followup-en-01",
+  "category": "non_correction_followup",
+  "lang": "en",
+  "previous": [
+   {
+    "transcript": "Summarize my latest emails",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 5.0
+   },
+   {
+    "transcript": "Show the exchange rate",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.5
+   },
+   {
+    "transcript": "What's on my calendar tomorrow?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.0
+   },
+   {
+    "transcript": "Tell me today's weather",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3.5
+   },
+   {
+    "transcript": "Run the tests",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3
+   }
+  ],
+  "message": "Thanks, now run the linter too.",
+  "correction": false,
+  "repeat": false
+ },
+ {
+  "id": "non_correction_followup-en-02",
+  "category": "non_correction_followup",
+  "lang": "en",
+  "previous": [
+   {
+    "transcript": "Summarize my latest emails",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 5.0
+   },
+   {
+    "transcript": "Show the exchange rate",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.5
+   },
+   {
+    "transcript": "What's on my calendar tomorrow?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.0
+   },
+   {
+    "transcript": "Tell me today's weather",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3.5
+   },
+   {
+    "transcript": "Deploy to staging",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3
+   }
+  ],
+  "message": "Great, do the same for production.",
+  "correction": false,
+  "repeat": false
+ },
+ {
+  "id": "non_correction_followup-en-03",
+  "category": "non_correction_followup",
+  "lang": "en",
+  "previous": [
+   {
+    "transcript": "Summarize my latest emails",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 5.0
+   },
+   {
+    "transcript": "Show the exchange rate",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.5
+   },
+   {
+    "transcript": "What's on my calendar tomorrow?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.0
+   },
+   {
+    "transcript": "Tell me today's weather",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3.5
+   },
+   {
+    "transcript": "Write the PR description",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3
+   }
+  ],
+  "message": "Nice, suggest a title as well.",
+  "correction": false,
+  "repeat": false
+ },
+ {
+  "id": "non_correction_followup-en-04",
+  "category": "non_correction_followup",
+  "lang": "en",
+  "previous": [
+   {
+    "transcript": "Summarize my latest emails",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 5.0
+   },
+   {
+    "transcript": "Show the exchange rate",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.5
+   },
+   {
+    "transcript": "What's on my calendar tomorrow?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.0
+   },
+   {
+    "transcript": "Tell me today's weather",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3.5
+   },
+   {
+    "transcript": "List today's meetings",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3
+   }
+  ],
+  "message": "What about tomorrow?",
+  "correction": false,
+  "repeat": false
+ },
+ {
+  "id": "non_correction_followup-en-05",
+  "category": "non_correction_followup",
+  "lang": "en",
+  "previous": [
+   {
+    "transcript": "Summarize my latest emails",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 5.0
+   },
+   {
+    "transcript": "Show the exchange rate",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.5
+   },
+   {
+    "transcript": "What's on my calendar tomorrow?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.0
+   },
+   {
+    "transcript": "Tell me today's weather",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3.5
+   },
+   {
+    "transcript": "Summarize the logs",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3
+   }
+  ],
+  "message": "How many of those errors happened today?",
+  "correction": false,
+  "repeat": false
+ },
+ {
+  "id": "non_correction_followup-en-06",
+  "category": "non_correction_followup",
+  "lang": "en",
+  "previous": [
+   {
+    "transcript": "Summarize my latest emails",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 5.0
+   },
+   {
+    "transcript": "Show the exchange rate",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.5
+   },
+   {
+    "transcript": "What's on my calendar tomorrow?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.0
+   },
+   {
+    "transcript": "Tell me today's weather",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3.5
+   },
+   {
+    "transcript": "Draft the report",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3
+   }
+  ],
+  "message": "Perfect, send it to the team.",
+  "correction": false,
+  "repeat": false
+ },
+ {
+  "id": "non_correction_followup-en-07",
+  "category": "non_correction_followup",
+  "lang": "en",
+  "previous": [
+   {
+    "transcript": "Summarize my latest emails",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 5.0
+   },
+   {
+    "transcript": "Show the exchange rate",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.5
+   },
+   {
+    "transcript": "What's on my calendar tomorrow?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.0
+   },
+   {
+    "transcript": "Tell me today's weather",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3.5
+   },
+   {
+    "transcript": "Update the changelog",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3
+   }
+  ],
+  "message": "Okay, bump the version too.",
+  "correction": false,
+  "repeat": false
+ },
+ {
+  "id": "non_correction_followup-en-08",
+  "category": "non_correction_followup",
+  "lang": "en",
+  "previous": [
+   {
+    "transcript": "Summarize my latest emails",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 5.0
+   },
+   {
+    "transcript": "Show the exchange rate",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.5
+   },
+   {
+    "transcript": "What's on my calendar tomorrow?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.0
+   },
+   {
+    "transcript": "Tell me today's weather",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3.5
+   },
+   {
+    "transcript": "Export the user list",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3
+   }
+  ],
+  "message": "Also count the admins separately.",
+  "correction": false,
+  "repeat": false
+ },
+ {
+  "id": "non_correction_followup-en-09",
+  "category": "non_correction_followup",
+  "lang": "en",
+  "previous": [
+   {
+    "transcript": "Summarize my latest emails",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 5.0
+   },
+   {
+    "transcript": "Show the exchange rate",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.5
+   },
+   {
+    "transcript": "What's on my calendar tomorrow?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.0
+   },
+   {
+    "transcript": "Tell me today's weather",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3.5
+   },
+   {
+    "transcript": "Translate this to English",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3
+   }
+  ],
+  "message": "Now do German as well.",
+  "correction": false,
+  "repeat": false
+ },
+ {
+  "id": "non_correction_followup-en-10",
+  "category": "non_correction_followup",
+  "lang": "en",
+  "previous": [
+   {
+    "transcript": "Summarize my latest emails",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 5.0
+   },
+   {
+    "transcript": "Show the exchange rate",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.5
+   },
+   {
+    "transcript": "What's on my calendar tomorrow?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.0
+   },
+   {
+    "transcript": "Tell me today's weather",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3.5
+   },
+   {
+    "transcript": "Check the weather",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3
+   }
+  ],
+  "message": "And for the weekend?",
+  "correction": false,
+  "repeat": false
+ },
+ {
+  "id": "repeat_unsatisfied-tr-01",
+  "category": "repeat_unsatisfied",
+  "lang": "tr",
+  "previous": [
+   {
+    "transcript": "Son e-postaları özetle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 5.0
+   },
+   {
+    "transcript": "Döviz kurunu göster",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.5
+   },
+   {
+    "transcript": "Takvimimde yarın ne var?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.0
+   },
+   {
+    "transcript": "Bugünkü hava durumunu söyle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3.5
+   },
+   {
+    "transcript": "Deploy durumunu kontrol et",
+    "outcome": "blocked",
+    "status": "completed",
+    "minutes_ago": 3
+   }
+  ],
+  "message": "Deploy durumunu kontrol et",
+  "correction": false,
+  "repeat": true
+ },
+ {
+  "id": "repeat_unsatisfied-tr-02",
+  "category": "repeat_unsatisfied",
+  "lang": "tr",
+  "previous": [
+   {
+    "transcript": "Son e-postaları özetle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 5.0
+   },
+   {
+    "transcript": "Döviz kurunu göster",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.5
+   },
+   {
+    "transcript": "Takvimimde yarın ne var?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.0
+   },
+   {
+    "transcript": "Bugünkü hava durumunu söyle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3.5
+   },
+   {
+    "transcript": "Sunucu loglarını getir",
+    "outcome": "unknown",
+    "status": "completed",
+    "minutes_ago": 3
+   }
+  ],
+  "message": "Sunucu loglarını getir lütfen",
+  "correction": false,
+  "repeat": true
+ },
+ {
+  "id": "repeat_unsatisfied-tr-03",
+  "category": "repeat_unsatisfied",
+  "lang": "tr",
+  "previous": [
+   {
+    "transcript": "Son e-postaları özetle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 5.0
+   },
+   {
+    "transcript": "Döviz kurunu göster",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.5
+   },
+   {
+    "transcript": "Takvimimde yarın ne var?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.0
+   },
+   {
+    "transcript": "Bugünkü hava durumunu söyle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3.5
+   },
+   {
+    "transcript": "Takvimime yarın 10'a toplantı ekle",
+    "outcome": "needs_input",
+    "status": "completed",
+    "minutes_ago": 3
+   }
+  ],
+  "message": "Takvimime yarın saat 10'a toplantı ekle",
+  "correction": false,
+  "repeat": true
+ },
+ {
+  "id": "repeat_unsatisfied-tr-04",
+  "category": "repeat_unsatisfied",
+  "lang": "tr",
+  "previous": [
+   {
+    "transcript": "Son e-postaları özetle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 5.0
+   },
+   {
+    "transcript": "Döviz kurunu göster",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.5
+   },
+   {
+    "transcript": "Takvimimde yarın ne var?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.0
+   },
+   {
+    "transcript": "Bugünkü hava durumunu söyle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3.5
+   },
+   {
+    "transcript": "Yedekleme betiğini çalıştır",
+    "outcome": "unknown",
+    "status": "failed",
+    "minutes_ago": 3
+   }
+  ],
+  "message": "Yedekleme betiğini çalıştır",
+  "correction": false,
+  "repeat": true
+ },
+ {
+  "id": "repeat_unsatisfied-tr-05",
+  "category": "repeat_unsatisfied",
+  "lang": "tr",
+  "previous": [
+   {
+    "transcript": "Son e-postaları özetle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 5.0
+   },
+   {
+    "transcript": "Döviz kurunu göster",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.5
+   },
+   {
+    "transcript": "Takvimimde yarın ne var?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.0
+   },
+   {
+    "transcript": "Bugünkü hava durumunu söyle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3.5
+   },
+   {
+    "transcript": "Deploy durumunu kontrol et",
+    "outcome": "blocked",
+    "status": "completed",
+    "minutes_ago": 3
+   }
+  ],
+  "message": "Deploy ne durumda, bakar mısın?",
+  "correction": false,
+  "repeat": true
+ },
+ {
+  "id": "repeat_unsatisfied-tr-06",
+  "category": "repeat_unsatisfied",
+  "lang": "tr",
+  "previous": [
+   {
+    "transcript": "Son e-postaları özetle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 5.0
+   },
+   {
+    "transcript": "Döviz kurunu göster",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.5
+   },
+   {
+    "transcript": "Takvimimde yarın ne var?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.0
+   },
+   {
+    "transcript": "Bugünkü hava durumunu söyle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3.5
+   },
+   {
+    "transcript": "Sunucu loglarını getir",
+    "outcome": "unknown",
+    "status": "completed",
+    "minutes_ago": 3
+   }
+  ],
+  "message": "Sunucudaki son logları bana gösterir misin?",
+  "correction": false,
+  "repeat": true
+ },
+ {
+  "id": "repeat_unsatisfied-tr-07",
+  "category": "repeat_unsatisfied",
+  "lang": "tr",
+  "previous": [
+   {
+    "transcript": "Son e-postaları özetle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 5.0
+   },
+   {
+    "transcript": "Döviz kurunu göster",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.5
+   },
+   {
+    "transcript": "Takvimimde yarın ne var?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.0
+   },
+   {
+    "transcript": "Bugünkü hava durumunu söyle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3.5
+   },
+   {
+    "transcript": "Yedekleme betiğini çalıştır",
+    "outcome": "unknown",
+    "status": "failed",
+    "minutes_ago": 3
+   }
+  ],
+  "message": "Şu yedek alma işini bir daha başlat.",
+  "correction": false,
+  "repeat": true
+ },
+ {
+  "id": "repeat_unsatisfied-tr-08",
+  "category": "repeat_unsatisfied",
+  "lang": "tr",
+  "previous": [
+   {
+    "transcript": "Son e-postaları özetle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 5.0
+   },
+   {
+    "transcript": "Döviz kurunu göster",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.5
+   },
+   {
+    "transcript": "Takvimimde yarın ne var?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.0
+   },
+   {
+    "transcript": "Bugünkü hava durumunu söyle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3.5
+   },
+   {
+    "transcript": "Faturayı PDF'e çevir",
+    "outcome": "blocked",
+    "status": "completed",
+    "minutes_ago": 3
+   }
+  ],
+  "message": "Faturayı PDF yapabilir misin?",
+  "correction": false,
+  "repeat": true
+ },
+ {
+  "id": "repeat_unsatisfied-en-01",
+  "category": "repeat_unsatisfied",
+  "lang": "en",
+  "previous": [
+   {
+    "transcript": "Summarize my latest emails",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 5.0
+   },
+   {
+    "transcript": "Show the exchange rate",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.5
+   },
+   {
+    "transcript": "What's on my calendar tomorrow?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.0
+   },
+   {
+    "transcript": "Tell me today's weather",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3.5
+   },
+   {
+    "transcript": "Check the deploy status",
+    "outcome": "blocked",
+    "status": "completed",
+    "minutes_ago": 3
+   }
+  ],
+  "message": "Check the deploy status",
+  "correction": false,
+  "repeat": true
+ },
+ {
+  "id": "repeat_unsatisfied-en-02",
+  "category": "repeat_unsatisfied",
+  "lang": "en",
+  "previous": [
+   {
+    "transcript": "Summarize my latest emails",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 5.0
+   },
+   {
+    "transcript": "Show the exchange rate",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.5
+   },
+   {
+    "transcript": "What's on my calendar tomorrow?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.0
+   },
+   {
+    "transcript": "Tell me today's weather",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3.5
+   },
+   {
+    "transcript": "Fetch the server logs",
+    "outcome": "unknown",
+    "status": "completed",
+    "minutes_ago": 3
+   }
+  ],
+  "message": "Fetch the server logs please",
+  "correction": false,
+  "repeat": true
+ },
+ {
+  "id": "repeat_unsatisfied-en-03",
+  "category": "repeat_unsatisfied",
+  "lang": "en",
+  "previous": [
+   {
+    "transcript": "Summarize my latest emails",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 5.0
+   },
+   {
+    "transcript": "Show the exchange rate",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.5
+   },
+   {
+    "transcript": "What's on my calendar tomorrow?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.0
+   },
+   {
+    "transcript": "Tell me today's weather",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3.5
+   },
+   {
+    "transcript": "Run the backup script",
+    "outcome": "unknown",
+    "status": "failed",
+    "minutes_ago": 3
+   }
+  ],
+  "message": "Run the backup script",
+  "correction": false,
+  "repeat": true
+ },
+ {
+  "id": "repeat_unsatisfied-en-04",
+  "category": "repeat_unsatisfied",
+  "lang": "en",
+  "previous": [
+   {
+    "transcript": "Summarize my latest emails",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 5.0
+   },
+   {
+    "transcript": "Show the exchange rate",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.5
+   },
+   {
+    "transcript": "What's on my calendar tomorrow?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.0
+   },
+   {
+    "transcript": "Tell me today's weather",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3.5
+   },
+   {
+    "transcript": "Check the deploy status",
+    "outcome": "blocked",
+    "status": "completed",
+    "minutes_ago": 3
+   }
+  ],
+  "message": "How is the deploy doing? Can you look?",
+  "correction": false,
+  "repeat": true
+ },
+ {
+  "id": "repeat_unsatisfied-en-05",
+  "category": "repeat_unsatisfied",
+  "lang": "en",
+  "previous": [
+   {
+    "transcript": "Summarize my latest emails",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 5.0
+   },
+   {
+    "transcript": "Show the exchange rate",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.5
+   },
+   {
+    "transcript": "What's on my calendar tomorrow?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.0
+   },
+   {
+    "transcript": "Tell me today's weather",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3.5
+   },
+   {
+    "transcript": "Fetch the server logs",
+    "outcome": "unknown",
+    "status": "completed",
+    "minutes_ago": 3
+   }
+  ],
+  "message": "Can you show me the latest logs from the server?",
+  "correction": false,
+  "repeat": true
+ },
+ {
+  "id": "repeat_unsatisfied-en-06",
+  "category": "repeat_unsatisfied",
+  "lang": "en",
+  "previous": [
+   {
+    "transcript": "Summarize my latest emails",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 5.0
+   },
+   {
+    "transcript": "Show the exchange rate",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.5
+   },
+   {
+    "transcript": "What's on my calendar tomorrow?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.0
+   },
+   {
+    "transcript": "Tell me today's weather",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3.5
+   },
+   {
+    "transcript": "Run the backup script",
+    "outcome": "unknown",
+    "status": "failed",
+    "minutes_ago": 3
+   }
+  ],
+  "message": "Kick off that backup job one more time.",
+  "correction": false,
+  "repeat": true
+ },
+ {
+  "id": "repeat_unsatisfied-en-07",
+  "category": "repeat_unsatisfied",
+  "lang": "en",
+  "previous": [
+   {
+    "transcript": "Summarize my latest emails",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 5.0
+   },
+   {
+    "transcript": "Show the exchange rate",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.5
+   },
+   {
+    "transcript": "What's on my calendar tomorrow?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.0
+   },
+   {
+    "transcript": "Tell me today's weather",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3.5
+   },
+   {
+    "transcript": "Convert the invoice to PDF",
+    "outcome": "blocked",
+    "status": "completed",
+    "minutes_ago": 3
+   }
+  ],
+  "message": "Could you turn the invoice into a PDF?",
+  "correction": false,
+  "repeat": true
+ },
+ {
+  "id": "repeat_satisfied-tr-01",
+  "category": "repeat_satisfied",
+  "lang": "tr",
+  "previous": [
+   {
+    "transcript": "Son e-postaları özetle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 14.0
+   },
+   {
+    "transcript": "Döviz kurunu göster",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 13.5
+   },
+   {
+    "transcript": "Takvimimde yarın ne var?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 13.0
+   },
+   {
+    "transcript": "Bugünkü hava durumunu söyle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 12.5
+   },
+   {
+    "transcript": "Hava durumunu söyle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 12
+   }
+  ],
+  "message": "Hava durumunu söyle",
+  "correction": false,
+  "repeat": false
+ },
+ {
+  "id": "repeat_satisfied-tr-02",
+  "category": "repeat_satisfied",
+  "lang": "tr",
+  "previous": [
+   {
+    "transcript": "Son e-postaları özetle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 14.0
+   },
+   {
+    "transcript": "Döviz kurunu göster",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 13.5
+   },
+   {
+    "transcript": "Takvimimde yarın ne var?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 13.0
+   },
+   {
+    "transcript": "Bugünkü hava durumunu söyle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 12.5
+   },
+   {
+    "transcript": "Bugünkü toplantıları listele",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 12
+   }
+  ],
+  "message": "Bugünkü toplantıları listele",
+  "correction": false,
+  "repeat": false
+ },
+ {
+  "id": "repeat_satisfied-tr-03",
+  "category": "repeat_satisfied",
+  "lang": "tr",
+  "previous": [
+   {
+    "transcript": "Son e-postaları özetle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 14.0
+   },
+   {
+    "transcript": "Döviz kurunu göster",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 13.5
+   },
+   {
+    "transcript": "Takvimimde yarın ne var?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 13.0
+   },
+   {
+    "transcript": "Bugünkü hava durumunu söyle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 12.5
+   },
+   {
+    "transcript": "Build durumunu kontrol et",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 12
+   }
+  ],
+  "message": "Build durumuna bir daha bakar mısın?",
+  "correction": false,
+  "repeat": false
+ },
+ {
+  "id": "repeat_satisfied-tr-04",
+  "category": "repeat_satisfied",
+  "lang": "tr",
+  "previous": [
+   {
+    "transcript": "Son e-postaları özetle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 14.0
+   },
+   {
+    "transcript": "Döviz kurunu göster",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 13.5
+   },
+   {
+    "transcript": "Takvimimde yarın ne var?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 13.0
+   },
+   {
+    "transcript": "Bugünkü hava durumunu söyle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 12.5
+   },
+   {
+    "transcript": "Saat kaç?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 12
+   }
+  ],
+  "message": "Saat kaç?",
+  "correction": false,
+  "repeat": false
+ },
+ {
+  "id": "repeat_satisfied-en-01",
+  "category": "repeat_satisfied",
+  "lang": "en",
+  "previous": [
+   {
+    "transcript": "Summarize my latest emails",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 14.0
+   },
+   {
+    "transcript": "Show the exchange rate",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 13.5
+   },
+   {
+    "transcript": "What's on my calendar tomorrow?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 13.0
+   },
+   {
+    "transcript": "Tell me today's weather",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 12.5
+   },
+   {
+    "transcript": "What's the weather?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 12
+   }
+  ],
+  "message": "What's the weather?",
+  "correction": false,
+  "repeat": false
+ },
+ {
+  "id": "repeat_satisfied-en-02",
+  "category": "repeat_satisfied",
+  "lang": "en",
+  "previous": [
+   {
+    "transcript": "Summarize my latest emails",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 14.0
+   },
+   {
+    "transcript": "Show the exchange rate",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 13.5
+   },
+   {
+    "transcript": "What's on my calendar tomorrow?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 13.0
+   },
+   {
+    "transcript": "Tell me today's weather",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 12.5
+   },
+   {
+    "transcript": "List today's meetings",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 12
+   }
+  ],
+  "message": "List today's meetings",
+  "correction": false,
+  "repeat": false
+ },
+ {
+  "id": "repeat_satisfied-en-03",
+  "category": "repeat_satisfied",
+  "lang": "en",
+  "previous": [
+   {
+    "transcript": "Summarize my latest emails",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 14.0
+   },
+   {
+    "transcript": "Show the exchange rate",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 13.5
+   },
+   {
+    "transcript": "What's on my calendar tomorrow?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 13.0
+   },
+   {
+    "transcript": "Tell me today's weather",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 12.5
+   },
+   {
+    "transcript": "Check the build status",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 12
+   }
+  ],
+  "message": "Can you check the build status again?",
+  "correction": false,
+  "repeat": false
+ },
+ {
+  "id": "repeat_satisfied-en-04",
+  "category": "repeat_satisfied",
+  "lang": "en",
+  "previous": [
+   {
+    "transcript": "Summarize my latest emails",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 14.0
+   },
+   {
+    "transcript": "Show the exchange rate",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 13.5
+   },
+   {
+    "transcript": "What's on my calendar tomorrow?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 13.0
+   },
+   {
+    "transcript": "Tell me today's weather",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 12.5
+   },
+   {
+    "transcript": "What time is it?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 12
+   }
+  ],
+  "message": "What time is it?",
+  "correction": false,
+  "repeat": false
+ },
+ {
+  "id": "negation_trap-tr-01",
+  "category": "negation_trap",
+  "lang": "tr",
+  "previous": [
+   {
+    "transcript": "Son e-postaları özetle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 5.0
+   },
+   {
+    "transcript": "Döviz kurunu göster",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.5
+   },
+   {
+    "transcript": "Takvimimde yarın ne var?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.0
+   },
+   {
+    "transcript": "Bugünkü hava durumunu söyle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3.5
+   },
+   {
+    "transcript": "PR'ı hazırla",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3
+   }
+  ],
+  "message": "Yanlış anlaşılmasın, çok iyi olmuş; şimdi PR'ı aç.",
+  "correction": false,
+  "repeat": false
+ },
+ {
+  "id": "negation_trap-tr-02",
+  "category": "negation_trap",
+  "lang": "tr",
+  "previous": [
+   {
+    "transcript": "Son e-postaları özetle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 5.0
+   },
+   {
+    "transcript": "Döviz kurunu göster",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.5
+   },
+   {
+    "transcript": "Takvimimde yarın ne var?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.0
+   },
+   {
+    "transcript": "Bugünkü hava durumunu söyle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3.5
+   },
+   {
+    "transcript": "Raporu yaz",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3
+   }
+  ],
+  "message": "Hiçbir şey yanlış değil, devam et.",
+  "correction": false,
+  "repeat": false
+ },
+ {
+  "id": "negation_trap-tr-03",
+  "category": "negation_trap",
+  "lang": "tr",
+  "previous": [
+   {
+    "transcript": "Son e-postaları özetle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 5.0
+   },
+   {
+    "transcript": "Döviz kurunu göster",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.5
+   },
+   {
+    "transcript": "Takvimimde yarın ne var?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.0
+   },
+   {
+    "transcript": "Bugünkü hava durumunu söyle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3.5
+   },
+   {
+    "transcript": "Testleri çalıştır",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3
+   }
+  ],
+  "message": "Olmadı mı diye merak ettim ama geçmiş, teşekkürler.",
+  "correction": false,
+  "repeat": false
+ },
+ {
+  "id": "negation_trap-tr-04",
+  "category": "negation_trap",
+  "lang": "tr",
+  "previous": [
+   {
+    "transcript": "Son e-postaları özetle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 5.0
+   },
+   {
+    "transcript": "Döviz kurunu göster",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.5
+   },
+   {
+    "transcript": "Takvimimde yarın ne var?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.0
+   },
+   {
+    "transcript": "Bugünkü hava durumunu söyle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3.5
+   },
+   {
+    "transcript": "Metni düzenle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3
+   }
+  ],
+  "message": "Düzeltmeye gerek yok, böyle kalsın.",
+  "correction": false,
+  "repeat": false
+ },
+ {
+  "id": "negation_trap-tr-05",
+  "category": "negation_trap",
+  "lang": "tr",
+  "previous": [
+   {
+    "transcript": "Son e-postaları özetle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 5.0
+   },
+   {
+    "transcript": "Döviz kurunu göster",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.5
+   },
+   {
+    "transcript": "Takvimimde yarın ne var?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.0
+   },
+   {
+    "transcript": "Bugünkü hava durumunu söyle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3.5
+   },
+   {
+    "transcript": "Logları özetle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3
+   }
+  ],
+  "message": "Hata aldım sanmıştım ama sorun yokmuş, sağ ol.",
+  "correction": false,
+  "repeat": false
+ },
+ {
+  "id": "negation_trap-en-01",
+  "category": "negation_trap",
+  "lang": "en",
+  "previous": [
+   {
+    "transcript": "Summarize my latest emails",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 5.0
+   },
+   {
+    "transcript": "Show the exchange rate",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.5
+   },
+   {
+    "transcript": "What's on my calendar tomorrow?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.0
+   },
+   {
+    "transcript": "Tell me today's weather",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3.5
+   },
+   {
+    "transcript": "Draft the PR",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3
+   }
+  ],
+  "message": "No, that's not wrong at all, just open the PR.",
+  "correction": false,
+  "repeat": false
+ },
+ {
+  "id": "negation_trap-en-02",
+  "category": "negation_trap",
+  "lang": "en",
+  "previous": [
+   {
+    "transcript": "Summarize my latest emails",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 5.0
+   },
+   {
+    "transcript": "Show the exchange rate",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.5
+   },
+   {
+    "transcript": "What's on my calendar tomorrow?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.0
+   },
+   {
+    "transcript": "Tell me today's weather",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3.5
+   },
+   {
+    "transcript": "Write the report",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3
+   }
+  ],
+  "message": "Nothing wrong here, keep going.",
+  "correction": false,
+  "repeat": false
+ },
+ {
+  "id": "negation_trap-en-03",
+  "category": "negation_trap",
+  "lang": "en",
+  "previous": [
+   {
+    "transcript": "Summarize my latest emails",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 5.0
+   },
+   {
+    "transcript": "Show the exchange rate",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.5
+   },
+   {
+    "transcript": "What's on my calendar tomorrow?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.0
+   },
+   {
+    "transcript": "Tell me today's weather",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3.5
+   },
+   {
+    "transcript": "Run the tests",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3
+   }
+  ],
+  "message": "I thought it didn't work but it passed, thanks.",
+  "correction": false,
+  "repeat": false
+ },
+ {
+  "id": "negation_trap-en-04",
+  "category": "negation_trap",
+  "lang": "en",
+  "previous": [
+   {
+    "transcript": "Summarize my latest emails",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 5.0
+   },
+   {
+    "transcript": "Show the exchange rate",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.5
+   },
+   {
+    "transcript": "What's on my calendar tomorrow?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.0
+   },
+   {
+    "transcript": "Tell me today's weather",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3.5
+   },
+   {
+    "transcript": "Edit the text",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3
+   }
+  ],
+  "message": "No need to try again, it's fine as is.",
+  "correction": false,
+  "repeat": false
+ },
+ {
+  "id": "negation_trap-en-05",
+  "category": "negation_trap",
+  "lang": "en",
+  "previous": [
+   {
+    "transcript": "Summarize my latest emails",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 5.0
+   },
+   {
+    "transcript": "Show the exchange rate",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.5
+   },
+   {
+    "transcript": "What's on my calendar tomorrow?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4.0
+   },
+   {
+    "transcript": "Tell me today's weather",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3.5
+   },
+   {
+    "transcript": "Summarize the logs",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3
+   }
+  ],
+  "message": "Not a problem anymore, it works now.",
+  "correction": false,
+  "repeat": false
+ },
+ {
+  "id": "history_dependent-tr-01",
+  "category": "history_dependent",
+  "lang": "tr",
+  "previous": [
+   {
+    "transcript": "Takvimimde yarın ne var?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 12.0
+   },
+   {
+    "transcript": "Bugünkü hava durumunu söyle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 11.5
+   },
+   {
+    "transcript": "Deploy durumunu kontrol et",
+    "outcome": "blocked",
+    "status": "completed",
+    "minutes_ago": 11
+   },
+   {
+    "transcript": "Hava nasıl?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 8
+   },
+   {
+    "transcript": "Saat kaç?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 5
+   }
+  ],
+  "message": "Deploy ne durumda, bir bakar mısın?",
+  "correction": false,
+  "repeat": true
+ },
+ {
+  "id": "history_dependent-tr-02",
+  "category": "history_dependent",
+  "lang": "tr",
+  "previous": [
+   {
+    "transcript": "Takvimimde yarın ne var?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 13.0
+   },
+   {
+    "transcript": "Bugünkü hava durumunu söyle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 12.5
+   },
+   {
+    "transcript": "Sunucu loglarını getir",
+    "outcome": "unknown",
+    "status": "completed",
+    "minutes_ago": 12
+   },
+   {
+    "transcript": "Takvimimde bugün ne var?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 9
+   },
+   {
+    "transcript": "Son commit'i özetle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4
+   }
+  ],
+  "message": "Şu sunucu loglarını bana gösterebilir misin?",
+  "correction": false,
+  "repeat": true
+ },
+ {
+  "id": "history_dependent-tr-03",
+  "category": "history_dependent",
+  "lang": "tr",
+  "previous": [
+   {
+    "transcript": "Takvimimde yarın ne var?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 14.0
+   },
+   {
+    "transcript": "Bugünkü hava durumunu söyle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 13.5
+   },
+   {
+    "transcript": "Yedekleme betiğini çalıştır",
+    "outcome": "unknown",
+    "status": "failed",
+    "minutes_ago": 13
+   },
+   {
+    "transcript": "Toplantıları listele",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 7
+   },
+   {
+    "transcript": "Bir e-posta taslağı yaz",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3
+   }
+  ],
+  "message": "Yedek alma işini bir daha başlat.",
+  "correction": false,
+  "repeat": true
+ },
+ {
+  "id": "history_dependent-tr-04",
+  "category": "history_dependent",
+  "lang": "tr",
+  "previous": [
+   {
+    "transcript": "Takvimimde yarın ne var?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 13.0
+   },
+   {
+    "transcript": "Bugünkü hava durumunu söyle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 12.5
+   },
+   {
+    "transcript": "Faturayı PDF'e çevir",
+    "outcome": "blocked",
+    "status": "completed",
+    "minutes_ago": 12
+   },
+   {
+    "transcript": "Döviz kuru ne?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 6
+   },
+   {
+    "transcript": "Hava nasıl?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3
+   }
+  ],
+  "message": "Faturayı PDF yapabildin mi, yapar mısın?",
+  "correction": false,
+  "repeat": true
+ },
+ {
+  "id": "history_dependent-en-01",
+  "category": "history_dependent",
+  "lang": "en",
+  "previous": [
+   {
+    "transcript": "What's on my calendar tomorrow?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 12.0
+   },
+   {
+    "transcript": "Tell me today's weather",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 11.5
+   },
+   {
+    "transcript": "Check the deploy status",
+    "outcome": "blocked",
+    "status": "completed",
+    "minutes_ago": 11
+   },
+   {
+    "transcript": "What's the weather?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 8
+   },
+   {
+    "transcript": "What time is it?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 5
+   }
+  ],
+  "message": "How is the deploy doing? Can you look?",
+  "correction": false,
+  "repeat": true
+ },
+ {
+  "id": "history_dependent-en-02",
+  "category": "history_dependent",
+  "lang": "en",
+  "previous": [
+   {
+    "transcript": "What's on my calendar tomorrow?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 13.0
+   },
+   {
+    "transcript": "Tell me today's weather",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 12.5
+   },
+   {
+    "transcript": "Fetch the server logs",
+    "outcome": "unknown",
+    "status": "completed",
+    "minutes_ago": 12
+   },
+   {
+    "transcript": "What's on my calendar today?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 9
+   },
+   {
+    "transcript": "Summarize the last commit",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4
+   }
+  ],
+  "message": "Can you show me those server logs?",
+  "correction": false,
+  "repeat": true
+ },
+ {
+  "id": "history_dependent-en-03",
+  "category": "history_dependent",
+  "lang": "en",
+  "previous": [
+   {
+    "transcript": "What's on my calendar tomorrow?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 14.0
+   },
+   {
+    "transcript": "Tell me today's weather",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 13.5
+   },
+   {
+    "transcript": "Run the backup script",
+    "outcome": "unknown",
+    "status": "failed",
+    "minutes_ago": 13
+   },
+   {
+    "transcript": "List my meetings",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 7
+   },
+   {
+    "transcript": "Draft an email",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 3
+   }
+  ],
+  "message": "Kick off that backup job one more time.",
+  "correction": false,
+  "repeat": true
+ },
+ {
+  "id": "history_dependent-tr-05",
+  "category": "history_dependent",
+  "lang": "tr",
+  "previous": [
+   {
+    "transcript": "Takvimimde yarın ne var?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 12.0
+   },
+   {
+    "transcript": "Bugünkü hava durumunu söyle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 11.5
+   },
+   {
+    "transcript": "Deploy durumunu kontrol et",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 11
+   },
+   {
+    "transcript": "Hava nasıl?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 8
+   },
+   {
+    "transcript": "Saat kaç?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 5
+   }
+  ],
+  "message": "Deploy ne durumda, bir daha bakar mısın?",
+  "correction": false,
+  "repeat": false
+ },
+ {
+  "id": "history_dependent-en-04",
+  "category": "history_dependent",
+  "lang": "en",
+  "previous": [
+   {
+    "transcript": "What's on my calendar tomorrow?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 13.0
+   },
+   {
+    "transcript": "Tell me today's weather",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 12.5
+   },
+   {
+    "transcript": "Fetch the server logs",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 12
+   },
+   {
+    "transcript": "What's on my calendar today?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 9
+   },
+   {
+    "transcript": "Summarize the last commit",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4
+   }
+  ],
+  "message": "Can you show me the server logs again?",
+  "correction": false,
+  "repeat": false
+ },
+ {
+  "id": "history_dependent-tr-06",
+  "category": "history_dependent",
+  "lang": "tr",
+  "previous": [
+   {
+    "transcript": "Takvimimde yarın ne var?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 13.0
+   },
+   {
+    "transcript": "Bugünkü hava durumunu söyle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 12.5
+   },
+   {
+    "transcript": "Testleri çalıştır",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 12
+   },
+   {
+    "transcript": "Lint'i çalıştır",
+    "outcome": "blocked",
+    "status": "completed",
+    "minutes_ago": 8
+   },
+   {
+    "transcript": "Hava nasıl?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4
+   }
+  ],
+  "message": "Peki şimdi build'i tetikle.",
+  "correction": false,
+  "repeat": false
+ },
+ {
+  "id": "history_dependent-en-05",
+  "category": "history_dependent",
+  "lang": "en",
+  "previous": [
+   {
+    "transcript": "What's on my calendar tomorrow?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 13.0
+   },
+   {
+    "transcript": "Tell me today's weather",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 12.5
+   },
+   {
+    "transcript": "Run the tests",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 12
+   },
+   {
+    "transcript": "Run the linter",
+    "outcome": "blocked",
+    "status": "completed",
+    "minutes_ago": 8
+   },
+   {
+    "transcript": "What's the weather?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 4
+   }
+  ],
+  "message": "Okay, now trigger the build.",
+  "correction": false,
+  "repeat": false
+ },
+ {
+  "id": "history_dependent-tr-07",
+  "category": "history_dependent",
+  "lang": "tr",
+  "previous": [
+   {
+    "transcript": "Takvimimde yarın ne var?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 13.0
+   },
+   {
+    "transcript": "Bugünkü hava durumunu söyle",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 12.5
+   },
+   {
+    "transcript": "Raporun üç bölümünü yaz",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 12
+   },
+   {
+    "transcript": "Hava nasıl?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 8
+   },
+   {
+    "transcript": "Saat kaç?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 5
+   }
+  ],
+  "message": "Rapordaki ikinci bölüm hâlâ yok.",
+  "correction": true,
+  "repeat": false
+ },
+ {
+  "id": "history_dependent-en-06",
+  "category": "history_dependent",
+  "lang": "en",
+  "previous": [
+   {
+    "transcript": "What's on my calendar tomorrow?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 13.0
+   },
+   {
+    "transcript": "Tell me today's weather",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 12.5
+   },
+   {
+    "transcript": "Write all three report sections",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 12
+   },
+   {
+    "transcript": "What's the weather?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 8
+   },
+   {
+    "transcript": "What time is it?",
+    "outcome": "done",
+    "status": "completed",
+    "minutes_ago": 5
+   }
+  ],
+  "message": "The report is still missing section two.",
+  "correction": true,
+  "repeat": false
+ }
+]

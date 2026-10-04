@@ -93,6 +93,12 @@ texts and outcomes that Ceviz passes to routers. It calls only:
 python3 -m unittest discover -s tests -v
 ```
 
+## Experiments
+
+- [Escalation detector: regex vs. decision models](experiments/escalation-detector/README.md):
+  a local comparison of today's correction regex with Kev 0.8B, Decider 2B, this-that 1.2 and
+  qwen3:14b on 158 synthetic Turkish and English cases.
+
 ## License
 
 MIT, see [LICENSE](LICENSE). The MIT license covers this code only. The Ceviz name, logo and icons
