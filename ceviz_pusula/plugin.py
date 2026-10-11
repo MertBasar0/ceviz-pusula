@@ -30,9 +30,12 @@ class PusulaRouter:
                 # The escalation ladder comes from model discovery; have it ready before the
                 # first miss so that turn does not spend the host's routing budget on the CLI.
                 engine.catalog.warm()
-            if config.enabled and config.enable_correction_escalation and config.routing_mode == MODE_CONTEXT_AWARE:
+            uses_decisions = engine.light_tier_enabled() or (
+                config.enable_correction_escalation and config.routing_mode == MODE_CONTEXT_AWARE
+            )
+            if config.enabled and uses_decisions:
                 # A cold load takes seconds; loading now keeps the first turn inside the budget.
-                engine.judge.warm()
+                engine.decisions.warm()
         self.engine = engine
 
     def route(self, request: dict[str, Any]) -> dict[str, Any] | None:

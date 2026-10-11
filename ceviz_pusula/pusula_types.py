@@ -3,12 +3,12 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from typing import Any, Literal
 
-from .escalation_judge import (
+from .decision_model import (
+    DEFAULT_DECISION_MODEL,
+    DEFAULT_DECISION_TIMEOUT_MS,
+    DEFAULT_DECISION_URL,
+    DEFAULT_ESCALATION_HISTORY,
     DEFAULT_ESCALATION_THRESHOLD,
-    DEFAULT_JUDGE_HISTORY,
-    DEFAULT_JUDGE_MODEL,
-    DEFAULT_JUDGE_TIMEOUT_MS,
-    DEFAULT_JUDGE_URL,
 )
 
 TIER_HEAVY_REMOTE = "heavy_remote"
@@ -138,11 +138,11 @@ def _read_threshold(value: Any, default: float = DEFAULT_LIGHT_THRESHOLD) -> flo
 
 
 def _read_history(value: Any) -> int:
-    # Zero is valid: the judge then sees only the new message.
+    # Zero is valid: the decision model then sees only the new message.
     try:
         number = int(value)
     except (TypeError, ValueError):
-        return DEFAULT_JUDGE_HISTORY
+        return DEFAULT_ESCALATION_HISTORY
     return min(max(number, 0), 8)
 
 
@@ -155,21 +155,19 @@ class PusulaConfig:
     light_group: str = TIER_LOW_LOCAL
     light_threshold: float = DEFAULT_LIGHT_THRESHOLD
     escalation_model: str | None = None
-    # Loopback origin of a System One server (e.g. Kev); unset uses Jev on Vercel AI Gateway.
-    decision_endpoint: str | None = None
-    # Overrides the light-turn question; small local models separate better on a shorter one.
+    # Overrides the light-turn question asked to the decision model.
     light_instructions: str | None = None
     # Escalation ladder, one rung per level. Unset: discovered from the agent's models
     # (best "balanced" frontier model, e.g. the newest Sonnet) at escalation_thinking levels.
     escalation_models: list[str] = field(default_factory=list)
     escalation_thinking: list[str] = field(default_factory=lambda: list(DEFAULT_ESCALATION_THINKING))
     escalation_window_seconds: int = DEFAULT_ESCALATION_WINDOW_SECONDS
-    # The decision model that spots corrections and repeats (an Ollama server on this machine).
-    escalation_judge_url: str = DEFAULT_JUDGE_URL
-    escalation_judge_model: str = DEFAULT_JUDGE_MODEL
-    escalation_judge_timeout_ms: int = DEFAULT_JUDGE_TIMEOUT_MS
-    escalation_history: int = DEFAULT_JUDGE_HISTORY
+    escalation_history: int = DEFAULT_ESCALATION_HISTORY
     escalation_threshold: float = DEFAULT_ESCALATION_THRESHOLD
+    # The decision model behind escalation and the light tier (an Ollama server on this machine).
+    decision_model_url: str = DEFAULT_DECISION_URL
+    decision_model: str = DEFAULT_DECISION_MODEL
+    decision_timeout_ms: int = DEFAULT_DECISION_TIMEOUT_MS
     groups: dict[str, TierGroup] = field(default_factory=dict)
 
     def get_group(self, name: str) -> TierGroup | None:
@@ -184,16 +182,15 @@ class PusulaConfig:
             "light_group": self.light_group,
             "light_threshold": self.light_threshold,
             "escalation_model": self.escalation_model,
-            "decision_endpoint": self.decision_endpoint,
             "light_instructions": self.light_instructions,
             "escalation_models": list(self.escalation_models),
             "escalation_thinking": list(self.escalation_thinking),
             "escalation_window_seconds": self.escalation_window_seconds,
-            "escalation_judge_url": self.escalation_judge_url,
-            "escalation_judge_model": self.escalation_judge_model,
-            "escalation_judge_timeout_ms": self.escalation_judge_timeout_ms,
             "escalation_history": self.escalation_history,
             "escalation_threshold": self.escalation_threshold,
+            "decision_model_url": self.decision_model_url,
+            "decision_model": self.decision_model,
+            "decision_timeout_ms": self.decision_timeout_ms,
             "groups": {name: g.to_dict() for name, g in self.groups.items()},
         }
 
@@ -223,22 +220,19 @@ class PusulaConfig:
             light_group=str(data.get("light_group") or TIER_LOW_LOCAL),
             light_threshold=_read_threshold(data.get("light_threshold", DEFAULT_LIGHT_THRESHOLD)),
             escalation_model=data.get("escalation_model"),
-            decision_endpoint=data.get("decision_endpoint") or None,
             light_instructions=data.get("light_instructions") or None,
             escalation_models=_read_str_list(data.get("escalation_models")),
             escalation_thinking=_read_str_list(data.get("escalation_thinking")) or list(DEFAULT_ESCALATION_THINKING),
             escalation_window_seconds=_read_positive_int(
                 data.get("escalation_window_seconds"), DEFAULT_ESCALATION_WINDOW_SECONDS
             ),
-            escalation_judge_url=str(data.get("escalation_judge_url") or DEFAULT_JUDGE_URL),
-            escalation_judge_model=str(data.get("escalation_judge_model") or DEFAULT_JUDGE_MODEL),
-            escalation_judge_timeout_ms=_read_positive_int(
-                data.get("escalation_judge_timeout_ms"), DEFAULT_JUDGE_TIMEOUT_MS
-            ),
-            escalation_history=_read_history(data.get("escalation_history", DEFAULT_JUDGE_HISTORY)),
+            escalation_history=_read_history(data.get("escalation_history", DEFAULT_ESCALATION_HISTORY)),
             escalation_threshold=_read_threshold(
                 data.get("escalation_threshold", DEFAULT_ESCALATION_THRESHOLD), DEFAULT_ESCALATION_THRESHOLD
             ),
+            decision_model_url=str(data.get("decision_model_url") or DEFAULT_DECISION_URL),
+            decision_model=str(data.get("decision_model") or DEFAULT_DECISION_MODEL),
+            decision_timeout_ms=_read_positive_int(data.get("decision_timeout_ms"), DEFAULT_DECISION_TIMEOUT_MS),
             groups=groups,
         )
 
@@ -248,7 +242,7 @@ class RouteDecision:
     model: str | None
     group: str
     thinking: str | None = None
-    jev_calls: int = 0
+    decision_calls: int = 0
     latency_ms: float = 0.0
     reason: str = ""
     fallback: bool = False

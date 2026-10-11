@@ -32,23 +32,23 @@ already configured.
   Google and xAI. A model that is merely available may sit behind a paid API key you never chose
   for Ceviz. The list is cached for 6 hours and refreshed in the background, so a routing
   decision never waits on the CLI once anything is known.
-- **Light tier (optional, off by default).** A local
-  [System One](https://huggingface.co/spaces/multimodalart/jev-decision-index) decision server,
-  such as Kev, can mark fresh small-talk turns for a lighter model.
+- **Light tier (optional, off by default).** The same decision model can mark fresh small-talk
+  turns for a lighter model you name. Its question has not been measured on a labelled set yet,
+  so it needs a confident yes (0.8 by default).
 
 ## Install and enable
 
 Pusula needs Python 3.11 or newer and a Ceviz helper with router contract v1:
 [`ceviz-helper-v2026.10.1-beta.2`](https://github.com/MertBasar0/ceviz/releases/tag/ceviz-helper-v2026.10.1-beta.2)
-or newer. Escalation also needs [Ollama](https://ollama.com) with the decision model (about
-4.5 GB on disk, about 6.7 GB in memory with Pusula's 2048-token context):
+or newer. Escalation and the light tier also need [Ollama](https://ollama.com) with the
+decision model (about 4.5 GB on disk, about 6.7 GB in memory with Pusula's 2048-token context):
 
 ```bash
-# 0. The decision model for escalation
+# 0. The decision model
 ollama pull hf.co/apus-ailab/APUS-OpenJev-v1-4B-GGUF:Q8_0
 
 # 1. Install into the helper's own environment
-~/path/to/ceviz/.venv/bin/pip install git+https://github.com/MertBasar0/ceviz-pusula@v0.1.0
+~/path/to/ceviz/.venv/bin/pip install git+https://github.com/MertBasar0/ceviz-pusula@v0.2.0
 
 # 2. Enable it for the helper service
 systemctl --user edit watch-ceviz-backend
@@ -83,13 +83,15 @@ On first use, Pusula writes `pusula.json` to the Ceviz state directory (by defau
 | `escalation_models` | `[]` | Explicit ladder, for example `["anthropic/claude-sonnet-5"]`. Empty means the best configured balanced model |
 | `escalation_thinking` | `["medium", "high"]` | Thinking level per escalation step |
 | `escalation_window_seconds` | `900` | How old a recent job may be and still count as evidence |
-| `escalation_judge_url` | `http://127.0.0.1:11434` | Ollama server that runs the decision model |
-| `escalation_judge_model` | `hf.co/apus-ailab/APUS-OpenJev-v1-4B-GGUF:Q8_0` | Decision model for corrections and repeats |
-| `escalation_threshold` | `0.5` | Probability at which an answer counts as yes |
+| `escalation_threshold` | `0.5` | Probability at which an escalation answer counts as yes |
 | `escalation_history` | `3` | How many recent requests the decision model sees |
-| `escalation_judge_timeout_ms` | `1200` | Budget for all of a turn's questions; keep it under Ceviz's `WATCH_CEVIZ_ROUTER_TIMEOUT_MS` (1500) |
-| `decision_endpoint` | unset | Local System One URL for the light tier, for example `http://127.0.0.1:8009` |
+| `decision_model_url` | `http://127.0.0.1:11434` | Ollama server that runs the decision model |
+| `decision_model` | `hf.co/apus-ailab/APUS-OpenJev-v1-4B-GGUF:Q8_0` | Decision model for escalation and light turns |
+| `decision_timeout_ms` | `1200` | Budget for all of a turn's questions; keep it under Ceviz's `WATCH_CEVIZ_ROUTER_TIMEOUT_MS` (1500) |
 | `light_instructions`, `light_threshold` | unset, `0.8` | Question and probability threshold for light turns |
+
+v0.1 used `decision_endpoint` (a System One server such as Kev) for the light tier. v0.2 ignores
+that key; both decisions go to `decision_model`.
 
 Light turns also need a `low_local` group with a model in `groups`. Without it, every non-escalated
 turn stays on the agent default.
@@ -103,8 +105,7 @@ Pusula runs inside the Ceviz helper process. It sees each command's text and the
 texts and outcomes that Ceviz passes to routers. It calls only:
 
 - `openclaw models list` on your machine
-- the Ollama server at `escalation_judge_url` (on this machine by default)
-- the `decision_endpoint` you configure, if any
+- the Ollama server at `decision_model_url` (on this machine by default)
 
 ## Development
 

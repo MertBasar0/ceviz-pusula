@@ -6,8 +6,7 @@ from pathlib import Path
 from typing import Any
 
 from .config_guard import ConfigGuard
-from .escalation_judge import EscalationJudge
-from .jev_client import JevClient
+from .decision_model import DecisionModel
 from .model_catalog import ModelCatalog
 from .pusula_types import (
     MODE_DISABLED,
@@ -23,7 +22,7 @@ logger = logging.getLogger("ceviz.pusula.engine")
 MISSED_OUTCOMES = frozenset({"blocked", "unknown"})
 MAX_ESCALATION_LEVEL = 2
 
-# Jev reads instructions literally and works best in English; the state stays the
+# Decision models read instructions literally and work best in English; the state stays the
 # user's own (Turkish) words.
 LIGHT_TURN_INSTRUCTIONS = (
     "Ceviz is a voice assistant that can run commands, read files, check GitHub, inspect this "
@@ -44,34 +43,30 @@ class CevizPusula:
     into a failed job. Only escalations and an optional light tier pin a model.
 
     Escalation is stateless: a local decision model reads the transcript and the recent jobs
-    Ceviz already persists, so a restart neither loses nor invents a level. When that model
-    cannot answer, the turn stays on the agent default; nothing else guesses in its place.
+    Ceviz already persists, so a restart neither loses nor invents a level. The same model
+    decides light turns. When it cannot answer, the turn stays on the agent default; nothing
+    else guesses in its place.
     """
 
     def __init__(
         self,
         state_dir: Path | str | None = None,
-        jev_client: JevClient | None = None,
         catalog: ModelCatalog | None = None,
         agent: str = "main",
-        judge: EscalationJudge | None = None,
+        decisions: DecisionModel | None = None,
     ) -> None:
         self.config_guard = ConfigGuard(state_dir=state_dir)
         self.config, self.init_status = self.config_guard.load_config()
-        self._jev_injected = jev_client is not None
-        self.jev = jev_client or JevClient(system_one_url=self.config.decision_endpoint)
-        self._judge_injected = judge is not None
-        self.judge = judge or _judge_for(self.config)
+        self._decisions_injected = decisions is not None
+        self.decisions = decisions or _decisions_for(self.config)
         self.catalog = catalog or ModelCatalog(agent, cache_path=self.config_guard.state_dir / "pusula-models.json")
         logger.info(f"[pusula] {self.describe()}")
 
     def refresh(self) -> None:
         """Reloads configuration."""
         self.config, self.init_status = self.config_guard.load_config()
-        if not self._jev_injected:
-            self.jev = JevClient(system_one_url=self.config.decision_endpoint)
-        if not self._judge_injected:
-            self.judge = _judge_for(self.config)
+        if not self._decisions_injected:
+            self.decisions = _decisions_for(self.config)
         logger.info(f"[pusula] Refreshed: {self.describe()}")
 
     def describe(self) -> str:
@@ -82,9 +77,8 @@ class CevizPusula:
             f"mode={self.config.routing_mode} strong=agent-default(with fallbacks) "
             f"light={light.id if light else None} light_threshold={self.config.light_threshold} "
             f"escalation={refs or 'auto(balanced)'}@{self.config.escalation_thinking} "
-            f"judge={self.judge.describe()} threshold={self.config.escalation_threshold} "
-            f"history={self.config.escalation_history} "
-            f"decisions={getattr(self.jev, 'endpoint', 'injected')}"
+            f"threshold={self.config.escalation_threshold} history={self.config.escalation_history} "
+            f"decisions={self.decisions.describe()}"
         )
 
     def route(
@@ -116,11 +110,14 @@ class CevizPusula:
         def strong(reason: str, **extra: Any) -> RouteDecision:
             return decide(None, config.default_group, reason, **extra)
 
+        # Escalation and the light check share one budget inside the host's routing timeout.
+        deadline = self.decisions.start_deadline()
+
         if mode != MODE_SINGLE_TURN and config.enable_correction_escalation and clean_prompt:
-            verdict = self.escalation_level(clean_prompt, context)
+            verdict = self.escalation_level(clean_prompt, context, deadline=deadline)
             if verdict is None:
-                logger.warning("[pusula.route] escalation judge did not answer; staying on the agent default")
-                return strong("judge_failed", fallback=True)
+                logger.warning("[pusula.route] decision model did not answer; staying on the agent default")
+                return strong("decision_failed", fallback=True)
             level, signals = verdict
             if level:
                 ladder = self.escalation_ladder()
@@ -141,49 +138,44 @@ class CevizPusula:
         light = self._light_model()
         if light is None or not clean_prompt:
             return strong("no_light_tier")
-        if not self.jev.is_configured:
-            return strong("jev_unconfigured", fallback=True)
 
-        probability = self.jev.evaluate_boolean(
-            state=clean_prompt,
-            instructions=config.light_instructions or LIGHT_TURN_INSTRUCTIONS,
-            timeout_ms=3000,
+        probability = self.decisions.is_light(
+            clean_prompt, config.light_instructions or LIGHT_TURN_INSTRUCTIONS, deadline=deadline
         )
-        if not isinstance(probability, (int, float)):
-            logger.warning("[pusula.route] Jev light-turn check failed; staying on the agent default")
-            return strong("jev_failed", fallback=True)
+        if probability is None:
+            logger.warning("[pusula.route] light-turn check did not answer; staying on the agent default")
+            return strong("decision_failed", fallback=True)
 
-        probability = float(probability)
         logger.info(f"[pusula.route] light-turn p={probability:.2f} (threshold {config.light_threshold})")
         if probability >= config.light_threshold:
-            return decide(light, config.light_group, "light_turn", jev_calls=1, light_probability=probability)
-        return strong("strong_turn", jev_calls=1, light_probability=probability)
+            return decide(light, config.light_group, "light_turn", decision_calls=1, light_probability=probability)
+        return strong("strong_turn", decision_calls=1, light_probability=probability)
 
     def escalation_level(
-        self, prompt: str, context: dict[str, Any] | str | None
+        self, prompt: str, context: dict[str, Any] | str | None, deadline: float | None = None
     ) -> tuple[int, tuple[str, ...]] | None:
         """Level 1 when this turn signals a miss; level 2 when the previous turn was a miss too.
 
-        The judge answers two questions about this turn: is it a correction, and does it re-ask a
+        The decision model answers two questions about this turn: is it a correction, and does it re-ask a
         recent request that did not end in `done`. Either one gives level 1. Level 2 needs the
         previous job to have ended blocked/unknown/failed, or the previous turn to have been a
         correction itself (one more question, asked only then). A plain failure with no user
         signal does not escalate: a provider outage is not a model problem.
 
-        Returns None when the judge could not answer, so the caller can stay on the agent default.
+        Returns None when the decision model could not answer, so the caller can stay on the agent default.
         """
         config = self.config
         recent = _recent_jobs(context, config.escalation_window_seconds)
-        deadline = self.judge.start_deadline()
+        deadline = self.decisions.start_deadline() if deadline is None else deadline
         started = time.perf_counter()
-        answers = self.judge.assess(prompt, recent, deadline=deadline)
+        answers = self.decisions.assess(prompt, recent, deadline=deadline)
         if answers is None:
             return None
         signals = [name for name in ("correction", "repeat") if answers.get(name, 0.0) >= config.escalation_threshold]
         summary = " ".join(f"{name}={answers[name]:.2f}" for name in sorted(answers))
         if not signals:
             logger.info(
-                f"[pusula.route] judge {summary} (threshold {config.escalation_threshold}) "
+                f"[pusula.route] decisions {summary} (threshold {config.escalation_threshold}) "
                 f"{(time.perf_counter() - started) * 1000:.0f} ms -> no escalation"
             )
             return 0, ()
@@ -192,7 +184,7 @@ class CevizPusula:
         if previous is not None:
             repeated = _missed(previous)
             if not repeated:
-                earlier = self.judge.is_correction(str(previous.get("transcript") or ""), recent[:-1], deadline=deadline)
+                earlier = self.decisions.is_correction(str(previous.get("transcript") or ""), recent[:-1], deadline=deadline)
                 if earlier is None:
                     return None
                 summary += f" previous_correction={earlier:.2f}"
@@ -201,7 +193,7 @@ class CevizPusula:
                 level = 2
                 signals.append("repeated_miss")
         logger.info(
-            f"[pusula.route] judge {summary} (threshold {config.escalation_threshold}) "
+            f"[pusula.route] decisions {summary} (threshold {config.escalation_threshold}) "
             f"{(time.perf_counter() - started) * 1000:.0f} ms -> L{level} {signals}"
         )
         return min(level, MAX_ESCALATION_LEVEL), tuple(signals)
@@ -224,6 +216,9 @@ class CevizPusula:
             for i in range(min(rungs, MAX_ESCALATION_LEVEL))
         ]
 
+    def light_tier_enabled(self) -> bool:
+        return self._light_model() is not None
+
     def _light_model(self) -> ModelEntry | None:
         if self.config.light_group == self.config.default_group:
             return None
@@ -231,11 +226,11 @@ class CevizPusula:
         return group.primary() if group else None
 
 
-def _judge_for(config: PusulaConfig) -> EscalationJudge:
-    return EscalationJudge(
-        url=config.escalation_judge_url,
-        model=config.escalation_judge_model,
-        timeout_ms=config.escalation_judge_timeout_ms,
+def _decisions_for(config: PusulaConfig) -> DecisionModel:
+    return DecisionModel(
+        url=config.decision_model_url,
+        model=config.decision_model,
+        timeout_ms=config.decision_timeout_ms,
         history=config.escalation_history,
     )
 

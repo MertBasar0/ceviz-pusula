@@ -9,7 +9,7 @@ from pathlib import Path
 from unittest.mock import MagicMock, patch
 
 from ceviz_pusula.config_guard import ConfigGuard
-from ceviz_pusula.escalation_judge import EscalationJudge
+from ceviz_pusula.decision_model import DecisionModel
 from ceviz_pusula.plugin import API_VERSION, PusulaRouter, create
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -29,7 +29,7 @@ class PluginContractTests(unittest.TestCase):
         # Never reach a real Ollama from the tests: no warm-up load, answers from `judged`.
         for name, replacement in (("warm", lambda self: None), ("assess", judged),
                                   ("is_correction", lambda self, message, jobs, deadline=None: 0.02)):
-            patcher = patch.object(EscalationJudge, name, replacement)
+            patcher = patch.object(DecisionModel, name, replacement)
             patcher.start()
             self.addCleanup(patcher.stop)
         # Start from the default config, with an explicit escalation model so no discovery runs.
@@ -74,12 +74,12 @@ class PluginContractTests(unittest.TestCase):
         self.assertEqual((answer["model"], answer["thinking"]), (SONNET, "high"))
         self.assertTrue(answer["reason"].startswith("escalation_l2"))
 
-    def test_judge_failure_runs_the_turn_on_the_agent_default(self) -> None:
-        with patch.object(EscalationJudge, "assess", lambda self, message, jobs, deadline=None: None):
+    def test_decision_model_failure_runs_the_turn_on_the_agent_default(self) -> None:
+        with patch.object(DecisionModel, "assess", lambda self, message, jobs, deadline=None: None):
             self.assertIsNone(self.router.route(self.request("Hayır bunu kastetmedim, tekrar dene")))
 
-    def test_judge_is_warmed_at_load_unless_escalation_is_off(self) -> None:
-        with patch.object(EscalationJudge, "warm") as warm:
+    def test_decision_model_is_warmed_at_load_unless_escalation_is_off(self) -> None:
+        with patch.object(DecisionModel, "warm") as warm:
             create({"api_version": 1, "agent": "cevizmain", "state_dir": self.tmp.name})
             warm.assert_called_once()
             guard = ConfigGuard(state_dir=self.tmp.name)

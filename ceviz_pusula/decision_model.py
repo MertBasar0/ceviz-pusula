@@ -1,13 +1,13 @@
-"""Asks a local decision model whether the conversation shows a miss.
+"""The local decision model behind every Pusula decision: escalation and the light tier.
 
-This replaced the correction regex. On the escalation-detector set (experiments/escalation-detector,
+It replaced the correction regex. On the escalation-detector set (experiments/escalation-detector,
 three prior turns) the regex reached precision 0.53 and recall 0.37, while APUS-OpenJev-v1 4B
 reached AUC 0.997 with precision 0.92 and recall 0.99 at 0.5.
 
-The judge talks to Ollama, which serves the GGUF build, and reads the answer from the first token's
-log probabilities. Every failure (unreachable server, missing model, deadline, an answer without
-the option letters) returns None, and the caller keeps the turn on the agent default: a judge that
-cannot answer must never escalate a turn or fail a command.
+The model is served by Ollama, and each answer is read from the first token's log probabilities.
+Every failure (unreachable server, missing model, deadline, an answer without the option letters)
+returns None, and the caller keeps the turn on the agent default: a decision model that cannot
+answer must never move a turn or fail a command.
 """
 from __future__ import annotations
 
@@ -21,21 +21,21 @@ import urllib.error
 import urllib.request
 from typing import Any
 
-logger = logging.getLogger("ceviz.pusula.judge")
+logger = logging.getLogger("ceviz.pusula.decisions")
 
-DEFAULT_JUDGE_URL = "http://127.0.0.1:11434"
-DEFAULT_JUDGE_MODEL = "hf.co/apus-ailab/APUS-OpenJev-v1-4B-GGUF:Q8_0"
-DEFAULT_JUDGE_TIMEOUT_MS = 1200
-DEFAULT_JUDGE_HISTORY = 3
+DEFAULT_DECISION_URL = "http://127.0.0.1:11434"
+DEFAULT_DECISION_MODEL = "hf.co/apus-ailab/APUS-OpenJev-v1-4B-GGUF:Q8_0"
+DEFAULT_DECISION_TIMEOUT_MS = 1200
+DEFAULT_ESCALATION_HISTORY = 3
 DEFAULT_ESCALATION_THRESHOLD = 0.5
 # The model's own default context is 9216 tokens; the prompt stays well under 2048, and the smaller
 # window keeps the model beside Whisper on a 16 GB card.
-JUDGE_CONTEXT_TOKENS = 2048
-JUDGE_KEEP_ALIVE = "24h"
+CONTEXT_TOKENS = 2048
+KEEP_ALIVE = "24h"
 MAX_TRANSCRIPT_CHARS = 600
 
 # Worded as measured in the experiment; changing them invalidates its numbers.
-QUESTIONS = {
+ESCALATION_QUESTIONS = {
     "correction": {
         "instructions": "Does the new message tell the assistant that its previous attempt was wrong, incomplete, "
                         "misunderstood the request, or did not work?",
@@ -51,12 +51,19 @@ QUESTIONS = {
     },
 }
 
+# The light-tier question is not measured yet; operators can replace the instructions.
+LIGHT_OPTIONS = {
+    "true": "Yes: it is small talk or a general-knowledge question that can be answered from memory alone.",
+    "false": "No: it may need a tool, command, file, web lookup, live system state, earlier conversation "
+             "or delegation.",
+}
+
 # Options read "[A] Yes: ..." / "[B] No: ...". APUS-OpenJev answers with the word about as often as
 # with the letter, so both count for the same option.
 _OPTION_TOKENS = {"A": "A", "B": "B", "YES": "A", "NO": "B"}
 
 
-class JudgeUnavailable(Exception):
+class DecisionUnavailable(Exception):
     pass
 
 
@@ -101,13 +108,13 @@ def build_prompt(state: dict[str, Any], question: dict[str, str]) -> str:
     )
 
 
-class EscalationJudge:
+class DecisionModel:
     def __init__(
         self,
-        url: str = DEFAULT_JUDGE_URL,
-        model: str = DEFAULT_JUDGE_MODEL,
-        timeout_ms: int = DEFAULT_JUDGE_TIMEOUT_MS,
-        history: int = DEFAULT_JUDGE_HISTORY,
+        url: str = DEFAULT_DECISION_URL,
+        model: str = DEFAULT_DECISION_MODEL,
+        timeout_ms: int = DEFAULT_DECISION_TIMEOUT_MS,
+        history: int = DEFAULT_ESCALATION_HISTORY,
     ) -> None:
         self.url = url.rstrip("/")
         self.model = model
@@ -123,37 +130,45 @@ class EscalationJudge:
         return time.monotonic() + self.timeout_ms / 1000
 
     def assess(self, message: str, recent_jobs: list[dict[str, Any]], deadline: float | None = None) -> dict[str, float] | None:
-        """P(yes) for each question about `message`, or None if any answer is missing."""
+        """P(yes) for each escalation question about `message`, or None if any answer is missing."""
         deadline = self.start_deadline() if deadline is None else deadline
         state = build_state(message, recent_jobs, self.history)
         answers: dict[str, float] = {}
         try:
-            for name, question in QUESTIONS.items():
+            for name, question in ESCALATION_QUESTIONS.items():
                 answers[name] = self._ask(build_prompt(state, question), deadline)
-        except JudgeUnavailable as exc:
-            logger.warning(f"[pusula.judge] {exc}")
+        except DecisionUnavailable as exc:
+            logger.warning(f"[pusula.decisions] {exc}")
             return None
         return answers
 
     def is_correction(self, message: str, earlier_jobs: list[dict[str, Any]], deadline: float | None = None) -> float | None:
         """P(yes) for the correction question alone, used to check whether an earlier turn was a miss."""
-        deadline = self.start_deadline() if deadline is None else deadline
-        try:
-            return self._ask(build_prompt(build_state(message, earlier_jobs, self.history), QUESTIONS["correction"]), deadline)
-        except JudgeUnavailable as exc:
-            logger.warning(f"[pusula.judge] {exc}")
-            return None
+        question = ESCALATION_QUESTIONS["correction"]
+        return self._ask_one(build_prompt(build_state(message, earlier_jobs, self.history), question), deadline)
+
+    def is_light(self, message: str, instructions: str, deadline: float | None = None) -> float | None:
+        """P(yes) that a fresh turn needs nothing beyond the model's memory."""
+        question = {"instructions": instructions, **LIGHT_OPTIONS}
+        return self._ask_one(build_prompt({"new_message": message[:MAX_TRANSCRIPT_CHARS]}, question), deadline)
 
     def warm(self) -> None:
         """Loads the model in the background so the first routed turn does not pay for it."""
         def load() -> None:
-            body = {"model": self.model, "keep_alive": JUDGE_KEEP_ALIVE, "options": {"num_ctx": JUDGE_CONTEXT_TOKENS}}
+            body = {"model": self.model, "keep_alive": KEEP_ALIVE, "options": {"num_ctx": CONTEXT_TOKENS}}
             try:
                 self._post("/api/generate", body, timeout=120)
             except Exception as exc:  # the first turn will try again
-                logger.warning(f"[pusula.judge] warm-up failed: {exc}")
+                logger.warning(f"[pusula.decisions] warm-up failed: {exc}")
 
-        threading.Thread(target=load, name="pusula-judge-warm", daemon=True).start()
+        threading.Thread(target=load, name="pusula-decisions-warm", daemon=True).start()
+
+    def _ask_one(self, prompt: str, deadline: float | None) -> float | None:
+        try:
+            return self._ask(prompt, self.start_deadline() if deadline is None else deadline)
+        except DecisionUnavailable as exc:
+            logger.warning(f"[pusula.decisions] {exc}")
+            return None
 
     def _ask(self, prompt: str, deadline: float) -> float:
         body: dict[str, Any] = {
@@ -161,8 +176,8 @@ class EscalationJudge:
             "stream": False,
             "logprobs": True,
             "top_logprobs": 10,
-            "keep_alive": JUDGE_KEEP_ALIVE,
-            "options": {"temperature": 0, "num_predict": 1, "num_ctx": JUDGE_CONTEXT_TOKENS},
+            "keep_alive": KEEP_ALIVE,
+            "options": {"temperature": 0, "num_predict": 1, "num_ctx": CONTEXT_TOKENS},
             "messages": [{"role": "user", "content": prompt}],
         }
         if self._send_think:
@@ -171,14 +186,14 @@ class EscalationJudge:
         tokens = data.get("logprobs") or []
         probability = letter_probability(tokens[0].get("top_logprobs")) if tokens and isinstance(tokens[0], dict) else None
         if probability is None:
-            raise JudgeUnavailable("answer had no option letter in its first token")
+            raise DecisionUnavailable("answer had no option letter in its first token")
         return probability
 
     @staticmethod
     def _remaining(deadline: float) -> float:
         remaining = deadline - time.monotonic()
         if remaining <= 0.01:
-            raise JudgeUnavailable("deadline passed")
+            raise DecisionUnavailable("deadline passed")
         return remaining
 
     def _post(self, path: str, body: dict[str, Any], timeout: float, retry_without_think: bool = False) -> dict[str, Any]:
@@ -197,6 +212,6 @@ class EscalationJudge:
                 self._send_think = False
                 retry = {k: v for k, v in body.items() if k != "think"}
                 return self._post(path, retry, timeout=timeout)
-            raise JudgeUnavailable(f"HTTP {exc.code}: {detail}") from exc
+            raise DecisionUnavailable(f"HTTP {exc.code}: {detail}") from exc
         except (urllib.error.URLError, TimeoutError, OSError, ValueError) as exc:
-            raise JudgeUnavailable(f"{type(exc).__name__}: {exc}") from exc
+            raise DecisionUnavailable(f"{type(exc).__name__}: {exc}") from exc
