@@ -51,7 +51,8 @@ last *N* finished requests with their outcome, status and age, plus the new mess
   where that recent request did not end with outcome `done`?
 
 **Decision.** A turn escalates when either probability reaches the threshold. The regex baseline
-is Pusula's own `CevizPusula.escalation_level`, imported from this repository.
+is the `escalation_level` Pusula used until v0.1.0, frozen in `regex_baseline.py`. Pusula now
+asks APUS-OpenJev-v1 4B instead.
 
 ## Dataset
 
@@ -76,7 +77,7 @@ There are 158 synthetic cases in Turkish and English, built by [`dataset.py`](da
 
 | Model | Kind | Source | License | Weights | How it was queried |
 |---|---|---|---|---|---|
-| regex | Pusula today | this repository | MIT | – | `escalation_level` |
+| regex | Pusula until v0.1.0 | `regex_baseline.py` | MIT | – | `escalation_level` |
 | Kev 0.8B | decision model | [jaredpalmer/kev-0.8b](https://huggingface.co/jaredpalmer/kev-0.8b) | Apache-2.0 | LoRA on Qwen3.5-0.8B-Base | System One `noul`, `kev.serve` |
 | Decider 2B | decision model | [Mapika/decider-2b](https://huggingface.co/Mapika/decider-2b) | Apache-2.0 | 3.8 GB bf16 | System One `noul`, `decider/serve.py` |
 | this-that 1.2 | decision model | [flock-io/this-that-model-1.2](https://huggingface.co/flock-io/this-that-model-1.2) | MIT | 3.8 GB bf16 (Decider 2B fine-tune) | System One `noul`, `thisthat.server` |

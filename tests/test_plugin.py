@@ -9,16 +9,29 @@ from pathlib import Path
 from unittest.mock import MagicMock, patch
 
 from ceviz_pusula.config_guard import ConfigGuard
+from ceviz_pusula.escalation_judge import EscalationJudge
 from ceviz_pusula.plugin import API_VERSION, PusulaRouter, create
 
 ROOT = Path(__file__).resolve().parents[1]
 SONNET = "anthropic/claude-sonnet-5"
+# Messages the stand-in decision model treats as corrections; everything else is a clear no.
+CORRECTIONS = {"Hayır bunu kastetmedim, tekrar dene", "Yine olmadı, anlamadın"}
+
+
+def judged(self, message, recent_jobs, deadline=None):
+    return {"correction": 0.95 if message in CORRECTIONS else 0.03, "repeat": 0.04}
 
 
 class PluginContractTests(unittest.TestCase):
     def setUp(self) -> None:
         self.tmp = tempfile.TemporaryDirectory()
         self.addCleanup(self.tmp.cleanup)
+        # Never reach a real Ollama from the tests: no warm-up load, answers from `judged`.
+        for name, replacement in (("warm", lambda self: None), ("assess", judged),
+                                  ("is_correction", lambda self, message, jobs, deadline=None: 0.02)):
+            patcher = patch.object(EscalationJudge, name, replacement)
+            patcher.start()
+            self.addCleanup(patcher.stop)
         # Start from the default config, with an explicit escalation model so no discovery runs.
         guard = ConfigGuard(state_dir=self.tmp.name)
         guard.load_config()
@@ -60,6 +73,21 @@ class PluginContractTests(unittest.TestCase):
         answer = self.router.route(self.request("Yine olmadı, anlamadın", recent_jobs=[missed]))
         self.assertEqual((answer["model"], answer["thinking"]), (SONNET, "high"))
         self.assertTrue(answer["reason"].startswith("escalation_l2"))
+
+    def test_judge_failure_runs_the_turn_on_the_agent_default(self) -> None:
+        with patch.object(EscalationJudge, "assess", lambda self, message, jobs, deadline=None: None):
+            self.assertIsNone(self.router.route(self.request("Hayır bunu kastetmedim, tekrar dene")))
+
+    def test_judge_is_warmed_at_load_unless_escalation_is_off(self) -> None:
+        with patch.object(EscalationJudge, "warm") as warm:
+            create({"api_version": 1, "agent": "cevizmain", "state_dir": self.tmp.name})
+            warm.assert_called_once()
+            guard = ConfigGuard(state_dir=self.tmp.name)
+            cfg, _ = guard.load_config()
+            cfg.enable_correction_escalation = False
+            guard.save_config(cfg)
+            create({"api_version": 1, "agent": "cevizmain", "state_dir": self.tmp.name})
+            warm.assert_called_once()
 
     def test_answer_is_a_plain_dict_for_the_host(self) -> None:
         engine = MagicMock()

@@ -1,7 +1,7 @@
 """Compare Pusula's regex escalation with decision models on the synthetic dataset.
 
 Backends:
-  regex                 Pusula's current escalation_level (correction phrases + 0.8 similarity repeat)
+  regex                 Pusula v0.1.0 escalation_level, frozen in regex_baseline.py (phrases + 0.8 repeat)
   systemone:<url>       a System One decision server such as Kev (/v1/systemone, noul questions)
   ollama:<model>        a general model through Ollama, A/B letter probability from logprobs
   ollama:<model>:qfirst the same with the question before the state (prompt-order check)
@@ -12,9 +12,7 @@ import argparse
 import json
 import math
 import re
-import sys
 import time
-import types
 import urllib.error
 import urllib.request
 from pathlib import Path
@@ -68,20 +66,17 @@ def post(url, body, timeout=120):
 
 # --- regex baseline -------------------------------------------------------------------------
 def regex_backend():
-    sys.path.insert(0, str(HERE.parents[1]))  # repository root
-    from ceviz_pusula.engine import CevizPusula
-
-    host = types.SimpleNamespace(config=types.SimpleNamespace(escalation_window_seconds=900))
+    from regex_baseline import escalation_level  # Pusula v0.1.0's regex, frozen next to this script
 
     def ask(case):
         now = time.time()
-        context = {"recent_jobs": [
+        jobs = [
             {"transcript": job["transcript"], "outcome": job["outcome"], "status": job["status"],
              "created_at": now - job["minutes_ago"] * 60}
             for job in recent(case)
-        ]}
+        ]
         start = time.perf_counter()
-        level, signals = CevizPusula.escalation_level(host, case["message"], context)
+        level, signals = escalation_level(case["message"], jobs, now=now)
         elapsed = (time.perf_counter() - start) * 1000
         return {"correction": float("correction" in signals), "repeat": float("repeat" in signals),
                 "level": level, "signals": list(signals)}, elapsed

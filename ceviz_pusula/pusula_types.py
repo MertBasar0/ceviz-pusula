@@ -3,6 +3,14 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from typing import Any, Literal
 
+from .escalation_judge import (
+    DEFAULT_ESCALATION_THRESHOLD,
+    DEFAULT_JUDGE_HISTORY,
+    DEFAULT_JUDGE_MODEL,
+    DEFAULT_JUDGE_TIMEOUT_MS,
+    DEFAULT_JUDGE_URL,
+)
+
 TIER_HEAVY_REMOTE = "heavy_remote"
 TIER_LOW_LOCAL = "low_local"
 
@@ -121,12 +129,21 @@ def _read_positive_int(value: Any, default: int) -> int:
     return number if number > 0 else default
 
 
-def _read_threshold(value: Any) -> float:
+def _read_threshold(value: Any, default: float = DEFAULT_LIGHT_THRESHOLD) -> float:
     try:
         threshold = float(value)
     except (TypeError, ValueError):
-        return DEFAULT_LIGHT_THRESHOLD
+        return default
     return min(max(threshold, 0.0), 1.0)
+
+
+def _read_history(value: Any) -> int:
+    # Zero is valid: the judge then sees only the new message.
+    try:
+        number = int(value)
+    except (TypeError, ValueError):
+        return DEFAULT_JUDGE_HISTORY
+    return min(max(number, 0), 8)
 
 
 @dataclass
@@ -147,6 +164,12 @@ class PusulaConfig:
     escalation_models: list[str] = field(default_factory=list)
     escalation_thinking: list[str] = field(default_factory=lambda: list(DEFAULT_ESCALATION_THINKING))
     escalation_window_seconds: int = DEFAULT_ESCALATION_WINDOW_SECONDS
+    # The decision model that spots corrections and repeats (an Ollama server on this machine).
+    escalation_judge_url: str = DEFAULT_JUDGE_URL
+    escalation_judge_model: str = DEFAULT_JUDGE_MODEL
+    escalation_judge_timeout_ms: int = DEFAULT_JUDGE_TIMEOUT_MS
+    escalation_history: int = DEFAULT_JUDGE_HISTORY
+    escalation_threshold: float = DEFAULT_ESCALATION_THRESHOLD
     groups: dict[str, TierGroup] = field(default_factory=dict)
 
     def get_group(self, name: str) -> TierGroup | None:
@@ -166,6 +189,11 @@ class PusulaConfig:
             "escalation_models": list(self.escalation_models),
             "escalation_thinking": list(self.escalation_thinking),
             "escalation_window_seconds": self.escalation_window_seconds,
+            "escalation_judge_url": self.escalation_judge_url,
+            "escalation_judge_model": self.escalation_judge_model,
+            "escalation_judge_timeout_ms": self.escalation_judge_timeout_ms,
+            "escalation_history": self.escalation_history,
+            "escalation_threshold": self.escalation_threshold,
             "groups": {name: g.to_dict() for name, g in self.groups.items()},
         }
 
@@ -201,6 +229,15 @@ class PusulaConfig:
             escalation_thinking=_read_str_list(data.get("escalation_thinking")) or list(DEFAULT_ESCALATION_THINKING),
             escalation_window_seconds=_read_positive_int(
                 data.get("escalation_window_seconds"), DEFAULT_ESCALATION_WINDOW_SECONDS
+            ),
+            escalation_judge_url=str(data.get("escalation_judge_url") or DEFAULT_JUDGE_URL),
+            escalation_judge_model=str(data.get("escalation_judge_model") or DEFAULT_JUDGE_MODEL),
+            escalation_judge_timeout_ms=_read_positive_int(
+                data.get("escalation_judge_timeout_ms"), DEFAULT_JUDGE_TIMEOUT_MS
+            ),
+            escalation_history=_read_history(data.get("escalation_history", DEFAULT_JUDGE_HISTORY)),
+            escalation_threshold=_read_threshold(
+                data.get("escalation_threshold", DEFAULT_ESCALATION_THRESHOLD), DEFAULT_ESCALATION_THRESHOLD
             ),
             groups=groups,
         )

@@ -1,6 +1,8 @@
 from __future__ import annotations
 
+import io
 import json
+import math
 import tempfile
 import threading
 import time
@@ -10,6 +12,7 @@ from unittest.mock import MagicMock, patch
 
 from ceviz_pusula.config_guard import ConfigGuard
 from ceviz_pusula.engine import CevizPusula
+from ceviz_pusula.escalation_judge import QUESTIONS, EscalationJudge, build_prompt, build_state, letter_probability
 from ceviz_pusula.jev_client import JevClient
 from ceviz_pusula.model_catalog import ModelCatalog, classify, rank
 from ceviz_pusula.pusula_types import (
@@ -19,6 +22,7 @@ from ceviz_pusula.pusula_types import (
     TIER_HEAVY_REMOTE,
     TIER_LOW_LOCAL,
     ModelEntry,
+    PusulaConfig,
     TierGroup,
 )
 from ceviz_pusula.snapshot import create_snapshot, list_snapshots, restore_snapshot, set_routing_mode
@@ -43,6 +47,36 @@ CATALOG_ROWS = [
 
 def fake_catalog(rows=CATALOG_ROWS) -> ModelCatalog:
     return ModelCatalog("cevizmain", runner=lambda: list(rows))
+
+
+class FakeJudge:
+    """Stands in for the decision model: fixed P(yes) per message, everything else a clear no."""
+
+    QUIET = {"correction": 0.04, "repeat": 0.06}
+
+    def __init__(self) -> None:
+        self.answers: dict[str, dict[str, float]] = {}
+        self.previous: dict[str, float] = {}
+        self.calls: list[tuple] = []
+        self.fail = False
+        self.fail_previous = False
+
+    def describe(self) -> str:
+        return "fake"
+
+    def start_deadline(self) -> float:
+        return time.monotonic() + 1
+
+    def assess(self, message, recent_jobs, deadline=None):
+        self.calls.append(("assess", message, [job.get("transcript") for job in recent_jobs]))
+        return None if self.fail else dict(self.answers.get(message, self.QUIET))
+
+    def is_correction(self, message, earlier_jobs, deadline=None):
+        self.calls.append(("is_correction", message, [job.get("transcript") for job in earlier_jobs]))
+        return None if self.fail_previous else self.previous.get(message, 0.03)
+
+    def warm(self) -> None:
+        self.calls.append(("warm",))
 
 
 class TestConfigGuard(unittest.TestCase):
@@ -200,12 +234,17 @@ class TestPusulaRouting(unittest.TestCase):
         self.jev = MagicMock(spec=JevClient)
         self.jev.is_configured = True
         self.jev.evaluate_boolean.return_value = 0.1
+        self.judge = FakeJudge()
 
     def tearDown(self) -> None:
         self.temp_dir.cleanup()
 
-    def _pusula(self) -> CevizPusula:
-        return CevizPusula(state_dir=self.state_dir, jev_client=self.jev, catalog=fake_catalog(), agent="cevizmain")
+    def _pusula(self, rows=CATALOG_ROWS) -> CevizPusula:
+        return CevizPusula(state_dir=self.state_dir, jev_client=self.jev, catalog=fake_catalog(rows),
+                           agent="cevizmain", judge=self.judge)
+
+    def _flag(self, message: str, correction: float = 0.04, repeat: float = 0.06) -> None:
+        self.judge.answers[message] = {"correction": correction, "repeat": repeat}
 
     def _edit(self, **changes) -> None:
         guard = ConfigGuard(state_dir=self.state_dir)
@@ -230,6 +269,7 @@ class TestPusulaRouting(unittest.TestCase):
             self.assertIsNone(decision.model)
             self.assertEqual(decision.reason, "no_light_tier")
         self.jev.evaluate_boolean.assert_not_called()
+        self.assertEqual([call[0] for call in self.judge.calls], ["assess", "assess"])
 
     def test_opt_in_light_tier_still_needs_a_confident_light_answer(self) -> None:
         self._with_light_tier()
@@ -250,38 +290,79 @@ class TestPusulaRouting(unittest.TestCase):
         self.jev.evaluate_boolean.assert_not_called()
 
     def test_correction_climbs_to_discovered_sonnet_at_medium(self) -> None:
-        decision = self._pusula().route("Hayır bulutu kastetmedim. Claude subagent'ına işi devret")
+        message = "Nasıl ya? Tarayıcıyı nasıl açamıyorsun?"  # pushback the old regex missed
+        self._flag(message, correction=0.93)
+        decision = self._pusula().route(message)
         self.assertTrue(decision.escalated)
         self.assertEqual((decision.model, decision.thinking), (SONNET, "medium"))
         self.assertEqual((decision.escalation_level, decision.escalation_signals), (1, ("correction",)))
         self.assertEqual(decision.jev_calls, 0)
 
-    def test_second_miss_in_window_climbs_to_high_thinking(self) -> None:
+    def test_previous_job_that_missed_climbs_to_high_thinking(self) -> None:
         context = {"recent_jobs": [
             self._job("Windows node'u kur", "needs_input", ago=300),
-            self._job("Hayır, yanlış anladın, sen kur", "blocked", ago=120),
+            self._job("Hayır, sen kur", "blocked", ago=120),
         ]}
+        self._flag("Olmadı, tekrar dene", correction=0.97)
         decision = self._pusula().route("Olmadı, tekrar dene", context=context)
         self.assertEqual((decision.model, decision.thinking, decision.escalation_level), (SONNET, "high", 2))
         self.assertIn("repeated_miss", decision.escalation_signals)
+        self.assertNotIn("is_correction", [call[0] for call in self.judge.calls])
 
-    def test_repeating_an_unanswered_request_escalates_without_a_correction_phrase(self) -> None:
+    def test_previous_turn_that_was_a_correction_climbs_to_high_thinking(self) -> None:
+        context = {"recent_jobs": [
+            self._job("Windows node'u kur", "needs_input", ago=300),
+            self._job("Daha önce kurmuştuk, gayet net hatırlıyorum", "needs_input", ago=120),
+        ]}
+        self._flag("Hâlâ aynı şeyi söylüyorsun", correction=0.91)
+        self.judge.previous["Daha önce kurmuştuk, gayet net hatırlıyorum"] = 0.88
+        decision = self._pusula().route("Hâlâ aynı şeyi söylüyorsun", context=context)
+        self.assertEqual((decision.thinking, decision.escalation_level), ("high", 2))
+        # The previous turn is judged against the turns before it, with the same question.
+        self.assertIn(("is_correction", "Daha önce kurmuştuk, gayet net hatırlıyorum", ["Windows node'u kur"]),
+                      self.judge.calls)
+
+    def test_previous_turn_that_was_not_a_correction_stays_on_level_one(self) -> None:
+        context = {"recent_jobs": [self._job("Zoho IMAP ayarını bul", "needs_input")]}
+        self._flag("Yanlış yere baktın", correction=0.9)
+        decision = self._pusula().route("Yanlış yere baktın", context=context)
+        self.assertEqual((decision.thinking, decision.escalation_level), ("medium", 1))
+
+    def test_repeating_an_unanswered_request_escalates_without_a_correction(self) -> None:
         context = {"recent_jobs": [self._job("Claude Code oturumlarına erişebiliyor musun?", "needs_input")]}
+        self._flag("Claude Code oturumlarına erişebiliyor musun", repeat=0.81)
         decision = self._pusula().route("Claude Code oturumlarına erişebiliyor musun", context=context)
         self.assertEqual(decision.escalation_level, 1)
         self.assertEqual(decision.escalation_signals, ("repeat",))
 
-    def test_a_failed_job_alone_does_not_escalate_and_old_misses_expire(self) -> None:
+    def test_a_failed_job_alone_does_not_escalate_and_old_jobs_are_not_evidence(self) -> None:
         outage = {"recent_jobs": [self._job("PR'ı kontrol et", "unknown", status="failed")]}
         self.assertFalse(self._pusula().route("Selam", context=outage).escalated)
         stale = {"recent_jobs": [self._job("Windows node'u kur", "blocked", ago=3600)]}
+        self._flag("Olmadı", correction=0.95)
         self.assertEqual(self._pusula().route("Olmadı", context=stale).escalation_level, 1)
+        self.assertEqual(self.judge.calls[-1], ("assess", "Olmadı", []))
 
-    def test_correction_pattern_edges(self) -> None:
-        pusula = self._pusula()
-        self.assertFalse(pusula.route("Biraz önce 80'e çıkmış derken kastettiğim fail checklerde aslında.").escalated)
-        self.assertTrue(pusula.route("That's not what I meant").escalated)
-        self.assertTrue(pusula.route("Yine işe yaramadı").escalated)
+    def test_threshold_comes_from_the_config(self) -> None:
+        self._edit(escalation_threshold=0.95)
+        self._flag("Yanlış yaptın", correction=0.93)
+        self.assertFalse(self._pusula().route("Yanlış yaptın").escalated)
+
+    def test_judge_that_does_not_answer_keeps_the_agent_default(self) -> None:
+        self._with_light_tier()
+        self.jev.evaluate_boolean.return_value = 0.99
+        self.judge.fail = True
+        decision = self._pusula().route("Selam, nasılsın?")
+        self.assertEqual((decision.model, decision.reason, decision.fallback), (None, "judge_failed", True))
+        self.assertFalse(decision.escalated)
+        self.jev.evaluate_boolean.assert_not_called()  # no other model guesses in its place
+
+    def test_previous_turn_check_that_fails_keeps_the_agent_default(self) -> None:
+        context = {"recent_jobs": [self._job("Zoho IMAP ayarını bul", "needs_input")]}
+        self._flag("Yanlış yere baktın", correction=0.9)
+        self.judge.fail_previous = True
+        decision = self._pusula().route("Yanlış yere baktın", context=context)
+        self.assertEqual((decision.model, decision.reason), (None, "judge_failed"))
 
     def test_configured_ladder_overrides_discovery(self) -> None:
         self._edit(escalation_models=["anthropic/claude-sonnet-4-6", "anthropic/claude-opus-5"],
@@ -291,9 +372,8 @@ class TestPusulaRouting(unittest.TestCase):
                          [("anthropic/claude-sonnet-4-6", "low"), ("anthropic/claude-opus-5", "high")])
 
     def test_no_discoverable_model_escalates_on_the_agent_default(self) -> None:
-        pusula = CevizPusula(state_dir=self.state_dir, jev_client=self.jev,
-                             catalog=fake_catalog(rows=CATALOG_ROWS[:2]), agent="cevizmain")
-        decision = pusula.route("Yanlış yaptın")
+        self._flag("Yanlış yaptın", correction=0.9)
+        decision = self._pusula(rows=CATALOG_ROWS[:2]).route("Yanlış yaptın")
         self.assertTrue(decision.escalated)
         self.assertIsNone(decision.model)
 
@@ -301,10 +381,12 @@ class TestPusulaRouting(unittest.TestCase):
         self._with_light_tier()
         self._edit(routing_mode=MODE_SINGLE_TURN)
         self.jev.evaluate_boolean.return_value = 0.9
+        self._flag("Yanlış yaptın, bunu düzelt", correction=0.95)
         decision = self._pusula().route("Yanlış yaptın, bunu düzelt", context={"continuation": "ağır iş"})
         self.assertFalse(decision.escalated)
         self.assertFalse(decision.context_used)
         self.assertEqual(decision.model, LIGHT)
+        self.assertEqual(self.judge.calls, [])
 
     def test_disabled_mode_returns_no_override(self) -> None:
         self._edit(routing_mode=MODE_DISABLED)
@@ -325,6 +407,7 @@ class TestPusulaRouting(unittest.TestCase):
         (self.state_dir / "pusula.json").write_text(json.dumps(legacy), encoding="utf-8")
         pusula = self._pusula()
         self.assertIsNone(pusula.route("PR'ı kontrol et").model)
+        self._flag("Bu tamamen yanlış", correction=0.9)
         self.assertEqual(pusula.route("Bu tamamen yanlış").model, SONNET)
 
 
@@ -374,10 +457,106 @@ class TestSystemOneBackend(unittest.TestCase):
             guard.save_config(cfg)
             opener = self._urlopen({"answers": {"eval_bool": {"type": "noul", "noul": 0.55}}})
             with patch("ceviz_pusula.jev_client.urllib.request.urlopen", opener):
-                decision = CevizPusula(state_dir=tmp, catalog=fake_catalog()).route("Selam, nasılsın?")
+                decision = CevizPusula(state_dir=tmp, catalog=fake_catalog(), judge=FakeJudge()).route("Selam, nasılsın?")
         self.assertEqual((decision.reason, decision.model), ("light_turn", LIGHT))
         sent = self._sent(opener)[2]["questions"]["eval_bool"]
         self.assertEqual(sent["instructions"], "Is this only small talk or a general-knowledge question?")
+
+
+class TestEscalationJudge(unittest.TestCase):
+    @staticmethod
+    def _reply(*tops: list) -> MagicMock:
+        """urlopen stand-in whose successive answers carry these first-token top log probabilities."""
+        responses = []
+        for top in tops:
+            response = MagicMock()
+            response.read.return_value = json.dumps({"logprobs": [{"top_logprobs": top}] if top is not None else []}).encode()
+            responses.append(response)
+        opener = MagicMock()
+        opener.return_value.__enter__.side_effect = responses
+        return opener
+
+    @staticmethod
+    def _bodies(opener: MagicMock) -> list[dict]:
+        return [json.loads(call.args[0].data) for call in opener.call_args_list]
+
+    def test_reads_letters_and_yes_no_words_as_the_same_option(self) -> None:
+        self.assertAlmostEqual(letter_probability([{"token": "A", "logprob": -0.1}, {"token": " B", "logprob": -2.4}]),
+                               math.exp(-0.1) / (math.exp(-0.1) + math.exp(-2.4)))
+        self.assertAlmostEqual(letter_probability([{"token": "Yes", "logprob": -0.2}, {"token": "[A]", "logprob": -1.0},
+                                                   {"token": "no", "logprob": -3.0}]),
+                               (math.exp(-0.2) + math.exp(-1.0)) / (math.exp(-0.2) + math.exp(-1.0) + math.exp(-3.0)))
+        self.assertIsNone(letter_probability([{"token": "Hmm", "logprob": -0.1}]))
+        self.assertIsNone(letter_probability(None))
+
+    def test_state_holds_the_last_turns_and_comes_before_the_question(self) -> None:
+        now = time.time()
+        jobs = [{"transcript": f"istek {i}", "outcome": "done", "status": "completed", "created_at": now - 60 * i}
+                for i in (5, 4, 3, 2)]
+        state = build_state("yeni mesaj", jobs, history=3, now=now)
+        self.assertEqual([r["request"] for r in state["recent_requests"]], ["istek 4", "istek 3", "istek 2"])
+        self.assertEqual([r["minutes_ago"] for r in state["recent_requests"]], [4, 3, 2])
+        self.assertEqual(build_state("x", jobs, history=0)["recent_requests"], [])
+        prompt = build_prompt(state, QUESTIONS["correction"])
+        self.assertLess(prompt.index("State:"), prompt.index("Question:"))
+        self.assertTrue(prompt.endswith("Answer with the letter of the best option only."))
+
+    def test_asks_both_questions_on_the_local_model(self) -> None:
+        opener = self._reply([{"token": "A", "logprob": -0.05}, {"token": "B", "logprob": -3.0}],
+                             [{"token": "No", "logprob": -0.02}, {"token": "Yes", "logprob": -4.0}])
+        judge = EscalationJudge(url="http://127.0.0.1:11434/", model="openjev")
+        with patch("ceviz_pusula.escalation_judge.urllib.request.urlopen", opener):
+            answers = judge.assess("Olmadı", [])
+        self.assertGreater(answers["correction"], 0.9)
+        self.assertLess(answers["repeat"], 0.1)
+        self.assertEqual(opener.call_args.args[0].full_url, "http://127.0.0.1:11434/api/chat")
+        body = self._bodies(opener)[0]
+        self.assertEqual((body["model"], body["think"], body["logprobs"]), ("openjev", False, True))
+        self.assertEqual(body["options"]["num_predict"], 1)
+        self.assertEqual(body["options"]["num_ctx"], 2048)
+
+    def test_any_failure_means_no_answer(self) -> None:
+        import urllib.error
+        judge = EscalationJudge()
+        for failure in (urllib.error.URLError("refused"), TimeoutError(),
+                        urllib.error.HTTPError("http://x", 404, "model not found", {}, io.BytesIO(b"not found"))):
+            with patch("ceviz_pusula.escalation_judge.urllib.request.urlopen", side_effect=failure):
+                self.assertIsNone(judge.assess("Olmadı", []))
+        with patch("ceviz_pusula.escalation_judge.urllib.request.urlopen", self._reply(None)):
+            self.assertIsNone(judge.assess("Olmadı", []))
+        with patch("ceviz_pusula.escalation_judge.urllib.request.urlopen",
+                   self._reply([{"token": "Maybe", "logprob": -0.1}])):
+            self.assertIsNone(judge.assess("Olmadı", []))
+
+    def test_a_passed_deadline_sends_nothing(self) -> None:
+        opener = self._reply([{"token": "A", "logprob": -0.1}])
+        with patch("ceviz_pusula.escalation_judge.urllib.request.urlopen", opener):
+            self.assertIsNone(EscalationJudge().assess("Olmadı", [], deadline=time.monotonic() - 1))
+        opener.assert_not_called()
+
+    def test_model_without_a_thinking_switch_is_asked_again_without_it(self) -> None:
+        import urllib.error
+        rejection = urllib.error.HTTPError("http://x", 400, "Bad Request", {},
+                                           io.BytesIO(b'{"error":"model does not support thinking"}'))
+        answer = MagicMock()
+        answer.read.return_value = json.dumps({"logprobs": [{"top_logprobs": [{"token": "B", "logprob": -0.1}]}]}).encode()
+        opener = MagicMock(side_effect=[rejection, MagicMock(__enter__=MagicMock(return_value=answer)),
+                                        MagicMock(__enter__=MagicMock(return_value=answer))])
+        judge = EscalationJudge()
+        with patch("ceviz_pusula.escalation_judge.urllib.request.urlopen", opener):
+            self.assertIsNotNone(judge.assess("Olmadı", []))
+        bodies = self._bodies(opener)
+        self.assertEqual(["think" in body for body in bodies], [True, False, False])
+
+    def test_config_reads_judge_settings_with_safe_defaults(self) -> None:
+        defaults = PusulaConfig.from_dict({})
+        self.assertEqual((defaults.escalation_judge_model, defaults.escalation_threshold, defaults.escalation_history),
+                         ("hf.co/apus-ailab/APUS-OpenJev-v1-4B-GGUF:Q8_0", 0.5, 3))
+        custom = PusulaConfig.from_dict({"escalation_threshold": 2, "escalation_history": 0,
+                                         "escalation_judge_timeout_ms": "nope", "escalation_judge_model": "m"})
+        self.assertEqual((custom.escalation_threshold, custom.escalation_history), (1.0, 0))
+        self.assertEqual((custom.escalation_judge_timeout_ms, custom.escalation_judge_model), (1200, "m"))
+        self.assertEqual(PusulaConfig.from_dict(custom.to_dict()).escalation_judge_model, "m")
 
 
 class TestSnapshotManager(unittest.TestCase):

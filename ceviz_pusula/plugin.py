@@ -9,6 +9,7 @@ from __future__ import annotations
 from typing import Any
 
 from .engine import CevizPusula
+from .pusula_types import MODE_CONTEXT_AWARE
 
 API_VERSION = 1
 
@@ -29,6 +30,9 @@ class PusulaRouter:
                 # The escalation ladder comes from model discovery; have it ready before the
                 # first miss so that turn does not spend the host's routing budget on the CLI.
                 engine.catalog.warm()
+            if config.enabled and config.enable_correction_escalation and config.routing_mode == MODE_CONTEXT_AWARE:
+                # A cold load takes seconds; loading now keeps the first turn inside the budget.
+                engine.judge.warm()
         self.engine = engine
 
     def route(self, request: dict[str, Any]) -> dict[str, Any] | None:

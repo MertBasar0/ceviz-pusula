@@ -12,12 +12,21 @@ already configured.
 
 - **Ordinary turns stay on the agent default.** Pusula returns no model, so Ceviz sends no
   `--model` and your fallback chain stays in play.
-- **It escalates after misses, deterministically.**
-  - **Level 1:** the user corrects the answer ("anlamadın", "kastetmedim", "that's not what I
-    meant", "didn't work"…), or repeats a request that did not finish. The turn runs on the best
+- **It escalates after misses, judged by a local decision model.** On every turn Pusula asks
+  [APUS-OpenJev-v1 4B](https://huggingface.co/apus-ailab/APUS-OpenJev-v1-4B-GGUF), served by
+  Ollama on your machine, two questions about the new message and the last three requests: is the
+  user pushing back on the previous answer, and is it asking again for something that did not
+  finish?
+  - **Level 1:** either answer is yes (probability 0.5 or more). The turn runs on the best
     configured "balanced" model (for example the newest Sonnet) at `medium` thinking.
-  - **Level 2:** a second miss within 15 minutes. The same model runs at `high` thinking.
+  - **Level 2:** the previous job also ended blocked, unknown or failed, or the previous turn was
+    itself a correction. The same model runs at `high` thinking.
   - A provider outage is not a miss, so it never escalates.
+  - **If the decision model cannot answer** (Ollama is down, the model is missing, the answer is
+    late or unreadable), the turn runs on the agent default. Nothing else guesses in its place.
+  - Pusula used a phrase regex until v0.1.0. On the
+    [escalation-detector set](experiments/escalation-detector/README.md) it caught 37% of misses
+    at 53% precision; OpenJev 4B caught 99% at 92%.
 - **It only uses models you configured.** Pusula reads `openclaw models list --agent <agent> --json`
   and considers only models tagged as configured, default or a fallback, from Anthropic, OpenAI,
   Google and xAI. A model that is merely available may sit behind a paid API key you never chose
@@ -31,9 +40,13 @@ already configured.
 
 Pusula needs Python 3.11 or newer and a Ceviz helper with router contract v1:
 [`ceviz-helper-v2026.10.1-beta.2`](https://github.com/MertBasar0/ceviz/releases/tag/ceviz-helper-v2026.10.1-beta.2)
-or newer.
+or newer. Escalation also needs [Ollama](https://ollama.com) with the decision model (about
+4.5 GB on disk, about 6.7 GB in memory with Pusula's 2048-token context):
 
 ```bash
+# 0. The decision model for escalation
+ollama pull hf.co/apus-ailab/APUS-OpenJev-v1-4B-GGUF:Q8_0
+
 # 1. Install into the helper's own environment
 ~/path/to/ceviz/.venv/bin/pip install git+https://github.com/MertBasar0/ceviz-pusula@v0.1.0
 
@@ -69,7 +82,12 @@ On first use, Pusula writes `pusula.json` to the Ceviz state directory (by defau
 | `enable_correction_escalation` | `true` | Escalate after corrections and repeated misses |
 | `escalation_models` | `[]` | Explicit ladder, for example `["anthropic/claude-sonnet-5"]`. Empty means the best configured balanced model |
 | `escalation_thinking` | `["medium", "high"]` | Thinking level per escalation step |
-| `escalation_window_seconds` | `900` | How long a miss counts toward the next level |
+| `escalation_window_seconds` | `900` | How old a recent job may be and still count as evidence |
+| `escalation_judge_url` | `http://127.0.0.1:11434` | Ollama server that runs the decision model |
+| `escalation_judge_model` | `hf.co/apus-ailab/APUS-OpenJev-v1-4B-GGUF:Q8_0` | Decision model for corrections and repeats |
+| `escalation_threshold` | `0.5` | Probability at which an answer counts as yes |
+| `escalation_history` | `3` | How many recent requests the decision model sees |
+| `escalation_judge_timeout_ms` | `1200` | Budget for all of a turn's questions; keep it under Ceviz's `WATCH_CEVIZ_ROUTER_TIMEOUT_MS` (1500) |
 | `decision_endpoint` | unset | Local System One URL for the light tier, for example `http://127.0.0.1:8009` |
 | `light_instructions`, `light_threshold` | unset, `0.8` | Question and probability threshold for light turns |
 
@@ -85,6 +103,7 @@ Pusula runs inside the Ceviz helper process. It sees each command's text and the
 texts and outcomes that Ceviz passes to routers. It calls only:
 
 - `openclaw models list` on your machine
+- the Ollama server at `escalation_judge_url` (on this machine by default)
 - the `decision_endpoint` you configure, if any
 
 ## Development
@@ -96,8 +115,8 @@ python3 -m unittest discover -s tests -v
 ## Experiments
 
 - [Escalation detector: regex vs. decision models](experiments/escalation-detector/README.md):
-  a local comparison of today's correction regex with Kev 0.8B, Decider 2B, this-that 1.2 and
-  qwen3:14b on 158 synthetic Turkish and English cases.
+  a local comparison of the correction regex Pusula used until v0.1.0 with Kev 0.8B, Decider 2B,
+  this-that 1.2 and qwen3:14b on 158 synthetic Turkish and English cases.
 
 ## License
 
