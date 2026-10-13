@@ -41,7 +41,8 @@ already configured.
 Pusula needs Python 3.11 or newer and a Ceviz helper with router contract v1:
 [`ceviz-helper-v2026.10.1-beta.2`](https://github.com/MertBasar0/ceviz/releases/tag/ceviz-helper-v2026.10.1-beta.2)
 or newer. Escalation and the light tier also need [Ollama](https://ollama.com) with the
-decision model (about 4.5 GB on disk, about 6.7 GB in memory with Pusula's 2048-token context):
+decision model (about 4.5 GB on disk, about 6.7 GB in memory with Pusula's 2048-token context).
+Pusula keeps it loaded until Ollama stops, so that memory stays reserved:
 
 ```bash
 # 0. The decision model

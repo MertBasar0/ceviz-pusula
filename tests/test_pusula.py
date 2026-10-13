@@ -484,6 +484,7 @@ class TestDecisionModel(unittest.TestCase):
         self.assertEqual((body["model"], body["think"], body["logprobs"]), ("openjev", False, True))
         self.assertEqual(body["options"]["num_predict"], 1)
         self.assertEqual(body["options"]["num_ctx"], 2048)
+        self.assertEqual(body["keep_alive"], -1)  # never unloaded between turns
 
     def test_light_question_sees_only_the_new_message(self) -> None:
         opener = self._reply([{"token": "A", "logprob": -0.3}, {"token": "B", "logprob": -1.5}])

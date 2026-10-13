@@ -31,7 +31,10 @@ DEFAULT_ESCALATION_THRESHOLD = 0.5
 # The model's own default context is 9216 tokens; the prompt stays well under 2048, and the smaller
 # window keeps the model beside Whisper on a 16 GB card.
 CONTEXT_TOKENS = 2048
-KEEP_ALIVE = "24h"
+# Every routed turn uses the model and its memory is budgeted beside Whisper, so it stays loaded
+# until Ollama stops. A timed unload would make the next turn pay a cold load (about 4 s), which
+# does not fit the routing budget.
+KEEP_ALIVE = -1
 MAX_TRANSCRIPT_CHARS = 600
 
 # Worded as measured in the experiment; changing them invalidates its numbers.
