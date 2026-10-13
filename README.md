@@ -49,7 +49,7 @@ Pusula keeps it loaded until Ollama stops, so that memory stays reserved:
 ollama pull hf.co/apus-ailab/APUS-OpenJev-v1-4B-GGUF:Q8_0
 
 # 1. Install into the helper's own environment
-~/path/to/ceviz/.venv/bin/pip install git+https://github.com/MertBasar0/ceviz-pusula@v0.2.0
+~/path/to/ceviz/.venv/bin/pip install git+https://github.com/MertBasar0/ceviz-pusula@v0.2.1
 
 # 2. Enable it for the helper service
 systemctl --user edit watch-ceviz-backend
