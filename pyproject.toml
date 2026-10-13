@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "ceviz-pusula"
-version = "0.2.0"
+version = "0.2.1"
 description = "Optional model-routing plugin for the Ceviz helper: stays on the OpenClaw agent default and escalates only after conversational misses."
 readme = "README.md"
 license = "MIT"
