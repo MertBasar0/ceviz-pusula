@@ -5,7 +5,10 @@ from summarize import auc, confusion, escalate_p, load, per_category, percentile
 
 HERE = Path(__file__).resolve().parent
 NAMES = {"systemone_http_127.0.0.1_8009": "Kev 0.8B", "systemone_http_127.0.0.1_8010": "Decider 2B",
-         "systemone_http_127.0.0.1_8011": "this-that 1.2", "ollama_qwen3_14b": "qwen3:14b", "regex": "regex"}
+         "systemone_http_127.0.0.1_8011": "this-that 1.2", "systemone_http_127.0.0.1_8012": "Kev 4B",
+         "ollama_hf.co_apus-ailab_APUS-OpenJev-v1-4B-GGUF_Q8_0": "OpenJev 4B (APUS)",
+         "ollama_hf.co_apus-ailab_APUS-OpenJev-v1-9B-GGUF_Q8_0": "OpenJev 9B (APUS)",
+         "ollama_qwen3_14b": "qwen3:14b", "regex": "regex"}
 GRID = [t / 100 for t in range(5, 96)]
 
 

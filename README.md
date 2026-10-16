@@ -117,8 +117,9 @@ python3 -m unittest discover -s tests -v
 ## Experiments
 
 - [Escalation detector: regex vs. decision models](experiments/escalation-detector/README.md):
-  a local comparison of the correction regex Pusula used until v0.1.0 with Kev 0.8B, Decider 2B,
-  this-that 1.2 and qwen3:14b on 158 synthetic Turkish and English cases.
+  a local comparison of the correction regex Pusula used until v0.1.0 with Kev 0.8B and 4B,
+  Decider 2B, this-that 1.2, APUS-OpenJev-v1 4B and 9B, and qwen3:14b on 158 synthetic Turkish
+  and English cases, plus first observations from production.
 
 ## License
 

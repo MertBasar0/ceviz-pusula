@@ -7,21 +7,30 @@
 | ollama_qwen3_14b | 0.988 | 0.35 | 0.965 | 0.953 | 3 | 4 | 236.5 | 261.4 | 10.1/10.1 |
 | ollama_qwen3_14b | 0.988 | 0.5 | 0.965 | 0.953 | 3 | 4 | 236.5 | 261.4 | 10.1/10.1 |
 | ollama_qwen3_14b | 0.988 | 0.65 | 0.964 | 0.942 | 3 | 5 | 236.5 | 261.4 | 10.1/10.1 |
+| ollama_hf.co_apus-ailab_APUS-OpenJev-v1-4B-GGUF_Q8_0 | 0.997 | 0.35 | 0.915 | 1.0 | 8 | 0 | 351.8 | 361.2 | 7.0/7.0 |
+| ollama_hf.co_apus-ailab_APUS-OpenJev-v1-4B-GGUF_Q8_0 | 0.997 | 0.5 | 0.924 | 0.988 | 7 | 1 | 351.8 | 361.2 | 7.0/7.0 |
+| ollama_hf.co_apus-ailab_APUS-OpenJev-v1-4B-GGUF_Q8_0 | 0.997 | 0.65 | 0.934 | 0.988 | 6 | 1 | 351.8 | 361.2 | 7.0/7.0 |
+| ollama_hf.co_apus-ailab_APUS-OpenJev-v1-9B-GGUF_Q8_0 | 1.0 | 0.35 | 0.935 | 1.0 | 6 | 0 | 399.7 | 409.9 | 11.3/11.3 |
+| ollama_hf.co_apus-ailab_APUS-OpenJev-v1-9B-GGUF_Q8_0 | 1.0 | 0.5 | 0.935 | 1.0 | 6 | 0 | 399.7 | 409.9 | 11.3/11.3 |
+| ollama_hf.co_apus-ailab_APUS-OpenJev-v1-9B-GGUF_Q8_0 | 1.0 | 0.65 | 0.966 | 1.0 | 3 | 0 | 399.7 | 409.9 | 11.3/11.3 |
 | systemone_http_127.0.0.1_8010 | 0.9 | 0.35 | 0.724 | 0.977 | 32 | 2 | 32.3 | 34.4 | - |
 | systemone_http_127.0.0.1_8010 | 0.9 | 0.5 | 0.844 | 0.756 | 12 | 21 | 32.3 | 34.4 | - |
 | systemone_http_127.0.0.1_8010 | 0.9 | 0.65 | 0.956 | 0.5 | 2 | 43 | 32.3 | 34.4 | - |
 | systemone_http_127.0.0.1_8011 | 0.955 | 0.35 | 0.975 | 0.453 | 1 | 47 | 37.5 | 39.4 | - |
 | systemone_http_127.0.0.1_8011 | 0.955 | 0.5 | 1.0 | 0.372 | 0 | 54 | 37.5 | 39.4 | - |
 | systemone_http_127.0.0.1_8011 | 0.955 | 0.65 | 1.0 | 0.302 | 0 | 60 | 37.5 | 39.4 | - |
+| systemone_http_127.0.0.1_8012 | 0.99 | 0.35 | 0.964 | 0.942 | 3 | 5 | 93.4 | 115.1 | - |
+| systemone_http_127.0.0.1_8012 | 0.99 | 0.5 | 1.0 | 0.872 | 0 | 11 | 93.4 | 115.1 | - |
+| systemone_http_127.0.0.1_8012 | 0.99 | 0.65 | 1.0 | 0.686 | 0 | 27 | 93.4 | 115.1 | - |
 
-| category | regex | systemone_http_127.0.0.1_8009 | ollama_qwen3_14b | systemone_http_127.0.0.1_8010 | systemone_http_127.0.0.1_8011 |
-|---|---|---|---|---|---|
-| explicit_correction | 20/20 | 14/20 | 20/20 | 16/20 | 9/20 |
-| history_dependent | 4/13 | 11/13 | 11/13 | 10/13 | 11/13 |
-| negation_trap | 4/10 | 10/10 | 10/10 | 9/10 | 10/10 |
-| non_correction_followup | 25/25 | 25/25 | 25/25 | 23/25 | 25/25 |
-| paraphrased_correction | 0/30 | 13/30 | 28/30 | 19/30 | 9/30 |
-| repeat_satisfied | 8/8 | 8/8 | 8/8 | 2/8 | 8/8 |
-| repeat_unsatisfied | 7/15 | 5/15 | 15/15 | 15/15 | 4/15 |
-| stt_correction | 5/12 | 1/12 | 10/12 | 6/12 | 3/12 |
-| trigger_word_new_task | 3/25 | 24/25 | 24/25 | 25/25 | 25/25 |
+| category | regex | systemone_http_127.0.0.1_8009 | ollama_qwen3_14b | ollama_hf.co_apus-ailab_APUS-OpenJev-v1-4B-GGUF_Q8_0 | ollama_hf.co_apus-ailab_APUS-OpenJev-v1-9B-GGUF_Q8_0 | systemone_http_127.0.0.1_8010 | systemone_http_127.0.0.1_8011 | systemone_http_127.0.0.1_8012 |
+|---|---|---|---|---|---|---|---|---|
+| explicit_correction | 20/20 | 14/20 | 20/20 | 20/20 | 20/20 | 16/20 | 9/20 | 17/20 |
+| history_dependent | 4/13 | 11/13 | 11/13 | 12/13 | 13/13 | 10/13 | 11/13 | 13/13 |
+| negation_trap | 4/10 | 10/10 | 10/10 | 9/10 | 9/10 | 9/10 | 10/10 | 10/10 |
+| non_correction_followup | 25/25 | 25/25 | 25/25 | 24/25 | 25/25 | 23/25 | 25/25 | 25/25 |
+| paraphrased_correction | 0/30 | 13/30 | 28/30 | 30/30 | 30/30 | 19/30 | 9/30 | 25/30 |
+| repeat_satisfied | 8/8 | 8/8 | 8/8 | 8/8 | 8/8 | 2/8 | 8/8 | 8/8 |
+| repeat_unsatisfied | 7/15 | 5/15 | 15/15 | 15/15 | 15/15 | 15/15 | 4/15 | 15/15 |
+| stt_correction | 5/12 | 1/12 | 10/12 | 12/12 | 12/12 | 6/12 | 3/12 | 9/12 |
+| trigger_word_new_task | 3/25 | 24/25 | 24/25 | 20/25 | 20/25 | 25/25 | 25/25 | 25/25 |

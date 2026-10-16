@@ -113,9 +113,14 @@ OLLAMA = "http://127.0.0.1:11434"
 
 
 def letter_probability(top):
+    # Options read "[A] Yes: ..." and "[B] No: ...", so a model that answers with the word
+    # instead of the letter (APUS-OpenJev does) is counted for the same option. Added for the
+    # third round; the qwen3:14b runs were scored on letters only.
     weights = {"A": 0.0, "B": 0.0}
+    words = {"YES": "A", "NO": "B"}
     for entry in top or []:
         token = re.sub(r"[\s\[\]().:*]", "", str(entry.get("token", ""))).upper()
+        token = words.get(token, token)
         if token in weights:
             weights[token] += math.exp(float(entry.get("logprob", -1e9)))
     total = weights["A"] + weights["B"]
