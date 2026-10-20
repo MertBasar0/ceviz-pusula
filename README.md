@@ -88,11 +88,26 @@ On first use, Pusula writes `pusula.json` to the Ceviz state directory (by defau
 | `escalation_history` | `3` | How many recent requests the decision model sees |
 | `decision_model_url` | `http://127.0.0.1:11434` | Ollama server that runs the decision model |
 | `decision_model` | `hf.co/apus-ailab/APUS-OpenJev-v1-4B-GGUF:Q8_0` | Decision model for escalation and light turns |
-| `decision_timeout_ms` | `1200` | Budget for all of a turn's questions; keep it under Ceviz's `WATCH_CEVIZ_ROUTER_TIMEOUT_MS` (1500) |
+| `decision_timeout_ms` | `2500` | Budget for all of a turn's questions. Pusula never lets it exceed the helper's routing timeout minus 200 ms (see below) |
 | `light_instructions`, `light_threshold` | unset, `0.8` | Question and probability threshold for light turns |
 
 v0.1 used `decision_endpoint` (a System One server such as Kev) for the light tier. v0.2 ignores
 that key; both decisions go to `decision_model`.
+
+### Timing
+
+A turn asks the decision model two to four questions, one after another. A warm model answers each
+in 0.2 to 0.5 s. The first turn after the model sat idle beside other GPU work measured 1.27 s and
+0.98 s for its two questions, so the 1.2 s budget of v0.2.1 and earlier ran that turn on the agent
+default. Two things now cover it:
+
+- **A larger budget.** The default is 2500 ms. Helpers that state their routing timeout
+  (`routing_timeout_ms`, Ceviz 3000 ms by default) cap it at that timeout minus 200 ms. Older
+  helpers wait 1500 ms, so Pusula keeps their turns to 1300 ms.
+- **A wake-up before the words are known.** Helpers that support the optional `prepare()` hook call
+  it when a command is on its way, before speech recognition. If the decision model has not
+  answered in the last 30 s, Pusula has it produce one token in the background (about 0.15 s), so
+  the turn's questions find it at full speed.
 
 Light turns also need a `low_local` group with a model in `groups`. Without it, every non-escalated
 turn stays on the agent default.

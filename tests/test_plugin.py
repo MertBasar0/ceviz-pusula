@@ -10,7 +10,7 @@ from unittest.mock import MagicMock, patch
 
 from ceviz_pusula.config_guard import ConfigGuard
 from ceviz_pusula.decision_model import DecisionModel
-from ceviz_pusula.plugin import API_VERSION, PusulaRouter, create
+from ceviz_pusula.plugin import API_VERSION, PusulaRouter, create, decision_budget_ms
 
 ROOT = Path(__file__).resolve().parents[1]
 SONNET = "anthropic/claude-sonnet-5"
@@ -88,6 +88,23 @@ class PluginContractTests(unittest.TestCase):
             guard.save_config(cfg)
             create({"api_version": 1, "agent": "cevizmain", "state_dir": self.tmp.name})
             warm.assert_called_once()
+
+    def test_decisions_stay_inside_the_host_routing_timeout(self) -> None:
+        self.assertEqual(decision_budget_ms({"routing_timeout_ms": 3000}), 2800)
+        for unstated in ({}, {"routing_timeout_ms": True}, {"routing_timeout_ms": "3000"}, {"routing_timeout_ms": 0}):
+            self.assertEqual(decision_budget_ms(unstated), 1300)  # contract v1's 1500 ms default
+        self.assertEqual(decision_budget_ms({"routing_timeout_ms": 150}), 100)
+        roomy = create({"api_version": 1, "agent": "cevizmain", "state_dir": self.tmp.name, "routing_timeout_ms": 3000})
+        self.assertEqual(roomy.engine.decisions.timeout_ms, 2500)
+        self.assertEqual(self.router.engine.decisions.timeout_ms, 1300)
+
+    def test_prepare_wakes_the_decision_model_only_when_turns_use_it(self) -> None:
+        with patch.object(DecisionModel, "wake") as wake:
+            self.router.prepare()
+            wake.assert_called_once()
+            self.router.engine.config.enable_correction_escalation = False
+            self.router.prepare()
+            wake.assert_called_once()
 
     def test_answer_is_a_plain_dict_for_the_host(self) -> None:
         engine = MagicMock()

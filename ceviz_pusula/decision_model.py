@@ -25,7 +25,11 @@ logger = logging.getLogger("ceviz.pusula.decisions")
 
 DEFAULT_DECISION_URL = "http://127.0.0.1:11434"
 DEFAULT_DECISION_MODEL = "hf.co/apus-ailab/APUS-OpenJev-v1-4B-GGUF:Q8_0"
-DEFAULT_DECISION_TIMEOUT_MS = 1200
+# One budget for the two to four questions of a turn, asked one after another. A warm model answers
+# each in 0.2-0.5 s, but the first turn after the model sat idle beside other GPU work measured
+# 1.27 s + 0.98 s, which the earlier 1.2 s budget cut off. The plugin keeps it below the host's
+# routing timeout (see plugin.decision_budget_ms).
+DEFAULT_DECISION_TIMEOUT_MS = 2500
 DEFAULT_ESCALATION_HISTORY = 3
 DEFAULT_ESCALATION_THRESHOLD = 0.5
 # The model's own default context is 9216 tokens; the prompt stays well under 2048, and the smaller
@@ -35,6 +39,12 @@ CONTEXT_TOKENS = 2048
 # until Ollama stops. A timed unload would make the next turn pay a cold load (about 4 s), which
 # does not fit the routing budget.
 KEEP_ALIVE = -1
+# A model that answered this recently answers the next question at full speed (measured after 30 s
+# idle), so a wake-up call would only add load. After 120 s idle a wake-up made the next turn
+# about a third faster.
+AWAKE_SECONDS = 30
+# A cold load takes about 4 s; a card busy with other work can take much longer.
+LOAD_TIMEOUT_SECONDS = 120
 MAX_TRANSCRIPT_CHARS = 600
 
 # Worded as measured in the experiment; changing them invalidates its numbers.
@@ -124,6 +134,9 @@ class DecisionModel:
         self.timeout_ms = timeout_ms
         self.history = history
         self._send_think = True
+        self._last_answer = 0.0  # monotonic time of the model's last answer
+        self._waking = False
+        self._wake_lock = threading.Lock()
 
     def describe(self) -> str:
         return f"{self.model}@{self.url}"
@@ -156,15 +169,50 @@ class DecisionModel:
         return self._ask_one(build_prompt({"new_message": message[:MAX_TRANSCRIPT_CHARS]}, question), deadline)
 
     def warm(self) -> None:
-        """Loads the model in the background so the first routed turn does not pay for it."""
-        def load() -> None:
-            body = {"model": self.model, "keep_alive": KEEP_ALIVE, "options": {"num_ctx": CONTEXT_TOKENS}}
-            try:
-                self._post("/api/generate", body, timeout=120)
-            except Exception as exc:  # the first turn will try again
-                logger.warning(f"[pusula.decisions] warm-up failed: {exc}")
+        """Loads the model in the background and runs it once, so the first routed turn pays for neither.
 
-        threading.Thread(target=load, name="pusula-decisions-warm", daemon=True).start()
+        A load alone leaves the first question to put the weights to work; one token does that here.
+        """
+        self._run_once_in_background("warm-up")
+
+    def wake(self) -> bool:
+        """Runs the model once in the background unless it answered in the last AWAKE_SECONDS.
+
+        For a turn that is on its way (see PusulaRouter.prepare): the model gets its weights back
+        into use while the host is still working out the words. Returns at once, never raises,
+        and starts nothing while an earlier wake-up is still running.
+        """
+        if time.monotonic() - self._last_answer < AWAKE_SECONDS:
+            return False
+        return self._run_once_in_background("wake-up")
+
+    def _run_once_in_background(self, purpose: str) -> bool:
+        with self._wake_lock:
+            if self._waking:
+                return False
+            self._waking = True
+
+        def run() -> None:
+            body: dict[str, Any] = {
+                "model": self.model,
+                "stream": False,
+                "keep_alive": KEEP_ALIVE,
+                # The same context window as the questions, or Ollama would reload the model.
+                "options": {"temperature": 0, "num_predict": 1, "num_ctx": CONTEXT_TOKENS},
+                "messages": [{"role": "user", "content": "A"}],
+            }
+            if self._send_think:
+                body["think"] = False
+            try:
+                self._post("/api/chat", body, timeout=LOAD_TIMEOUT_SECONDS, retry_without_think=True)
+            except Exception as exc:  # the turn itself will try again
+                logger.warning(f"[pusula.decisions] {purpose} failed: {exc}")
+            finally:
+                with self._wake_lock:
+                    self._waking = False
+
+        threading.Thread(target=run, name=f"pusula-decisions-{purpose}", daemon=True).start()
+        return True
 
     def _ask_one(self, prompt: str, deadline: float | None) -> float | None:
         try:
@@ -206,7 +254,9 @@ class DecisionModel:
         )
         try:
             with urllib.request.urlopen(request, timeout=timeout) as response:
-                return json.loads(response.read().decode())
+                data = json.loads(response.read().decode())
+            self._last_answer = time.monotonic()
+            return data
         except urllib.error.HTTPError as exc:
             detail = exc.read().decode(errors="replace")[:200]
             if retry_without_think and "think" in body and "think" in detail:

@@ -54,11 +54,14 @@ class CevizPusula:
         catalog: ModelCatalog | None = None,
         agent: str = "main",
         decisions: DecisionModel | None = None,
+        decision_budget_ms: int | None = None,
     ) -> None:
         self.config_guard = ConfigGuard(state_dir=state_dir)
         self.config, self.init_status = self.config_guard.load_config()
         self._decisions_injected = decisions is not None
-        self.decisions = decisions or _decisions_for(self.config)
+        # The most a turn's decisions may take, set by the host; decision_timeout_ms never exceeds it.
+        self.decision_budget_ms = decision_budget_ms
+        self.decisions = decisions or _decisions_for(self.config, decision_budget_ms)
         self.catalog = catalog or ModelCatalog(agent, cache_path=self.config_guard.state_dir / "pusula-models.json")
         logger.info(f"[pusula] {self.describe()}")
 
@@ -66,7 +69,7 @@ class CevizPusula:
         """Reloads configuration."""
         self.config, self.init_status = self.config_guard.load_config()
         if not self._decisions_injected:
-            self.decisions = _decisions_for(self.config)
+            self.decisions = _decisions_for(self.config, self.decision_budget_ms)
         logger.info(f"[pusula] Refreshed: {self.describe()}")
 
     def describe(self) -> str:
@@ -226,11 +229,12 @@ class CevizPusula:
         return group.primary() if group else None
 
 
-def _decisions_for(config: PusulaConfig) -> DecisionModel:
+def _decisions_for(config: PusulaConfig, budget_ms: int | None = None) -> DecisionModel:
+    timeout_ms = config.decision_timeout_ms if budget_ms is None else min(config.decision_timeout_ms, budget_ms)
     return DecisionModel(
         url=config.decision_model_url,
         model=config.decision_model,
-        timeout_ms=config.decision_timeout_ms,
+        timeout_ms=timeout_ms,
         history=config.escalation_history,
     )
 

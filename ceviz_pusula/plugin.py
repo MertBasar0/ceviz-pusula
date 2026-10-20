@@ -12,6 +12,27 @@ from .engine import CevizPusula
 from .pusula_types import MODE_CONTEXT_AWARE
 
 API_VERSION = 1
+# Hosts that do not state routing_timeout_ms (older Ceviz helpers) wait 1500 ms by default.
+HOST_DEFAULT_TIMEOUT_MS = 1500
+# Left for the rest of the turn and the hand-off back to the host, so the answer lands in time.
+HOST_MARGIN_MS = 200
+MIN_DECISION_BUDGET_MS = 100
+
+
+def decision_budget_ms(host: dict[str, Any]) -> int:
+    """The most a turn's decisions may take: the host's routing timeout minus a margin."""
+    timeout = host.get("routing_timeout_ms")
+    if isinstance(timeout, bool) or not isinstance(timeout, int) or timeout <= 0:
+        timeout = HOST_DEFAULT_TIMEOUT_MS
+    return max(MIN_DECISION_BUDGET_MS, timeout - HOST_MARGIN_MS)
+
+
+def _uses_decisions(engine: CevizPusula) -> bool:
+    config = engine.config
+    return config.enabled and (
+        engine.light_tier_enabled()
+        or (config.enable_correction_escalation and config.routing_mode == MODE_CONTEXT_AWARE)
+    )
 
 
 class PusulaRouter:
@@ -24,19 +45,26 @@ class PusulaRouter:
             engine = CevizPusula(
                 state_dir=host.get("state_dir") or None,
                 agent=str(host.get("agent") or "main"),
+                decision_budget_ms=decision_budget_ms(host),
             )
             config = engine.config
             if not (config.escalation_models or config.escalation_model):
                 # The escalation ladder comes from model discovery; have it ready before the
                 # first miss so that turn does not spend the host's routing budget on the CLI.
                 engine.catalog.warm()
-            uses_decisions = engine.light_tier_enabled() or (
-                config.enable_correction_escalation and config.routing_mode == MODE_CONTEXT_AWARE
-            )
-            if config.enabled and uses_decisions:
+            if _uses_decisions(engine):
                 # A cold load takes seconds; loading now keeps the first turn inside the budget.
                 engine.decisions.warm()
         self.engine = engine
+
+    def prepare(self) -> None:
+        """Optional contract hook: a turn is on its way, its words not yet known.
+
+        Ceviz calls it before speech recognition and does not wait. An idle decision model gets
+        one token's work now, so the turn's questions find it at full speed.
+        """
+        if _uses_decisions(self.engine):
+            self.engine.decisions.wake()
 
     def route(self, request: dict[str, Any]) -> dict[str, Any] | None:
         context: dict[str, Any] = {}

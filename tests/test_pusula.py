@@ -529,6 +529,75 @@ class TestDecisionModel(unittest.TestCase):
         bodies = self._bodies(opener)
         self.assertEqual(["think" in body for body in bodies], [True, False, False])
 
+    @staticmethod
+    def _until(condition, seconds: float = 2.0) -> bool:
+        stop = time.monotonic() + seconds
+        while not condition() and time.monotonic() < stop:
+            time.sleep(0.01)
+        return condition()
+
+    def test_wake_runs_one_token_in_the_background_once_at_a_time(self) -> None:
+        entered, release = threading.Event(), threading.Event()
+        bodies: list[dict] = []
+
+        def held(request, timeout):
+            bodies.append(json.loads(request.data))
+            entered.set()
+            release.wait(5)
+            response = MagicMock()
+            response.read.return_value = b'{"message": {"content": "A"}}'
+            return MagicMock(__enter__=MagicMock(return_value=response))
+
+        decisions = DecisionModel(model="openjev")
+        with patch("ceviz_pusula.decision_model.urllib.request.urlopen", held):
+            self.assertTrue(decisions.wake())
+            self.assertTrue(entered.wait(2))
+            self.assertFalse(decisions.wake())  # one already running
+            decisions.warm()  # neither does the warm-up start a second one
+            release.set()
+            self.assertTrue(self._until(lambda: not decisions._waking))
+            self.assertFalse(decisions.wake())  # it just answered
+            decisions._last_answer -= 31
+            self.assertTrue(decisions.wake())
+            self.assertTrue(self._until(lambda: not decisions._waking))
+        self.assertEqual(len(bodies), 2)
+        body = bodies[0]
+        self.assertEqual((body["model"], body["think"], body["keep_alive"]), ("openjev", False, -1))
+        self.assertEqual((body["options"]["num_predict"], body["options"]["num_ctx"]), (1, 2048))
+        self.assertNotIn("logprobs", body)
+
+    def test_warm_up_runs_the_model_even_right_after_an_answer(self) -> None:
+        opener = self._reply(None)
+        decisions = DecisionModel()
+        decisions._last_answer = time.monotonic()
+        with patch("ceviz_pusula.decision_model.urllib.request.urlopen", opener):
+            decisions.warm()
+            self.assertTrue(self._until(lambda: opener.called and not decisions._waking))
+        self.assertEqual(opener.call_args.args[0].full_url, "http://127.0.0.1:11434/api/chat")
+
+    def test_a_failed_wake_up_is_only_logged(self) -> None:
+        import urllib.error
+        decisions = DecisionModel()
+        with patch("ceviz_pusula.decision_model.urllib.request.urlopen", side_effect=urllib.error.URLError("refused")):
+            with self.assertLogs("ceviz.pusula.decisions", "WARNING"):
+                self.assertTrue(decisions.wake())
+                self.assertTrue(self._until(lambda: not decisions._waking))
+            self.assertTrue(decisions.wake())  # no answer, so the next turn may try again
+            self.assertTrue(self._until(lambda: not decisions._waking))
+
+    def test_the_host_budget_caps_the_configured_one(self) -> None:
+        with tempfile.TemporaryDirectory() as state:
+            self.assertEqual(CevizPusula(state_dir=state).decisions.timeout_ms, 2500)
+            capped = CevizPusula(state_dir=state, decision_budget_ms=1300)
+            self.assertEqual(capped.decisions.timeout_ms, 1300)
+            capped.refresh()
+            self.assertEqual(capped.decisions.timeout_ms, 1300)
+            guard = ConfigGuard(state_dir=state)
+            config, _ = guard.load_config()
+            config.decision_timeout_ms = 800
+            guard.save_config(config)
+            self.assertEqual(CevizPusula(state_dir=state, decision_budget_ms=1300).decisions.timeout_ms, 800)
+
     def test_config_reads_decision_settings_with_safe_defaults(self) -> None:
         defaults = PusulaConfig.from_dict({})
         self.assertEqual((defaults.decision_model, defaults.escalation_threshold, defaults.escalation_history),
@@ -537,7 +606,7 @@ class TestDecisionModel(unittest.TestCase):
                                          "decision_timeout_ms": "nope", "decision_model": "m",
                                          "decision_endpoint": "http://127.0.0.1:8009"})  # a v0.1 key, ignored
         self.assertEqual((custom.escalation_threshold, custom.escalation_history), (1.0, 0))
-        self.assertEqual((custom.decision_timeout_ms, custom.decision_model), (1200, "m"))
+        self.assertEqual((custom.decision_timeout_ms, custom.decision_model), (2500, "m"))
         self.assertNotIn("decision_endpoint", custom.to_dict())
         self.assertEqual(PusulaConfig.from_dict(custom.to_dict()).decision_model, "m")
 
