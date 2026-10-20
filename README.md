@@ -49,7 +49,7 @@ Pusula keeps it loaded until Ollama stops, so that memory stays reserved:
 ollama pull hf.co/apus-ailab/APUS-OpenJev-v1-4B-GGUF:Q8_0
 
 # 1. Install into the helper's own environment
-~/path/to/ceviz/.venv/bin/pip install git+https://github.com/MertBasar0/ceviz-pusula@v0.2.1
+~/path/to/ceviz/.venv/bin/pip install git+https://github.com/MertBasar0/ceviz-pusula@v0.2.2
 
 # 2. Enable it for the helper service
 systemctl --user edit watch-ceviz-backend
@@ -99,7 +99,9 @@ that key; both decisions go to `decision_model`.
 A turn asks the decision model two to four questions, one after another. A warm model answers each
 in 0.2 to 0.5 s. The first turn after the model sat idle beside other GPU work measured 1.27 s and
 0.98 s for its two questions, so the 1.2 s budget of v0.2.1 and earlier ran that turn on the agent
-default. Two things now cover it:
+default. Two things now cover it, both in full only with
+[`ceviz-helper-v2026.10.20-beta.2`](https://github.com/MertBasar0/ceviz/releases/tag/ceviz-helper-v2026.10.20-beta.2)
+or newer:
 
 - **A larger budget.** The default is 2500 ms. Helpers that state their routing timeout
   (`routing_timeout_ms`, Ceviz 3000 ms by default) cap it at that timeout minus 200 ms. Older
@@ -108,8 +110,8 @@ default. Two things now cover it:
   it when a command is on its way, before speech recognition. If the decision model has not
   answered in the last 30 s, Pusula has it produce one token in the background (about 0.15 s when
   loaded). This matters most when Ollama no longer holds the model, for example after you freed
-  the GPU for something else: loading took 2.8 to 4.6 s here, more than any routing budget, but with the
-  wake-up starting 1.5 s ahead, that first turn finished in 1.6 s.
+  the GPU for something else: loading took 2.8 to 4.6 s here, more than any routing budget, but
+  with the wake-up starting 1.5 s ahead, that first turn finished in 1.6 s.
 
 Light turns also need a `low_local` group with a model in `groups`. Without it, every non-escalated
 turn stays on the agent default.
