@@ -39,9 +39,11 @@ CONTEXT_TOKENS = 2048
 # until Ollama stops. A timed unload would make the next turn pay a cold load (about 4 s), which
 # does not fit the routing budget.
 KEEP_ALIVE = -1
-# A model that answered this recently answers the next question at full speed (measured after 30 s
-# idle), so a wake-up call would only add load. After 120 s idle a wake-up made the next turn
-# about a third faster.
+# A model that answered this recently is still loaded and at full speed, so a wake-up would only add
+# load. What a wake-up is for: a model Ollama no longer holds (unloaded to free the GPU, or Ollama
+# restarted) takes 2.8-4.6 s to load, more than any routing budget. Started 1.5 s ahead of the
+# turn, the wake-up's load let that turn finish in 1.6 s. After 150 s idle with the model loaded,
+# its effect was within noise.
 AWAKE_SECONDS = 30
 # A cold load takes about 4 s; a card busy with other work can take much longer.
 LOAD_TIMEOUT_SECONDS = 120
@@ -173,7 +175,8 @@ class DecisionModel:
     def warm(self) -> None:
         """Loads the model in the background and runs it once, so the first routed turn pays for neither.
 
-        A load alone leaves the first question to put the weights to work; one token does that here.
+        After a load alone the first turn measured 245-437 ms for its first question; after a load
+        and one token, 199 ms, like any warm turn.
         """
         self._run_once_in_background("warm-up")
 

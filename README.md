@@ -106,8 +106,10 @@ default. Two things now cover it:
   helpers wait 1500 ms, so Pusula keeps their turns to 1300 ms.
 - **A wake-up before the words are known.** Helpers that support the optional `prepare()` hook call
   it when a command is on its way, before speech recognition. If the decision model has not
-  answered in the last 30 s, Pusula has it produce one token in the background (about 0.15 s), so
-  the turn's questions find it at full speed.
+  answered in the last 30 s, Pusula has it produce one token in the background (about 0.15 s when
+  loaded). This matters most when Ollama no longer holds the model, for example after you freed
+  the GPU for something else: loading took 2.8 to 4.6 s here, more than any routing budget, but with the
+  wake-up starting 1.5 s ahead, that first turn finished in 1.6 s.
 
 Light turns also need a `low_local` group with a model in `groups`. Without it, every non-escalated
 turn stays on the agent default.
