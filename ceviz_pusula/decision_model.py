@@ -134,7 +134,9 @@ class DecisionModel:
         self.timeout_ms = timeout_ms
         self.history = history
         self._send_think = True
-        self._last_answer = 0.0  # monotonic time of the model's last answer
+        # Monotonic time of the model's last answer. None, not 0: monotonic time starts near zero
+        # at boot, so 0 would read as "answered just now" on a freshly started machine.
+        self._last_answer: float | None = None
         self._waking = False
         self._wake_lock = threading.Lock()
 
@@ -182,7 +184,7 @@ class DecisionModel:
         into use while the host is still working out the words. Returns at once, never raises,
         and starts nothing while an earlier wake-up is still running.
         """
-        if time.monotonic() - self._last_answer < AWAKE_SECONDS:
+        if self._last_answer is not None and time.monotonic() - self._last_answer < AWAKE_SECONDS:
             return False
         return self._run_once_in_background("wake-up")
 

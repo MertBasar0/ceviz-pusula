@@ -549,7 +549,10 @@ class TestDecisionModel(unittest.TestCase):
             return MagicMock(__enter__=MagicMock(return_value=response))
 
         decisions = DecisionModel(model="openjev")
-        with patch("ceviz_pusula.decision_model.urllib.request.urlopen", held):
+        real, started = time.monotonic, time.monotonic()
+        with patch("ceviz_pusula.decision_model.urllib.request.urlopen", held), \
+                patch("time.monotonic", lambda: 5.0 + real() - started):
+            # A machine that booted 5 s ago: never having answered must not read as "just now".
             self.assertTrue(decisions.wake())
             self.assertTrue(entered.wait(2))
             self.assertFalse(decisions.wake())  # one already running
